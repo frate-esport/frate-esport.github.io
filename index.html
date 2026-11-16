@@ -435,6 +435,7 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 .pl .av .kf img{position:static;width:100%;left:auto;bottom:auto;filter:none;transition:none;transform:none!important}
 .pl:hover .av .kf{transform:translateY(-4px) scale(1.03)}
 .pp-top .kf{width:119px}.pp-top .kf img{width:100%;height:auto}
+.clip .th .kf.th-kit img{position:static;inset:auto;width:100%;height:auto;object-fit:contain}
 .mc .kf.mc-kit{width:92px;height:auto}.mc .kf.mc-kit img{width:100%;height:auto}
 .pp-top small{display:block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--tc)}
 .pp-top h3{margin:4px 0 6px;font-family:var(--display);font-size:clamp(1.5rem,5vw,2.1rem);font-weight:800;letter-spacing:-.02em}
@@ -1065,7 +1066,7 @@ function renderClips(sel){
  $("#clipTabs").innerHTML = teamsWith.length ? `<a href="#/clips" class="${ok?"":"on"}">Tous</a>` + teamsWith.map(t => `<a href="#/clips/${t.id}" class="${t.id===ok?"on":""}">${t.name}</a>`).join("") : "";
  const cs = CLIPS.filter(c => !ok || c.team === ok).slice().sort((a,b) => (b.date||"").localeCompare(a.date||""));
  $("#clipList").innerHTML = cs.length ? `<div class="clips">${cs.map(c => { const id = ytId(c.url), t = teamOf(c.team);
-  return `<a class="clip" href="${c.url}" target="_blank" rel="noopener"><div class="th"${t ? ` style="--tc:${t.col}"` : ""}>${id ? `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : `<span class="th-big">${c.titre === "Clip Valorant" ? "CLIP" : c.titre}</span><span class="th-who">${c.joueur || ""}</span><img class="th-kit" src="${t ? kitOf(t) : LOGO_IMG}" alt="">`}<span class="pf">${pfOf(c.url)}</span><span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
+  return `<a class="clip" href="${c.url}" target="_blank" rel="noopener"><div class="th"${t ? ` style="--tc:${t.col}"` : ""}>${id ? `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : `<span class="th-big">${c.titre === "Clip Valorant" ? "CLIP" : c.titre}</span><span class="th-who">${c.joueur || ""}</span>${t ? kitImg(t, c.joueur, "th-kit") : `<img class="th-kit" src="${LOGO_IMG}" alt="">`}`}<span class="pf">${pfOf(c.url)}</span><span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
   <div class="bd"><b>${c.titre}</b><span>${[c.joueur, t ? t.name : "", c.date ? fmtLong(c.date) : ""].filter(Boolean).join(" · ")}</span></div></a>`; }).join("")}</div>` : `<div class="note">Aucun clip pour cette équipe pour l’instant.</div>`;
 }
 
