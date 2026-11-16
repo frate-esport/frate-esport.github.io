@@ -690,7 +690,7 @@ const ROSTER_VIDE = () => ["Duelliste","Initiateur","Contrôleur","Sentinelle","
 const TEAMS = [
  // joueurs : [pseudo, rôle, prénom/nom] ; à remplir avec les vrais rosters
  // col = couleur du nom sous le logo de l'équipe
- {id:"prime", tag:"PRIME", name:"Fraté Prime", col:"#ff2a44", kit:"rose", compet:"Valorant Premier", joueurs:["Evan","Tibz","Sky","Filarmen_SF","Mastaa","Axqua"].map(p => [p, "Joueur", ""]), staff:[]},
+ {id:"prime", tag:"PRIME", name:"Fraté Prime", col:"#ff2a44", kit:"rose", compet:"Valorant Premier", joueurs:["Evan","Tibz","Sky","Filarmen_SF","Mastaa","Axqua","SOLAX"].map(p => [p, "Joueur", ""]), staff:[]},
  {id:"inferno", tag:"INF", name:"Fraté Inferno", col:"#ff6a2a", kit:"bleu", compet:"Valorant Premier", joueurs:[["azyialex","Capitaine",""],["Vavaelior","Joueur",""],["Cup0fSand","Joueur",""],["K1muraAa","Joueur",""],["CAPUCHE","Joueur",""]], staff:[]}
 ];
 // Premier : les créneaux de match de chaque semaine, adversaire attribué par le matchmaking.
@@ -720,7 +720,7 @@ const CLIPS = [
  {titre:"3K", joueur:"K1muraAa", team:"inferno", url:"https://medal.tv/games/valorant/clips/nUZRdS7XW83-l2wdR", date:"2026-11-13"},
  {titre:"Clip Valorant", joueur:"K1muraAa", team:"inferno", url:"https://medal.tv/games/valorant/clips/nUqn4rJfHTqop8mDf", date:"2026-11-11"},
  {titre:"Clip Valorant", joueur:"Tibz", team:"prime", url:"https://medal.tv/games/valorant/clips/nRzwZMZ6sz1vz9va6", date:"2026-11-04"},
- {titre:"ACE Operator", joueur:"SOLAX", team:"", url:"https://medal.tv/games/valorant/clips/nQzC3qyma7aoH9qLp", date:"2026-11-02"},
+ {titre:"ACE Operator", joueur:"SOLAX", team:"prime", url:"https://medal.tv/games/valorant/clips/nQzC3qyma7aoH9qLp", date:"2026-11-02"},
  {titre:"4K", joueur:"Evan", team:"prime", url:"https://medal.tv/games/valorant/clips/nN5lCiCRDcwX5gPKq", date:"2026-10-24"},
  {titre:"Clip Valorant", joueur:"Zanki", team:"", url:"https://medal.tv/games/valorant/clips/nLY6QDfl9iquvx04U", date:"2026-10-21"}
 ];
@@ -731,6 +731,7 @@ const CLIPS = [
 // ex. {joueur:"Pseudo", team:"prime", type:"arrivee", date:"2026-10-27"}
 // role (facultatif) : ex. "manager" → « Bienvenue dans le roster … en tant que manager ! »
 const MERCATO = [
+ {joueur:"SOLAX", team:"prime", type:"arrivee", date:"2026-11-16"},
  {joueur:"azyialex", team:"inferno", type:"arrivee", role:"capitaine", date:"2026-11-16"},
  {joueur:"Vavaelior", team:"inferno", type:"arrivee", date:"2026-11-16"},
  {joueur:"Cup0fSand", team:"inferno", type:"arrivee", date:"2026-11-16"},
