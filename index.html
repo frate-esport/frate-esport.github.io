@@ -696,14 +696,16 @@ const TEAMS = [
 // Les prochains matchs sont calculés tout seuls (jour : 0 = dimanche, 4 = jeudi, 6 = samedi).
 const PREMIER = {creneaux:[{jour:4, heure:"19:00"}, {jour:6, heure:"20:00"}, {jour:0, heure:"19:00"}], semaines:4};
 // Résultats : ajouter une ligne après chaque match, ex. {team:"prime", adv:"Nom de l'adversaire", date:"2026-10-29T21:00", score:"13-9"}
-const RESULTATS = [];
+const RESULTATS = [
+ {team:"prime", adv:"EL TISMO #TISM", date:"2026-11-15T19:00", score:"13-8", lieu:"Haven"}
+];
 // ===== Suivi Premier (page « Suivi Premier ») =====
 // Map de la semaine : ex. "Bind". Laisser "" tant qu'elle n'est pas connue (affiche « À confirmer »).
 const MAP_SEMAINE = "";
 // Division, points et classement de chaque équipe : à mettre à jour après chaque match.
 // ex. prime:{division:"Contender", points:325, classement:"12e"}
 const SUIVI_PREMIER = {
- prime:{division:"Inconnue", points:0, classement:"Non classé"},
+ prime:{division:"Inconnue", points:100, classement:"67e / 92"},
  inferno:{division:"Inconnue", points:0, classement:"Non classé"}
 };
 // ===== Galerie clips (page « Clips ») =====
@@ -1012,20 +1014,20 @@ $("#streamLinks").innerHTML = SOCIAL.filter(s => /Twitch|YouTube/.test(s.nom)).m
 const resOf = m => { const [a,b] = m.score.split("-").map(Number); return a>b?"V":a<b?"D":"N"; };
 function renderPremier(){
  const pr = RESULTATS.filter(r => r.score), nx = upcoming().find(m => m.compet === "Premier");
- const v = pr.filter(r => resOf(r) === "V").length, d = pr.filter(r => resOf(r) === "D").length;
+ const sp = Object.values(SUIVI_PREMIER), v = pr.filter(r => resOf(r) === "V").length + sp.reduce((n,s) => n + (s.v||0), 0), d = pr.filter(r => resOf(r) === "D").length + sp.reduce((n,s) => n + (s.d||0), 0), nb = v + d;
  $("#pmWeek").innerHTML = `<div class="pm-map"><small>Map de la semaine</small>${MAP_SEMAINE ? `<b>${MAP_SEMAINE}</b>` : `<b class="tbc">À confirmer</b>`}<p>Tous les matchs Premier de la semaine se jouent sur cette map.</p></div>
  <div class="pm-k"><small>Prochain match</small>${nx ? `<b>${JOURS[dt(nx).getDay()].replace(/^./, c => c.toUpperCase())} ${dt(nx).getDate()} ${MOIS[dt(nx).getMonth()]}</b><span>${hhmm(dt(nx))} · ${TEAMS.length} roster${TEAMS.length>1?"s":""} engagé${TEAMS.length>1?"s":""}</span>` : `<b>À venir</b><span>Date annoncée bientôt</span>`}</div>
- <div class="pm-k"><small>Bilan du club</small><b>${pr.length ? `${v} V · ${d} D` : "0 match joué"}</b><span>${pr.length ? `${pr.length} match${pr.length>1?"s":""} cette étape` : "Le compteur démarre au premier match"}</span></div>`;
+ <div class="pm-k"><small>Bilan du club</small><b>${nb ? `${v} V · ${d} D` : "0 match joué"}</b><span>${nb ? `${nb} match${nb>1?"s":""} cette étape` : "Le compteur démarre au premier match"}</span></div>`;
  $("#pmTeams").innerHTML = TEAMS.map(t => {
   const s = SUIVI_PREMIER[t.id] || {}, rs = pr.filter(r => r.team === t.id).sort((a,b) => dt(b) - dt(a));
-  const tv = rs.filter(r => resOf(r) === "V").length, td = rs.filter(r => resOf(r) === "D").length;
+  const tv = rs.filter(r => resOf(r) === "V").length + (s.v||0), td = rs.filter(r => resOf(r) === "D").length + (s.d||0);
   const val = (x, suf="") => (x === null || x === undefined || x === "") ? `<dd class="na">À renseigner</dd>` : `<dd>${x}${suf}</dd>`;
   return `<a class="pm-team" href="#/equipe/${t.id}" style="--tc:${t.col}"><div class="hd">${teamLogo(t, "64px")}<b>${t.name}</b></div>
   <dl><dt>Division</dt>${val(s.division)}<dt>Points</dt>${val(s.points, " pts")}<dt>Classement</dt>${val(s.classement)}<dt>Bilan</dt><dd>${tv} V · ${td} D</dd></dl>
-  <div class="pm-form">${rs.length ? rs.slice(0,5).map(r => `<span class="res ${resOf(r)}">${resOf(r)}</span>`).join("") : `<span class="empty">Pas encore de match joué</span>`}</div></a>`;
+  <div class="pm-form">${rs.length ? rs.slice(0,5).map(r => `<span class="res ${resOf(r)}">${resOf(r)}</span>`).join("") : tv + td ? `${"<span class=\"res V\">V</span>".repeat(tv)}${"<span class=\"res D\">D</span>".repeat(td)}${s.manches ? `<span class="empty">Manches : ${s.manches}</span>` : ""}` : `<span class="empty">Pas encore de match joué</span>`}</div></a>`;
  }).join("");
  $("#pmTable").innerHTML = TEAMS.map(t => { const s = SUIVI_PREMIER[t.id] || {}, rs = pr.filter(r => r.team === t.id);
-  return `<tr class="me" style="--tc:${t.col}"><td>${/^\d/.test(s.classement||"") ? s.classement : "–"}</td><td><span class="eq">${teamLogo(t, "34px")}${t.name}</span></td><td>${s.division || "Inconnue"}</td><td class="pts">${s.points ?? 0}</td><td>${rs.length}</td><td>${rs.filter(r => resOf(r) === "V").length}</td><td>${rs.filter(r => resOf(r) === "D").length}</td></tr>`; }).join("");
+  return `<tr class="me" style="--tc:${t.col}"><td>${/^\d/.test(s.classement||"") ? s.classement : "–"}</td><td><span class="eq">${teamLogo(t, "34px")}${t.name}</span></td><td>${s.division || "Inconnue"}</td><td class="pts">${s.points ?? 0}</td><td>${rs.length + (s.v||0) + (s.d||0)}</td><td>${rs.filter(r => resOf(r) === "V").length + (s.v||0)}</td><td>${rs.filter(r => resOf(r) === "D").length + (s.d||0)}</td></tr>`; }).join("");
  $("#pmRes").innerHTML = pr.length ? pr.slice().sort((a,b) => dt(b) - dt(a)).slice(0,8).map(r => ev({compet:"Premier", ...r})).join("") : `<div class="note">Aucun résultat pour cette étape pour l’instant. Les scores apparaîtront ici après chaque match.</div>`;
 }
 renderPremier();
