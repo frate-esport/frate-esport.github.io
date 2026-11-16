@@ -725,12 +725,12 @@ const IMG_POLO_BLEU = "data:image/webp;base64,UklGRv4AAQBXRUJQVlA4WAoAAAAQAAAA9g
 const STATS_VIDES = () => ({matchs:0, v:0, d:0, kd:null, acs:null, hs:null});
 const JOUEURS = {};
 TEAMS.forEach(t => t.joueurs.forEach(p => { JOUEURS[p[0]] = {poste:"", agents:[], rang:"", riot:"", twitch:"", instagram:"", pays:"France", pracc:STATS_VIDES(), premier:STATS_VIDES()}; }));
-// Praccs : une ligne par joueur et par pracc → addPracc("pseudo", kills, morts, victoire true/false)
-const addPracc = (nom, k, d, win) => { const j = JOUEURS[nom]; if (!j) return; const st = j.pracc; st.k = (st.k||0) + k; st.m = (st.m||0) + d; st.matchs++; win ? st.v++ : st.d++; st.kd = +(st.k / Math.max(1, st.m)).toFixed(2); };
+// Praccs : une ligne par joueur et par pracc → addPracc("pseudo", kills, morts, assists, victoire true/false)
+const addPracc = (nom, k, d, a, win) => { const j = JOUEURS[nom]; if (!j) return; const st = j.pracc; st.k = (st.k||0) + k; st.m = (st.m||0) + d; st.a = (st.a||0) + a; st.matchs++; win ? st.v++ : st.d++; st.kd = +(st.k / Math.max(1, st.m)).toFixed(2); };
 // 16/11/2026, Summit : défaite 8-13
-addPracc("Axqua", 17, 17, false); addPracc("K1muraAa", 16, 15, false); addPracc("Tibz", 14, 16, false); addPracc("azyialex", 13, 19, false); addPracc("Cup0fSand", 9, 18, false);
+addPracc("Axqua", 17, 17, 4, false); addPracc("K1muraAa", 16, 15, 2, false); addPracc("Tibz", 14, 16, 5, false); addPracc("azyialex", 13, 19, 4, false); addPracc("Cup0fSand", 9, 18, 5, false);
 // 16/11/2026, Summit : victoire 13-9
-addPracc("Sky", 23, 14, true); addPracc("Vavaelior", 18, 20, true); addPracc("azyialex", 17, 15, true); addPracc("Cup0fSand", 13, 10, true); addPracc("K1muraAa", 11, 9, true);
+addPracc("Sky", 23, 14, 5, true); addPracc("Vavaelior", 18, 20, 7, true); addPracc("azyialex", 17, 15, 6, true); addPracc("Cup0fSand", 13, 10, 9, true); addPracc("K1muraAa", 11, 9, 10, true);
 // Exemple pour remplir un profil :
 // Object.assign(JOUEURS["Tibz"], {poste:"Contrôleur", agents:["Omen","Clove"], rang:"Ascendant 1", riot:"Tibz#FRA", premier:{matchs:6, v:4, d:2, kd:1.05, acs:210, hs:22}});
 const kitOf = t => t && t.kit === "rose" ? IMG_POLO_ROSE : t && t.kit === "bleu" ? IMG_POLO_BLEU : IMG_MAILLOT_FRATE;
@@ -877,7 +877,7 @@ const player = (p, staff, t) => staff
 const na = `<span class="na-i">À renseigner</span>`;
 const statBlock = (titre, st) => { st = st || STATS_VIDES(); const pct = st.matchs ? Math.round(st.v / st.matchs * 100) + " %" : null;
  const row = (k, v) => `<dt>${k}</dt><dd${v === null || v === undefined || v === "" ? ' class="na"' : ""}>${v === null || v === undefined || v === "" ? "–" : v}</dd>`;
- return `<div class="pp-card"><h5>${titre}</h5><dl>${row("Matchs joués", st.matchs)}${row("Victoires", st.v)}${row("Défaites", st.d)}${row("% de victoires", pct)}${row("K/D", st.kd)}${row("ACS moyen", st.acs)}${row("Headshots", st.hs === null || st.hs === undefined ? null : st.hs + " %")}</dl></div>`; };
+ return `<div class="pp-card"><h5>${titre}</h5><dl>${row("Matchs joués", st.matchs)}${row("Victoires", st.v)}${row("Défaites", st.d)}${row("% de victoires", pct)}${row("Kills", st.matchs ? (st.k||0) : null)}${row("Morts", st.matchs ? (st.m||0) : null)}${row("Assists", st.matchs ? (st.a||0) : null)}${row("K/D", st.kd)}${row("ACS moyen", st.acs)}${row("Headshots", st.hs === null || st.hs === undefined ? null : st.hs + " %")}</dl></div>`; };
 function openProfil(nom, teamId){
  const t = teamOf(teamId), j = JOUEURS[nom] || {}, p = (t?.joueurs || []).find(x => x[0] === nom) || [nom, "Joueur", ""];
  const v = x => x ? x : na;
