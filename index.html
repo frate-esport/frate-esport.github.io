@@ -735,7 +735,9 @@ const MERCATO = [
  {joueur:"Mastaa", team:"prime", type:"arrivee", date:"2026-10-16"},
  {joueur:"Sky", team:"prime", type:"arrivee", date:"2026-07-17"},
  {joueur:"Axqua", team:"prime", type:"arrivee", date:"2026-04-29"},
+ {joueur:"Filarmen_SF", team:"prime", type:"arrivee", date:"2026-05-17"},
  {joueur:"Evan", team:"prime", type:"arrivee", date:"2025-05-16"},
+ {joueur:"Tibz", team:"prime", type:"arrivee", fondateur:true, date:"2025-01-01"},
  {joueur:"azyialex", team:"inferno", type:"arrivee", role:"capitaine", date:"2026-11-16"},
  {joueur:"Vavaelior", team:"inferno", type:"arrivee", date:"2026-11-16"},
  {joueur:"Cup0fSand", team:"inferno", type:"arrivee", date:"2026-11-16"},
@@ -1055,8 +1057,8 @@ function renderMercato(sel){
  $("#mcTabs").innerHTML = `<a href="#/mercato" class="${ok?"":"on"}">Tous</a>` + Object.keys(TYPES).filter(has).map(k => `<a href="#/mercato/${k}" class="${k===ok?"on":""}">${{arrivee:"Arrivées",depart:"Départs",changement:"Changements"}[k]}</a>`).join("");
  const ms = MERCATO.filter(m => !ok || m.type === ok).slice().sort((a,b) => (b.date||"").localeCompare(a.date||""));
  $("#mcList").innerHTML = `<div class="mc-list">${ms.map(m => { const t = teamOf(m.team) || {name:"Fraté", col:"#7c859c"}, ty = TYPES[m.type] || TYPES.arrivee, from = teamOf(m.de);
-  const txt = m.type === "depart" ? `quitte le roster ${t.name}. Merci pour tout et bonne continuation ❤️💙` : m.type === "changement" ? `rejoint le roster ${t.name}${from ? ` (anciennement ${from.name})` : ""}.` : m.retour ? `fait son retour dans le roster ${t.name}${m.role ? ` en tant que ${m.role}` : ""} ! Content de te revoir 🔙` : `Bienvenue dans le roster ${t.name}${m.role ? ` en tant que ${m.role}` : ""} ! ✍️`;
-  return `<div class="mc" style="--tc:${t.col}">${t.id ? `${kitImg(t, m.joueur, "mc-kit")}` : ""}<div><span class="tg ${ty[1]}">${m.retour ? "Retour" : ty[0]}</span><b>${m.joueur}</b><p>${txt}</p>${m.date ? `<small>${fmtLong(m.date)}</small>` : ""}</div></div>`; }).join("")}</div>`;
+  const txt = m.type === "depart" ? `quitte le roster ${t.name}. Merci pour tout et bonne continuation ❤️💙` : m.type === "changement" ? `rejoint le roster ${t.name}${from ? ` (anciennement ${from.name})` : ""}.` : m.fondateur ? `membre fondateur, dans le roster ${t.name} depuis la création du club ! 🏛️` : m.retour ? `fait son retour dans le roster ${t.name}${m.role ? ` en tant que ${m.role}` : ""} ! Content de te revoir 🔙` : `Bienvenue dans le roster ${t.name}${m.role ? ` en tant que ${m.role}` : ""} ! ✍️`;
+  return `<div class="mc" style="--tc:${t.col}">${t.id ? `${kitImg(t, m.joueur, "mc-kit")}` : ""}<div><span class="tg ${ty[1]}">${m.fondateur ? "Fondateur" : m.retour ? "Retour" : ty[0]}</span><b>${m.joueur}</b><p>${txt}</p>${m.fondateur ? `<small>Depuis la création du club en ${CLUB.creation}</small>` : m.date ? `<small>${fmtLong(m.date)}</small>` : ""}</div></div>`; }).join("")}</div>`;
 }
 
 // ----- Galerie clips -----
