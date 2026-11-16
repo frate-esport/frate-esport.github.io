@@ -725,13 +725,12 @@ const IMG_POLO_BLEU = "data:image/webp;base64,UklGRv4AAQBXRUJQVlA4WAoAAAAQAAAA9g
 const STATS_VIDES = () => ({matchs:0, v:0, d:0, kd:null, acs:null, hs:null});
 const JOUEURS = {};
 TEAMS.forEach(t => t.joueurs.forEach(p => { JOUEURS[p[0]] = {poste:"", agents:[], rang:"", riot:"", twitch:"", instagram:"", pays:"France", pracc:STATS_VIDES(), premier:STATS_VIDES()}; }));
-// Pracc du 16/11/2026 sur Summit (défaite 8-13)
-const praccJ = (k, d) => ({matchs:1, v:0, d:1, kd:+(k/d).toFixed(2), acs:null, hs:null});
-JOUEURS["Axqua"].pracc = praccJ(17, 17);
-JOUEURS["K1muraAa"].pracc = praccJ(16, 15);
-JOUEURS["Tibz"].pracc = praccJ(14, 16);
-JOUEURS["azyialex"].pracc = praccJ(13, 19);
-JOUEURS["Cup0fSand"].pracc = praccJ(9, 18);
+// Praccs : une ligne par joueur et par pracc → addPracc("pseudo", kills, morts, victoire true/false)
+const addPracc = (nom, k, d, win) => { const j = JOUEURS[nom]; if (!j) return; const st = j.pracc; st.k = (st.k||0) + k; st.m = (st.m||0) + d; st.matchs++; win ? st.v++ : st.d++; st.kd = +(st.k / Math.max(1, st.m)).toFixed(2); };
+// 16/11/2026, Summit : défaite 8-13
+addPracc("Axqua", 17, 17, false); addPracc("K1muraAa", 16, 15, false); addPracc("Tibz", 14, 16, false); addPracc("azyialex", 13, 19, false); addPracc("Cup0fSand", 9, 18, false);
+// 16/11/2026, Summit : victoire 13-9
+addPracc("Sky", 23, 14, true); addPracc("Vavaelior", 18, 20, true); addPracc("azyialex", 17, 15, true); addPracc("Cup0fSand", 13, 10, true); addPracc("K1muraAa", 11, 9, true);
 // Exemple pour remplir un profil :
 // Object.assign(JOUEURS["Tibz"], {poste:"Contrôleur", agents:["Omen","Clove"], rang:"Ascendant 1", riot:"Tibz#FRA", premier:{matchs:6, v:4, d:2, kd:1.05, acs:210, hs:22}});
 const kitOf = t => t && t.kit === "rose" ? IMG_POLO_ROSE : t && t.kit === "bleu" ? IMG_POLO_BLEU : IMG_MAILLOT_FRATE;
