@@ -544,9 +544,9 @@ footer .cp a{display:inline}
 
 <!-- SUIVI PREMIER -->
 <div class="page" data-page="/premier">
-<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Suivi Premier</div><span class="badge">Valorant Premier</span><h1>Suivi <span>Premier</span></h1><p>La map de la semaine, la division et le parcours de Fraté Prime en Premier.</p></div></div>
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Suivi Premier</div><span class="badge">Valorant Premier</span><h1>Suivi <span>Premier</span></h1><p>La map de la semaine, la division et le parcours des rosters Fraté en Premier.</p></div></div>
 <section><h2>Cette semaine</h2><div class="pm-week" id="pmWeek"></div></section>
-<section><h2>Fraté Prime en Premier</h2><div class="pm-teams" id="pmTeams"></div></section>
+<section><h2>Nos rosters en Premier</h2><div class="pm-teams" id="pmTeams"></div></section>
 <section><h2>Classement Premier</h2><div class="pm-tbl-wrap"><table class="pm-tbl"><thead><tr><th>#</th><th>Équipe</th><th>Division</th><th>Pts</th><th>J</th><th>V</th><th>D</th></tr></thead><tbody id="pmTable"></tbody></table></div></section>
 <section><h2>Derniers résultats</h2><div id="pmRes"></div><p style="margin-top:22px"><a class="btn o" href="#/calendrier">📅 Tout le calendrier</a></p></section>
 </div>
@@ -622,7 +622,7 @@ footer .cp a{display:inline}
 const CLUB = {
  nom: "Fraté Esport",
  sigle: "FRATÉ",
- slogan: "Club esport 100 % Valorant. Un roster, une même ambition : grimper ensemble, en rouge et bleu.",
+ slogan: "Club esport 100 % Valorant. Deux rosters, une même ambition : grimper ensemble, en rouge et bleu.",
  creation: 2025,
  ville: "",
  email: "",  // pas d’adresse e-mail : tout passe par Discord
@@ -639,7 +639,8 @@ const ROSTER_VIDE = () => ["Duelliste","Initiateur","Contrôleur","Sentinelle","
 const TEAMS = [
  // joueurs : [pseudo, rôle, prénom/nom] ; à remplir avec les vrais rosters
  // col = couleur du nom sous le logo de l'équipe
- {id:"prime", tag:"PRIME", name:"Fraté Prime", col:"#ff2a44", compet:"Valorant Premier", joueurs:["Evan","Tibz","Sky","Filarmen_SF","Mastaa"].map(p => [p, "Joueur", ""]), staff:[]}
+ {id:"prime", tag:"PRIME", name:"Fraté Prime", col:"#ff2a44", compet:"Valorant Premier", joueurs:["Evan","Tibz","Sky","Filarmen_SF","Mastaa"].map(p => [p, "Joueur", ""]), staff:[]},
+ {id:"inferno", tag:"INF", name:"Fraté Inferno", col:"#ff6a2a", compet:"Valorant Premier", joueurs:[["azyialex","Capitaine",""],["Vavaelior","Joueur",""],["Cup0fSand","Joueur",""],["K1muraAa","Joueur",""],["CAPUCHE","Joueur",""]], staff:[]}
 ];
 // Premier : les créneaux de match de chaque semaine, adversaire attribué par le matchmaking.
 // Les prochains matchs sont calculés tout seuls (jour : 0 = dimanche, 4 = jeudi, 6 = samedi).
@@ -652,7 +653,8 @@ const MAP_SEMAINE = "";
 // Division, points et classement de chaque équipe : à mettre à jour après chaque match.
 // ex. prime:{division:"Contender", points:325, classement:"12e"}
 const SUIVI_PREMIER = {
- prime:{division:"Inconnue", points:0, classement:"Non classé"}
+ prime:{division:"Inconnue", points:0, classement:"Non classé"},
+ inferno:{division:"Inconnue", points:0, classement:"Non classé"}
 };
 // ===== Galerie clips (page « Clips ») =====
 // Une ligne par clip : lien YouTube, Twitch ou TikTok. team = id de l'équipe ("prime") ou "" pour le club.
@@ -727,8 +729,8 @@ const ORGA = [
 ];
 // Manager de chaque équipe (affiché dans l'organigramme et sur la page de l'équipe)
 const MANAGERS = {prime:"Ina"};
-const HISTOIRE = ["Fraté est né d’une bande de potes qui jouaient à Valorant ensemble le soir et voulaient aller plus loin en compétition.","Le club compte cette saison un roster, Fraté Prime, un staff bénévole et une communauté active sur Discord et Twitch.","Notre objectif : faire progresser nos joueurs, dans un cadre sain et entre frérots, jusqu’au plus haut niveau de Premier."];
-const POSTES = [["Joueurs – tous rôles","Pour renforcer Fraté Prime"],["Coach","Pour Fraté Prime"],["Monteur vidéo","Clips et best-of"],["Caster","Commentaires des matchs en live"]];
+const HISTOIRE = ["Fraté est né d’une bande de potes qui jouaient à Valorant ensemble le soir et voulaient aller plus loin en compétition.","Le club compte cette saison deux rosters, Fraté Prime et Fraté Inferno, un staff bénévole et une communauté active sur Discord et Twitch.","Notre objectif : faire progresser nos joueurs, dans un cadre sain et entre frérots, jusqu’au plus haut niveau de Premier."];
+const POSTES = [["Joueurs – tous rôles","Pour renforcer Prime et Inferno"],["Coach","Pour Prime ou Inferno"],["Monteur vidéo","Clips et best-of"],["Caster","Commentaires des matchs en live"]];
 const PLANNING = [["Lundi","20h","Scrims Prime"],["Mercredi","20h","Review VOD"],["Jeudi","19h","Match Premier"],["Samedi","20h","Match Premier"],["Dimanche","19h","Match Premier"]];
 // ================== fin des infos à modifier ==================
 
