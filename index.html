@@ -414,6 +414,10 @@ footer .cp a{display:inline}
 .mc .tg{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
 .mc .tg.in{background:var(--win);color:#06070c}.mc .tg.out{background:var(--loss);color:#fff}.mc .tg.mv{background:var(--blue);color:#fff}
 .mc .mc-kit{width:92px;height:110px;object-fit:contain;flex:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,.5))}
+.mc .tg.rt{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;box-shadow:0 0 14px rgba(168,85,247,.55)}
+.mc .tg.fd{background:linear-gradient(90deg,#ffe08a,#f5c542 55%,#c9931a);color:#1a1300;box-shadow:0 0 14px rgba(245,197,66,.45)}
+.mc.mc-rt{border-left-color:#a855f7;background:linear-gradient(100deg,rgba(168,85,247,.16),transparent 55%),var(--surface)}
+.mc.mc-fd{border-left-color:#f5c542;background:linear-gradient(100deg,rgba(245,197,66,.14),transparent 55%),var(--surface)}
 .mc b{display:block;font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.15;letter-spacing:-.01em}
 .mc p{margin:6px 0 0;color:#c4c9d8;font-size:.95rem}
 .mc small{display:block;margin-top:8px;color:var(--muted);font-size:.84rem}
@@ -702,7 +706,7 @@ const RESULTATS = [
 ];
 // ===== Suivi Premier (page « Suivi Premier ») =====
 // Map de la semaine : ex. "Bind". Laisser "" tant qu'elle n'est pas connue (affiche « À confirmer »).
-const MAP_SEMAINE = "";
+const MAP_SEMAINE = "Summit";
 // Division, points et classement de chaque équipe : à mettre à jour après chaque match.
 // ex. prime:{division:"Contender", points:325, classement:"12e"}
 const SUIVI_PREMIER = {
@@ -1058,7 +1062,7 @@ function renderMercato(sel){
  const ms = MERCATO.filter(m => !ok || m.type === ok).slice().sort((a,b) => (b.date||"").localeCompare(a.date||""));
  $("#mcList").innerHTML = `<div class="mc-list">${ms.map(m => { const t = teamOf(m.team) || {name:"Fraté", col:"#7c859c"}, ty = TYPES[m.type] || TYPES.arrivee, from = teamOf(m.de);
   const txt = m.type === "depart" ? `quitte le roster ${t.name}. Merci pour tout et bonne continuation ❤️💙` : m.type === "changement" ? `rejoint le roster ${t.name}${from ? ` (anciennement ${from.name})` : ""}.` : m.fondateur ? `membre fondateur, dans le roster ${t.name} depuis la création du club ! 🏛️` : m.retour ? `fait son retour dans le roster ${t.name}${m.role ? ` en tant que ${m.role}` : ""} ! Content de te revoir 🔙` : `Bienvenue dans le roster ${t.name}${m.role ? ` en tant que ${m.role}` : ""} ! ✍️`;
-  return `<div class="mc" style="--tc:${t.col}">${t.id ? `${kitImg(t, m.joueur, "mc-kit")}` : ""}<div><span class="tg ${ty[1]}">${m.fondateur ? "Fondateur" : m.retour ? "Retour" : ty[0]}</span><b>${m.joueur}</b><p>${txt}</p>${m.fondateur ? `<small>Depuis la création du club en ${CLUB.creation}</small>` : m.date ? `<small>${fmtLong(m.date)}</small>` : ""}</div></div>`; }).join("")}</div>`;
+  return `<div class="mc${m.retour ? " mc-rt" : m.fondateur ? " mc-fd" : ""}" style="--tc:${t.col}">${t.id ? `${kitImg(t, m.joueur, "mc-kit")}` : ""}<div><span class="tg ${m.fondateur ? "fd" : m.retour ? "rt" : ty[1]}">${m.fondateur ? "Fondateur" : m.retour ? "🔙 Retour" : ty[0]}</span><b>${m.joueur}</b><p>${txt}</p>${m.fondateur ? `<small>Depuis la création du club en ${CLUB.creation}</small>` : m.date ? `<small>${fmtLong(m.date)}</small>` : ""}</div></div>`; }).join("")}</div>`;
 }
 
 // ----- Galerie clips -----
