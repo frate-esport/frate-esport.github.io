@@ -394,6 +394,12 @@ footer .cp a{display:inline}
 .clip:hover{transform:translateY(-3px);border-color:var(--line-2)}
 .clip .th{position:relative;aspect-ratio:16/9;background:radial-gradient(80% 120% at 0% 0%,rgba(255,42,68,.45),transparent 60%),radial-gradient(80% 120% at 100% 100%,rgba(47,123,255,.45),transparent 60%),var(--surface-solid);display:grid;place-items:center}
 .clip .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.clip .th-big{position:absolute;left:18px;bottom:30px;font-family:var(--display);font-weight:900;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;max-width:56%;z-index:1;text-shadow:0 4px 18px rgba(0,0,0,.6)}
+.clip .th-who{z-index:1;position:absolute;left:18px;bottom:12px;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tc,var(--blue-soft))}
+.clip .th-kit{position:absolute!important;inset:auto -2% -20% auto!important;width:46%!important;height:auto!important;object-fit:contain!important;transform:rotate(-8deg);filter:drop-shadow(0 10px 20px rgba(0,0,0,.6));opacity:.95}
+.clip .th{overflow:hidden}
+.clip .play{position:absolute;top:10px;right:10px;width:44px;height:44px;z-index:2}
+
 .clip .play{position:relative;width:58px;height:58px;border-radius:50%;background:rgba(6,7,12,.7);border:1px solid var(--line-2);display:grid;place-items:center;backdrop-filter:blur(6px)}
 .clip .pf{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:rgba(6,7,12,.75);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .clip .bd{padding:16px 18px 18px}
@@ -695,11 +701,11 @@ const SUIVI_PREMIER = {
 // Une ligne par clip : lien Medal, YouTube, Twitch ou TikTok. team = id de l'équipe ("prime") ou "" pour le club.
 // ex. {titre:"Ace en clutch sur Bind", joueur:"Tibz", team:"prime", url:"https://www.youtube.com/watch?v=XXXXXXXXXXX", date:"2026-10-24"}
 const CLIPS = [
- {titre:"Clip Valorant", joueur:"K1muraAa", team:"inferno", url:"https://medal.tv/games/valorant/clips/nUZRdS7XW83-l2wdR", date:"2026-11-13"},
+ {titre:"3K", joueur:"K1muraAa", team:"inferno", url:"https://medal.tv/games/valorant/clips/nUZRdS7XW83-l2wdR", date:"2026-11-13"},
  {titre:"Clip Valorant", joueur:"K1muraAa", team:"inferno", url:"https://medal.tv/games/valorant/clips/nUqn4rJfHTqop8mDf", date:"2026-11-11"},
  {titre:"Clip Valorant", joueur:"Tibz", team:"prime", url:"https://medal.tv/games/valorant/clips/nRzwZMZ6sz1vz9va6", date:"2026-11-04"},
- {titre:"Clip Valorant", joueur:"SOLAX", team:"", url:"https://medal.tv/games/valorant/clips/nQzC3qyma7aoH9qLp", date:"2026-11-02"},
- {titre:"Clip Valorant", joueur:"Evan", team:"prime", url:"https://medal.tv/games/valorant/clips/nN5lCiCRDcwX5gPKq", date:"2026-10-24"},
+ {titre:"ACE Operator", joueur:"SOLAX", team:"", url:"https://medal.tv/games/valorant/clips/nQzC3qyma7aoH9qLp", date:"2026-11-02"},
+ {titre:"4K", joueur:"Evan", team:"prime", url:"https://medal.tv/games/valorant/clips/nN5lCiCRDcwX5gPKq", date:"2026-10-24"},
  {titre:"Clip Valorant", joueur:"Zanki", team:"", url:"https://medal.tv/games/valorant/clips/nLY6QDfl9iquvx04U", date:"2026-10-21"}
 ];
 // ===== Mercato (page « Mercato ») =====
@@ -1044,7 +1050,7 @@ function renderClips(sel){
  $("#clipTabs").innerHTML = teamsWith.length ? `<a href="#/clips" class="${ok?"":"on"}">Tous</a>` + teamsWith.map(t => `<a href="#/clips/${t.id}" class="${t.id===ok?"on":""}">${t.name}</a>`).join("") : "";
  const cs = CLIPS.filter(c => !ok || c.team === ok).slice().sort((a,b) => (b.date||"").localeCompare(a.date||""));
  $("#clipList").innerHTML = cs.length ? `<div class="clips">${cs.map(c => { const id = ytId(c.url), t = teamOf(c.team);
-  return `<a class="clip" href="${c.url}" target="_blank" rel="noopener"><div class="th">${id ? `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : ""}<span class="pf">${pfOf(c.url)}</span><span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
+  return `<a class="clip" href="${c.url}" target="_blank" rel="noopener"><div class="th"${t ? ` style="--tc:${t.col}"` : ""}>${id ? `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : `<span class="th-big">${c.titre === "Clip Valorant" ? "CLIP" : c.titre}</span><span class="th-who">${c.joueur || ""}</span><img class="th-kit" src="${t ? kitOf(t) : LOGO_IMG}" alt="">`}<span class="pf">${pfOf(c.url)}</span><span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
   <div class="bd"><b>${c.titre}</b><span>${[c.joueur, t ? t.name : "", c.date ? fmtLong(c.date) : ""].filter(Boolean).join(" · ")}</span></div></a>`; }).join("")}</div>` : `<div class="note">Aucun clip pour cette équipe pour l’instant.</div>`;
 }
 
