@@ -449,6 +449,37 @@ button.pl:hover{transform:translateY(-4px);border-color:var(--line-2)}
 button.pl .more{margin-top:8px;font-size:.8rem;font-weight:600;color:var(--muted)}
 button.pl:hover .more{color:var(--text)}
 dialog.pp{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:1px solid var(--line-2);border-radius:26px;background:#0d0f18;color:var(--text);box-shadow:0 40px 80px -20px rgba(0,0,0,.9);overflow:auto}
+.mvp-sec{padding-bottom:0}
+.mvp{display:flex;align-items:center;gap:22px;width:100%;text-align:left;font:inherit;color:var(--text);cursor:pointer;padding:22px 26px;border-radius:28px;border:1px solid color-mix(in srgb,var(--tc) 45%,transparent);background:radial-gradient(120% 140% at 0% 0%,color-mix(in srgb,var(--tc) 30%,transparent),transparent 60%),var(--surface);transition:transform .3s,border-color .3s}
+.mvp:hover{transform:translateY(-3px);border-color:var(--tc)}
+.mvp-kit{width:120px;flex:none;filter:drop-shadow(0 14px 18px rgba(0,0,0,.6))}.mvp-kit .kf img,.mvp-kit img{width:100%;height:auto;display:block}
+.mvp-txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.mvp-tag{align-self:flex-start;padding:5px 12px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(90deg,#ffe08a,#f5c542 55%,#c9931a);color:#1a1300;box-shadow:0 0 18px rgba(245,197,66,.35)}
+.mvp-txt>b{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.1}.mvp-txt>small{color:var(--muted)}
+.mvp-st{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.mvp-st>span{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.mvp-st b{font-size:1.15rem;color:var(--text);letter-spacing:0;text-transform:none}
+.mvp-note{margin-top:6px;font-size:.78rem;color:var(--muted)}
+#mvpLb{margin-bottom:26px}
+@media (max-width:600px){.mvp{flex-direction:column;text-align:center;padding:20px}.mvp-tag{align-self:center}.mvp-st{justify-content:center}.mvp-kit{width:110px}}
+.pods{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:18px}
+.pod{display:flex;align-items:center;gap:14px;text-align:left;font:inherit;color:var(--text);cursor:pointer;padding:14px 16px;border-radius:20px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--tc);transition:transform .25s}
+.pod:hover{transform:translateY(-2px)}.pod-kit{width:58px;flex:none}.pod-kit img{width:100%;height:auto;display:block}
+.pod small{display:block;color:var(--muted);font-size:.8rem}.pod b{display:block;font-family:var(--display);font-size:1.15rem}.pod i{font-style:normal;font-weight:700;color:var(--tc)}
+table.lb th,table.lb td{padding:10px 8px;text-align:center;white-space:nowrap}table.lb th:nth-child(2),table.lb td:nth-child(2){text-align:left}
+table.lb tbody tr{border-top:1px solid var(--line)}table.lb tbody tr:hover{background:rgba(255,255,255,.03)}
+.lb-r{font-weight:800;font-size:1.05rem;width:44px}.lb-kd{font-weight:800;color:var(--tc)}
+.lb-j{display:flex;align-items:center;gap:10px;font:inherit;color:var(--text);background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.lb-kit{width:38px;flex:none}.lb-kit img{width:100%;height:auto;display:block}.lb-j b{display:block}.lb-j small{display:block;color:var(--muted);font-size:.76rem}
+.lb-note{margin-top:12px;color:var(--muted);font-size:.85rem}.lb-empty{padding:26px!important;color:var(--muted);white-space:normal!important}
+.parts{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.part{display:flex;gap:18px;align-items:flex-start;padding:24px;border-radius:24px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--text);transition:transform .25s,border-color .25s}
+.part:hover{transform:translateY(-3px);border-color:var(--pc)}
+.part-mono{width:68px;height:68px;flex:none;display:grid;place-items:center;border-radius:20px;font-family:var(--display);font-weight:900;font-size:1.5rem;background:linear-gradient(140deg,var(--pc),color-mix(in srgb,var(--pc) 30%,#000));box-shadow:0 10px 24px -8px var(--pc)}
+.part-t{display:flex;flex-direction:column;gap:4px}.part-t small{color:var(--pc);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}.part-t b{font-family:var(--display);font-size:1.4rem}.part-t span{color:var(--muted)}.part-t i{font-style:normal;font-weight:700;margin-top:6px}
+.part-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.part-cta p{color:var(--muted);max-width:60ch}.part-cta>div:last-child{display:flex;gap:10px;flex-wrap:wrap}
+.wps{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.wp{border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+.wp canvas{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.wp-i{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px}.wp-i b{font-family:var(--display)}.wp-i>div{display:flex;gap:8px}.wp-i .btn{margin:0;padding:8px 14px;font-size:.85rem}
 dialog.cmd{width:min(520px,calc(100vw - 32px))}
 .cmd-in{position:relative;padding:26px}
 .cmd-top{display:flex;align-items:center;gap:18px;padding-right:44px}.cmd-top .ry-img{width:110px;flex:none}
@@ -509,11 +540,11 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 <nav class="menu" id="menu">
 <a href="#/">Accueil</a>
 <div class="dd"><button>Le club ▾</button>
-<div class="sub"><a href="#/club">Histoire du club</a><a href="#/organigramme">👑 Organigramme</a><a href="#/palmares">🏆 Palmarès</a><a href="#/mercato">🔁 Mercato</a></div></div>
+<div class="sub"><a href="#/club">Histoire du club</a><a href="#/organigramme">👑 Organigramme</a><a href="#/palmares">🏆 Palmarès</a><a href="#/mercato">🔁 Mercato</a><a href="#/partenaires">🤝 Partenaires</a><a href="#/fonds-ecran">🖼️ Fonds d’écran</a></div></div>
 <div class="dd"><button>Équipes ▾</button>
 <div class="sub" id="teamMenu"></div></div>
 <div class="dd"><button>Matchs ▾</button>
-<div class="sub"><a href="#/prochain-match">⏱ Prochain match</a><a href="#/calendrier">📅 Calendrier &amp; résultats</a><a href="#/premier">📈 Suivi Premier</a><a href="#/stream">🔴 Stream</a><a href="#/clips">🎬 Clips</a></div></div>
+<div class="sub"><a href="#/prochain-match">⏱ Prochain match</a><a href="#/calendrier">📅 Calendrier &amp; résultats</a><a href="#/premier">📈 Suivi Premier</a><a href="#/stream">🔴 Stream</a><a href="#/clips">🎬 Clips</a><a href="#/classement">🏅 Classement joueurs</a></div></div>
 <a href="#/actualites">Actus</a>
 <div class="dd"><button>Nous rejoindre ▾</button>
 <div class="sub right"><a href="#/recrutement">🎮 Recrutement</a><a href="#/contact">✉️ Contact</a></div></div>
@@ -528,7 +559,6 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 <div class="page" data-page="/">
 <div class="hero home"><div class="ghost" aria-hidden="true">FRATÉ</div><div>
 <span class="hlogo" data-logo data-big></span>
-<a class="badge live" href="#/stream">En live sur Twitch</a>
 <h1>Fraté <em>Esport</em></h1>
 <p data-slogan></p>
 <div><a class="btn dc" data-discord href="#">💬 Rejoindre le Discord</a><a class="btn" href="#/equipes">Nos rosters</a><a class="btn o" href="#/prochain-match">Prochain match</a></div>
@@ -539,6 +569,8 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 <section class="annonce">
 <a class="band ann" href="#/actu/fusion-memis"><div><span class="ann-tag">🔴🔵 Annonce officielle</span><h3>La Fraté × MEMIS : on fusionne ! 🤝</h3><p>Deux structures, une vision, un projet commun. Découvre ce qui change pour toi.</p></div><span class="btn">Lire l’annonce →</span></a>
 </section>
+
+<section class="mvp-sec"><div id="mvpHome"></div></section>
 
 <section class="kits">
 <h2>Nos maillots</h2>
@@ -619,7 +651,7 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 
 <!-- STREAM -->
 <div class="page" data-page="/stream">
-<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Stream</div><span class="badge live">Live</span><h1>Regarde-nous <span>en direct</span></h1><p>Tous nos matchs officiels sont diffusés et commentés sur la chaîne du club.</p></div></div>
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Stream</div><span class="badge">Twitch</span><h1>Nos <span>streams</span></h1><p>Tous nos matchs officiels sont diffusés et commentés sur la chaîne du club.</p></div></div>
 <section><h2>Nos chaînes</h2><div class="stream" id="streamLinks"></div></section>
 <div class="alt"><section><h2>Planning de la semaine</h2><div class="tbl"><table><thead><tr><th>Jour</th><th>Heure</th><th>Programme</th></tr></thead><tbody id="planning"></tbody></table></div></section></div>
 </div>
@@ -675,6 +707,22 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 <div class="kit-more"><span>Aussi dispo : <b>maillot Fraté Esport</b>, <b>maillot Fraté Noir</b> (34,99 €) et <b>manchette</b> (14,99 €)</span><a class="btn" data-shop href="#">Commander sur Yoko Esport →</a></div></section>
 </div>
 
+<div class="page" data-page="/classement">
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Classement joueurs</div><span class="badge">Saison 2026-2027</span><h1><span>Classement</span> des joueurs</h1><p>Les stats de tous les joueurs Fraté, Prime et Inferno réunis. Mis à jour après chaque tableau des scores.</p></div></div>
+<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note">Classé au K/D (kills ÷ morts). En cas d’égalité, le plus de kills passe devant.</p></section>
+</div>
+
+<div class="page" data-page="/partenaires">
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Partenaires</div><h1>Nos <span>partenaires</span></h1><p>Ils avancent avec la Fraté. Merci à eux 🤝</p></div></div>
+<section><div class="parts" id="parts"></div></section>
+<div class="alt"><section><div class="part-cta"><div><h2>Devenir partenaire</h2><p>Une marque, une structure, un créateur ? On est ouverts aux projets : visibilité sur nos maillots, nos streams, nos réseaux et ce site. Écris à la direction sur Discord.</p></div><div><a class="btn dc" data-discord href="#">💬 Nous contacter sur Discord</a><a class="btn o" href="#/organigramme">Voir l’organigramme</a></div></div></section></div>
+</div>
+
+<div class="page" data-page="/fonds-ecran">
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Fonds d’écran</div><h1>Fonds <span>d’écran</span></h1><p>Affiche tes couleurs. Choisis un fond, puis télécharge-le pour ton PC ou ton téléphone.</p></div></div>
+<section><div class="wps" id="wps"></div></section>
+</div>
+
 <div class="page" data-page="/contact">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Contact</div><h1><span>Contact</span></h1><p>Une question, un partenariat, une demande presse ? Tout passe par notre Discord.</p></div></div>
 <section><div class="grid">
@@ -704,8 +752,8 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 <div><span data-logo style="display:block;width:70px;margin-bottom:10px"></span><h4 data-nom>Mon Club Esport</h4><span>Équipe esport Valorant</span></div>
 <div><h4>Le club</h4><a href="#/club">Histoire du club</a><a href="#/organigramme">Organigramme</a><a href="#/palmares">Palmarès</a><a href="#/mercato">Mercato</a><a href="#/actualites">Actualités</a></div>
 <div><h4>Équipes</h4><div id="footTeams"></div></div>
-<div><h4>Matchs</h4><a href="#/prochain-match">Prochain match</a><a href="#/calendrier">Calendrier &amp; résultats</a><a href="#/premier">Suivi Premier</a><a href="#/stream">Stream</a><a href="#/clips">Clips</a></div>
-<div><h4>Nous rejoindre</h4><a href="#/recrutement">Recrutement</a><a href="#/contact">Contact</a><a href="#/boutique">Boutique</a></div>
+<div><h4>Matchs</h4><a href="#/prochain-match">Prochain match</a><a href="#/calendrier">Calendrier &amp; résultats</a><a href="#/premier">Suivi Premier</a><a href="#/stream">Stream</a><a href="#/classement">Classement joueurs</a><a href="#/clips">Clips</a></div>
+<div><h4>Nous rejoindre</h4><a href="#/recrutement">Recrutement</a><a href="#/contact">Contact</a><a href="#/boutique">Boutique</a><a href="#/partenaires">Partenaires</a><a href="#/fonds-ecran">Fonds d’écran</a></div>
 <div><h4>Réseaux</h4><div data-social data-plain></div></div>
 </div>
 <div class="cp">© 2026 <span data-nom></span> · <a href="#/mentions-legales">Mentions légales</a></div>
@@ -802,13 +850,16 @@ const IMG_POLO_BLEU = "data:image/webp;base64,UklGRv4AAQBXRUJQVlA4WAoAAAAQAAAA9g
 const STATS_VIDES = () => ({matchs:0, v:0, d:0, kd:null, acs:null, hs:null});
 const JOUEURS = {};
 TEAMS.forEach(t => t.joueurs.forEach(p => { JOUEURS[p[0]] = {poste:"", agents:[], rang:"", riot:"", twitch:"", instagram:"", pays:"France", pracc:STATS_VIDES(), premier:STATS_VIDES()}; }));
-// Praccs : une ligne par joueur et par pracc → addPracc("pseudo", kills, morts, assists, victoire true/false)
-const addPracc = (nom, k, d, a, win) => { const j = JOUEURS[nom]; if (!j) return; const st = j.pracc; st.k = (st.k||0) + k; st.m = (st.m||0) + d; st.a = (st.a||0) + a; st.matchs++; win ? st.v++ : st.d++; st.kd = +(st.k / Math.max(1, st.m)).toFixed(2); };
+// Praccs : praccDu("AAAA-MM-JJ") puis une ligne par joueur → addPracc("pseudo", kills, morts, assists, victoire true/false)
+let PRACC_DATE = ""; const PRACC_LOG = []; const praccDu = d => { PRACC_DATE = d; };
+const addPracc = (nom, k, d, a, win) => { const j = JOUEURS[nom]; if (!j) return; PRACC_LOG.push({nom, k, d, a, win, date: PRACC_DATE}); const st = j.pracc; st.k = (st.k||0) + k; st.m = (st.m||0) + d; st.a = (st.a||0) + a; st.matchs++; win ? st.v++ : st.d++; st.kd = +(st.k / Math.max(1, st.m)).toFixed(2); };
 // 16/11/2026, Summit : défaite 8-13
+praccDu("2026-11-16");
 addPracc("Axqua", 17, 17, 4, false); addPracc("K1muraAa", 16, 15, 2, false); addPracc("Tibz", 14, 16, 5, false); addPracc("azyialex", 13, 19, 4, false); addPracc("Cup0fSand", 9, 18, 5, false);
 // 16/11/2026, Summit : victoire 13-9
 addPracc("Sky", 23, 14, 5, true); addPracc("Vavaelior", 18, 20, 7, true); addPracc("azyialex", 17, 15, 6, true); addPracc("Cup0fSand", 13, 10, 9, true); addPracc("K1muraAa", 11, 9, 10, true);
 // 17/11/2026, Summit : victoire 13-12 contre NXRS
+praccDu("2026-11-17");
 addPracc("azyialex", 22, 17, 11, true); addPracc("Evan", 22, 18, 5, true); addPracc("Cup0fSand", 17, 11, 13, true); addPracc("K1muraAa", 17, 19, 9, true); addPracc("Sky", 16, 18, 5, true);
 // Exemple pour remplir un profil :
 // Object.assign(JOUEURS["Tibz"], {poste:"Contrôleur", agents:["Omen","Clove"], rang:"Ascendant 1", riot:"Tibz#FRA", premier:{matchs:6, v:4, d:2, kd:1.05, acs:210, hs:22}});
@@ -1070,6 +1121,75 @@ const openCmd = (nom, teamId) => {
  dlg.showModal();
 };
 document.querySelectorAll("[data-cmd]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); openCmd(a.dataset.cmd, a.dataset.team); }));
+const teamDe = nom => TEAMS.find(t => t.joueurs.some(p => p[0] === nom));
+const ratio = (k, d) => +(k / Math.max(1, d)).toFixed(2);
+const fmtKd = x => x.toFixed(2).replace(".", ",");
+// MVP de la semaine : meilleur score (kills + assists/2) ÷ morts sur les praccs de la semaine en cours (lundi → dimanche)
+const lundi = d => { const x = new Date(d + "T12:00:00"); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.toISOString().slice(0, 10); };
+const mvpSemaine = () => {
+ if (!PRACC_LOG.length) return null;
+ const auj = new Date().toISOString().slice(0, 10), cette = lundi(auj);
+ const sem = PRACC_LOG.some(l => lundi(l.date) === cette) ? cette : lundi(PRACC_LOG.map(l => l.date).sort().pop());
+ const parJ = {};
+ PRACC_LOG.filter(l => lundi(l.date) === sem).forEach(l => { const o = parJ[l.nom] = parJ[l.nom] || {nom: l.nom, k: 0, d: 0, a: 0, m: 0, v: 0}; o.k += l.k; o.d += l.d; o.a += l.a; o.m++; if (l.win) o.v++; });
+ const liste = Object.values(parJ).map(o => ({...o, score: (o.k + o.a / 2) / Math.max(1, o.d)})).sort((x, y) => y.score - x.score || y.k - x.k);
+ return liste.length ? {...liste[0], sem, encours: sem === cette} : null;
+};
+const mvpCard = () => {
+ const m = mvpSemaine(); if (!m) return "";
+ const t = teamDe(m.nom), fin = new Date(m.sem + "T12:00:00"); fin.setDate(fin.getDate() + 6);
+ const jm = d => d.toLocaleDateString("fr-FR", {day: "numeric", month: "short"});
+ return `<button type="button" class="mvp" data-joueur="${m.nom}" data-team="${t ? t.id : ""}" style="--tc:${t ? t.col : "var(--red)"}">
+ <span class="mvp-kit">${t ? kitImg(t, m.nom) : ""}</span>
+ <span class="mvp-txt"><span class="mvp-tag">⭐ MVP de la semaine</span><b>${m.nom}</b><small>${t ? t.name : ""} · semaine du ${jm(new Date(m.sem + "T12:00:00"))} au ${jm(fin)}</small>
+ <span class="mvp-st"><span><b>${m.k}</b>kills</span><span><b>${m.d}</b>morts</span><span><b>${m.a}</b>assists</span><span><b>${fmtKd(ratio(m.k, m.d))}</b>K/D</span><span><b>${m.v}/${m.m}</b>victoires</span></span>
+ <span class="mvp-note">Calculé automatiquement sur les praccs de la semaine · clique pour voir son profil</span></span></button>`;
+};
+const bindMvp = el => el.querySelectorAll(".mvp").forEach(b => b.onclick = () => openProfil(b.dataset.joueur, b.dataset.team));
+$("#mvpHome").innerHTML = mvpCard(); bindMvp($("#mvpHome"));
+function renderClassement(mode) {
+ mode = mode === "premier" ? "premier" : "pracc";
+ $("#mvpLb").innerHTML = mvpCard(); bindMvp($("#mvpLb"));
+ $("#lbTabs").innerHTML = `<a href="#/classement" class="${mode === "pracc" ? "on" : ""}">🎯 Praccs</a><a href="#/classement/premier" class="${mode === "premier" ? "on" : ""}">🏆 Premier</a>`;
+ const rows = Object.entries(JOUEURS).map(([nom, j]) => ({nom, t: teamDe(nom), st: j[mode] || {}})).filter(x => x.st.matchs)
+  .map(x => ({...x, k: x.st.k || 0, d: x.st.m || 0, a: x.st.a || 0, kd: x.st.k != null ? ratio(x.st.k || 0, x.st.m || 0) : (x.st.kd || 0)}))
+  .sort((x, y) => y.kd - x.kd || y.k - x.k);
+ if (!rows.length) { $("#lbPodium").innerHTML = ""; $("#lbBody").innerHTML = `<tr><td colspan="8" class="lb-empty">Pas encore de stats ${mode === "premier" ? "Premier" : "de pracc"}. Envoie un tableau des scores et le classement se remplit tout seul.</td></tr>`; return; }
+ const top = (cle, lab, f) => { const x = [...rows].sort((p, q) => q[cle] - p[cle] || q.k - p.k)[0]; return `<button type="button" class="pod" data-joueur="${x.nom}" data-team="${x.t ? x.t.id : ""}" style="--tc:${x.t ? x.t.col : "var(--red)"}"><span class="pod-kit">${x.t ? kitImg(x.t, x.nom) : ""}</span><span><small>${lab}</small><b>${x.nom}</b><i>${f(x)}</i></span></button>`; };
+ $("#lbPodium").innerHTML = `<div class="pods">${top("kd", "🎯 Meilleur K/D", x => fmtKd(x.kd))}${top("k", "💥 Plus de kills", x => x.k + " kills")}${top("a", "🤝 Plus d’assists", x => x.a + " assists")}</div>`;
+ $("#lbBody").innerHTML = rows.map((x, i) => `<tr style="--tc:${x.t ? x.t.col : "var(--red)"}"><td class="lb-r">${["🥇", "🥈", "🥉"][i] || i + 1}</td><td><button type="button" class="lb-j" data-joueur="${x.nom}" data-team="${x.t ? x.t.id : ""}"><span class="lb-kit">${x.t ? kitImg(x.t, x.nom) : ""}</span><span><b>${x.nom}</b><small>${x.t ? x.t.name : ""}</small></span></button></td><td>${x.st.matchs}</td><td>${x.st.v}-${x.st.d}</td><td>${x.k}</td><td>${x.d}</td><td>${x.a}</td><td class="lb-kd">${fmtKd(x.kd)}</td></tr>`).join("");
+ document.querySelectorAll("#lbPodium .pod, #lbBody .lb-j").forEach(b => b.onclick = () => openProfil(b.dataset.joueur, b.dataset.team));
+}
+// Partenaires
+const PARTENAIRES = [
+ {nom: "MEMIS", mono: "M", type: "Structure partenaire · fusion", texte: "Depuis octobre 2026, la Fraté et MEMIS ne font plus qu’un : deux structures, une vision, un projet commun.", lien: "#/actu/fusion-memis", lab: "Lire l’annonce", col: "#ff2a44"},
+ {nom: "Yoko Esport", mono: "Y", type: "Équipementier officiel", texte: "Nos polos et maillots officiels sont fabriqués et vendus par Yoko Esport, avec flocage pseudo et numéro.", lien: "#/boutique", lab: "Voir la boutique", col: "#2a6bff"}
+];
+$("#parts").innerHTML = PARTENAIRES.map(x => `<a class="part" href="${x.lien}" style="--pc:${x.col}"><span class="part-mono">${x.mono}</span><span class="part-t"><small>${x.type}</small><b>${x.nom}</b><span>${x.texte}</span><i>${x.lab} →</i></span></a>`).join("");
+// Fonds d'écran (générés dans le navigateur)
+const WPS = [
+ {id: "frate", titre: "Fraté Esport", sous: "ESPORT · VALORANT", c1: "#c4122f", c2: "#0b2a8a", tag: ""},
+ ...TEAMS.map(t => ({id: t.id, titre: t.name, sous: t.compet.toUpperCase(), c1: t.kit === "rose" ? "#b0126b" : t.col, c2: t.kit === "bleu" ? "#0b3fd6" : "#3a0d4a", tag: t.name.replace(/^Fraté /, "").toUpperCase(), col: t.col})),
+ {id: "noir", titre: "Fraté Noir", sous: "ESPORT · VALORANT", c1: "#151821", c2: "#05060a", tag: ""}
+];
+const logoImg = new Image(); logoImg.src = LOGO_IMG;
+const drawWp = (cv, w, h, wp) => {
+ cv.width = w; cv.height = h; const g = cv.getContext("2d"), m = Math.min(w, h);
+ const bg = g.createLinearGradient(0, 0, w, h); bg.addColorStop(0, wp.c1); bg.addColorStop(1, wp.c2); g.fillStyle = bg; g.fillRect(0, 0, w, h);
+ g.save(); g.globalAlpha = .07; g.fillStyle = "#fff"; g.font = `900 ${Math.round(Math.min(m * .42, w * .27))}px "Inter", "Arial Black", sans-serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.translate(w / 2, h / 2); g.rotate(-.14); g.fillText("FRATÉ", 0, 0); g.restore();
+ g.save(); g.globalAlpha = .1; g.strokeStyle = "#fff"; g.lineWidth = m * .004; for (let i = -h; i < w; i += m * .09) { g.beginPath(); g.moveTo(i, h); g.lineTo(i + h * .6, 0); g.stroke(); } g.restore();
+ const vg = g.createRadialGradient(w / 2, h * .45, m * .1, w / 2, h / 2, Math.max(w, h) * .75); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,.55)"); g.fillStyle = vg; g.fillRect(0, 0, w, h);
+ const L = m * (w > h ? .46 : .62), lw = L * logoImg.width / logoImg.height, ly = h * (w > h ? .44 : .42);
+ g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = m * .05; g.shadowOffsetY = m * .02; g.drawImage(logoImg, w / 2 - lw / 2, ly - L / 2, lw, L); g.restore();
+ if (wp.tag) { const fs = m * .045; g.font = `800 ${fs}px "Inter", "Arial Black", sans-serif`; const tw = g.measureText(wp.tag).width + fs * 1.6, ty = ly + L / 2 + fs * .2; g.fillStyle = "#0b0f22"; g.strokeStyle = wp.col; g.lineWidth = fs * .12; g.beginPath(); g.roundRect(w / 2 - tw / 2, ty, tw, fs * 1.6, fs * .3); g.fill(); g.stroke(); g.fillStyle = wp.col; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(wp.tag, w / 2, ty + fs * .82); }
+ g.fillStyle = "rgba(255,255,255,.85)"; g.font = `700 ${m * .026}px "Inter", Arial, sans-serif`; g.textAlign = "center"; g.textBaseline = "alphabetic"; g.fillText(wp.sous, w / 2, h - m * .07);
+};
+const renderWps = () => {
+ $("#wps").innerHTML = WPS.map(wp => `<div class="wp"><canvas data-wp="${wp.id}" width="480" height="270"></canvas><div class="wp-i"><b>${wp.titre}</b><div><button type="button" class="btn" data-dl="${wp.id}" data-w="1920" data-h="1080">💻 PC</button><button type="button" class="btn o" data-dl="${wp.id}" data-w="1080" data-h="1920">📱 Téléphone</button></div></div></div>`).join("");
+ document.querySelectorAll("#wps canvas").forEach(cv => drawWp(cv, 960, 540, WPS.find(x => x.id === cv.dataset.wp)));
+ document.querySelectorAll("#wps [data-dl]").forEach(b => b.onclick = () => { const wp = WPS.find(x => x.id === b.dataset.dl), cv = document.createElement("canvas"); drawWp(cv, +b.dataset.w, +b.dataset.h, wp); cv.toBlob(blob => { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `fond-ecran-${wp.id}-${b.dataset.w}x${b.dataset.h}.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }, "image/png"); });
+};
+logoImg.complete ? renderWps() : logoImg.addEventListener("load", renderWps);
 $("#kits").innerHTML = MAILLOTS.map((k, i) => `<div class="kit" style="--glow:${k.glow}">
  <div class="locker"><div class="kit-img"><img src="${k.img}" alt="${k.nom}" loading="lazy"></div>
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}"><span class="vents" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="carve" aria-hidden="true"><span class="hi"></span><span class="lo"></span><img src="${LOGO_IMG}" alt=""></span><span class="handle" aria-hidden="true"></span><span class="hint" aria-hidden="true">Clique pour ouvrir</span><span class="plate" aria-hidden="true">MAILLOT ${i+1}</span></button></div>
@@ -1212,6 +1332,7 @@ function route(){
  if (path.startsWith("/calendrier")) { renderCal(seg[2]); key = "/calendrier"; }
  if (path.startsWith("/clips")) { renderClips(seg[2]); key = "/clips"; }
  if (path.startsWith("/mercato")) { renderMercato(seg[2]); key = "/mercato"; }
+ if (path.startsWith("/classement")) { renderClassement(seg[2]); key = "/classement"; }
  if (path.startsWith("/actu/")) { const n = NEWS.find(x => x.id === seg[2]); if (n) { $("#actuPage").innerHTML = newsPage(n); key = "/actu"; } else key = "/actualites"; }
  let found = false;
  document.querySelectorAll(".page").forEach(p => { const on = p.dataset.page === key; p.classList.toggle("on", on); if (on) found = true; });
