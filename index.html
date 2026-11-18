@@ -449,6 +449,18 @@ button.pl:hover{transform:translateY(-4px);border-color:var(--line-2)}
 button.pl .more{margin-top:8px;font-size:.8rem;font-weight:600;color:var(--muted)}
 button.pl:hover .more{color:var(--text)}
 dialog.pp{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:1px solid var(--line-2);border-radius:26px;background:#0d0f18;color:var(--text);box-shadow:0 40px 80px -20px rgba(0,0,0,.9);overflow:auto}
+dialog.cmd{width:min(520px,calc(100vw - 32px))}
+.cmd-in{position:relative;padding:26px}
+.cmd-top{display:flex;align-items:center;gap:18px;padding-right:44px}.cmd-top .ry-img{width:110px;flex:none}
+.cmd-top small{color:var(--tc);font-weight:700}.cmd-top h3{margin:4px 0;font-family:var(--display);font-size:1.4rem}.cmd-top p{margin:0;color:var(--muted)}
+.flag{display:inline-block;width:1.35em;height:.9em;vertical-align:-.08em;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.25)}.flag.sq{width:.95em;height:.95em}
+@media (max-width:600px){.cmd-top .ry-img{width:84px}.cmd-in{padding:22px}}
+.cmd-help{margin:20px 0 10px;color:var(--muted)}
+.cmd-steps{margin:0 0 20px;padding-left:22px;display:grid;gap:10px}.cmd-steps li{padding-left:4px}
+.cmd-f{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.cmd-f span{color:var(--muted);font-size:.85rem;min-width:62px}.cmd-f b{font-family:var(--display);letter-spacing:.04em;font-size:1.1rem;flex:1}
+.cmd-cp{border:1px solid var(--line-2);background:rgba(255,255,255,.08);color:var(--text);border-radius:999px;padding:6px 12px;font-weight:700;font-size:.8rem;cursor:pointer}
+.cmd-go{display:block;text-align:center;margin:0}
 dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 .pp-top{position:relative;display:flex;gap:22px;align-items:center;padding:26px;background:radial-gradient(90% 140% at 0% 0%,color-mix(in srgb,var(--tc) 40%,transparent),transparent 65%)}
 .pp-top img{width:120px;height:140px;object-fit:contain;flex:none;filter:drop-shadow(0 12px 18px rgba(0,0,0,.6))}
@@ -488,6 +500,7 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
 <dialog class="pp" id="pp" aria-labelledby="ppName"></dialog>
+<dialog class="pp cmd" id="cmd" aria-labelledby="cmdT"></dialog>
 <noscript><h1>Fraté Esport (Frate Esport)</h1><p>Fraté Esport est une équipe esport Valorant française. Roster Fraté Prime, matchs Valorant Premier, calendrier, mercato, recrutement et boutique officielle. Rejoignez la communauté Fraté sur Discord, Twitch et Instagram.</p></noscript>
 <header class="top">
 <div class="bar">
@@ -657,8 +670,8 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 
 <!-- CONTACT -->
 <div class="page" data-page="/boutique">
-<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Boutique</div><h1><span>Boutique</span></h1><p>Le polo officiel de ton joueur, floqué à son nom et à son numéro. Passe la souris (ou appuie) sur un maillot pour voir le devant.</p></div></div>
-<section><div class="ry" id="rayon"><div class="ry-head"><h3>🛒 Le rayon joueurs</h3><p>Au moment de commander sur la boutique, indique le <b>nom</b> et le <b>numéro</b> du joueur à floquer au dos.</p></div><div id="ryShelves"></div></div>
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Boutique</div><h1><span>Boutique</span></h1><p>Le polo officiel de ton joueur, floqué à son nom et à son numéro. Passe la souris sur un maillot pour voir le devant, clique dessus pour le commander.</p></div></div>
+<section><div class="ry" id="rayon"><div class="ry-head"><h3>🛒 Le rayon joueurs</h3><p>Clique sur le polo de ton joueur : on te donne le <b>pseudo</b> et le <b>numéro</b> à mettre sur la boutique, prêts à copier.</p></div><div id="ryShelves"></div></div>
 <div class="kit-more"><span>Aussi dispo : <b>maillot Fraté Esport</b>, <b>maillot Fraté Noir</b> (34,99 €) et <b>manchette</b> (14,99 €)</span><a class="btn" data-shop href="#">Commander sur Yoko Esport →</a></div></section>
 </div>
 
@@ -960,7 +973,7 @@ function openProfil(nom, teamId){
  const v = x => x ? x : na;
  const lien = (u, txt) => u ? `<a href="${u}" target="_blank" rel="noopener">${txt}</a>` : na;
  const dlg = $("#pp"); dlg.style.setProperty("--tc", t?.col || "var(--red)");
- dlg.innerHTML = `<div class="pp-top">${kitImg(t, nom)}<div><small>${t ? t.name : "Fraté"} · ${p[1]}</small><h3 id="ppName">${nom}</h3><p>${j.pays ? ({France:"🇫🇷", Suisse:"🇨🇭", Belgique:"🇧🇪"}[j.pays] || "🏳️") + " " + j.pays : ""}</p></div>${t ? `<div class="pp-logo">${teamLogo(t, "96px")}</div>` : ""}<button type="button" class="pp-x" aria-label="Fermer">×</button></div>
+ dlg.innerHTML = `<div class="pp-top">${kitImg(t, nom)}<div><small>${t ? t.name : "Fraté"} · ${p[1]}</small><h3 id="ppName">${nom}</h3><p>${j.pays ? (DRAPEAUX[j.pays] || "") + " " + j.pays : ""}</p></div>${t ? `<div class="pp-logo">${teamLogo(t, "96px")}</div>` : ""}<button type="button" class="pp-x" aria-label="Fermer">×</button></div>
  <div class="pp-body"><div><h4>Infos joueur</h4><div class="pp-info">
  <div><span>Poste</span><b>${v(j.poste)}</b></div><div><span>Agents</span><b>${j.agents && j.agents.length ? j.agents.join(", ") : na}</b></div>
  <div><span>Rang</span><b>${v(j.rang)}</b></div><div><span>Riot ID</span><b>${v(j.riot)}</b></div>
@@ -1034,7 +1047,28 @@ const MAILLOTS = [
  {nom:"Maillot Fraté Esport", desc:"Bleu et rouge, logo Fraté couleur, drapeau français sur la manche.", prix:"34,99 €", img:IMG_MAILLOT_FRATE, glow:"var(--blue)"},
  {nom:"Maillot Fraté Noir", desc:"Noir avec éclats rouges et bleus, logo Fraté blanc.", prix:"34,99 €", img:IMG_MAILLOT_NOIR, glow:"var(--red)"}
 ];
-$("#ryShelves").innerHTML = TEAMS.filter(t => DOS_VIDE[t.kit]).map(t => { const mod = MAILLOTS.find(m => m.img === kitOf(t)); const js = t.joueurs.map(p => p[0]).sort((a, b) => (NUMEROS[a] ?? 999) - (NUMEROS[b] ?? 999)); return `<div class="ry-row" style="--tc:${t.col}"><div class="ry-lab"><b>${t.name}</b><span>${mod ? mod.nom + " · " + mod.prix : ""}</span></div><div class="ry-shelf">${js.map(nom => { const n = NUMEROS[nom], N = nom.toUpperCase(); return `<a class="ry-it" href="${CLUB.boutique || "#"}"${CLUB.boutique ? ' target="_blank" rel="noopener"' : ""} aria-label="Commander le polo ${nom}${n ? " numéro " + n : ""}"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt="" loading="lazy"><span class="fl-name" style="--fs:${Math.min(10.5, 62 / N.length).toFixed(2)}cqw">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span><span class="ry-front">${n ? kitImg(t, nom) : `<span class="kf"><img src="${KIT_VIDE[t.kit]}" alt="" loading="lazy"></span>`}</span></span><span class="ry-flock"><b>${N}</b><i>${n ? "N° " + n : "N° à venir"}</i></span><span class="ry-cta">Commander →</span></a>`; }).join("")}</div></div>`; }).join("");
+$("#ryShelves").innerHTML = TEAMS.filter(t => DOS_VIDE[t.kit]).map(t => { const mod = MAILLOTS.find(m => m.img === kitOf(t)); const js = t.joueurs.map(p => p[0]).sort((a, b) => (NUMEROS[a] ?? 999) - (NUMEROS[b] ?? 999)); return `<div class="ry-row" style="--tc:${t.col}"><div class="ry-lab"><b>${t.name}</b><span>${mod ? mod.nom + " · " + mod.prix : ""}</span></div><div class="ry-shelf">${js.map(nom => { const n = NUMEROS[nom], N = nom.toUpperCase(); return `<a class="ry-it" href="${CLUB.boutique || "#"}" data-cmd="${nom}" data-team="${t.id}" aria-label="Commander le polo ${nom}${n ? " numéro " + n : ""}"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt="" loading="lazy"><span class="fl-name" style="--fs:${Math.min(10.5, 62 / N.length).toFixed(2)}cqw">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span><span class="ry-front">${n ? kitImg(t, nom) : `<span class="kf"><img src="${KIT_VIDE[t.kit]}" alt="" loading="lazy"></span>`}</span></span><span class="ry-flock"><b>${N}</b><i>${n ? "N° " + n : "N° à venir"}</i></span><span class="ry-cta">Commander →</span></a>`; }).join("")}</div></div>`; }).join("");
+const DRAPEAUX = {
+ France: `<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ed2939"/></svg>`,
+ Suisse: `<svg class="flag sq" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#da291c"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg>`,
+ Belgique: `<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#000"/><rect x="1" width="1" height="2" fill="#fdda24"/><rect x="2" width="1" height="2" fill="#ef3340"/></svg>`
+};
+const openCmd = (nom, teamId) => {
+ const t = teamOf(teamId), n = NUMEROS[nom], N = nom.toUpperCase(), mod = MAILLOTS.find(m => m.img === kitOf(t)), dlg = $("#cmd");
+ dlg.style.setProperty("--tc", t.col);
+ const ligne = (lab, val) => `<div class="cmd-f"><span>${lab}</span><b>${val}</b><button type="button" class="cmd-cp" data-cp="${val}">Copier</button></div>`;
+ dlg.innerHTML = `<div class="cmd-in"><button type="button" class="pp-x" aria-label="Fermer">×</button>
+ <div class="cmd-top"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt=""><span class="fl-name" style="--fs:${Math.min(10.5, 62 / N.length).toFixed(2)}cqw">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span></span>
+ <div><small>${t.name}</small><h3 id="cmdT">Polo ${nom}${n ? " · N° " + n : ""}</h3><p>${mod ? mod.nom + " · " + mod.prix : ""}</p></div></div>
+ <p class="cmd-help">La boutique Yoko ne peut pas remplir le flocage toute seule. Voici quoi mettre, en 4 étapes :</p>
+ <ol class="cmd-steps"><li>Sur la boutique, clique sur <b>${mod ? mod.nom : "le polo"}</b> → « Voir et choisir ».</li><li>Choisis ta <b>taille</b>.</li><li>${ligne("Pseudo", N)}</li><li>${n ? ligne("Numéro", n) : `<div class="cmd-f"><span>Numéro</span><b>à venir</b></div>`}</li></ol>
+ <a class="btn cmd-go" href="${CLUB.boutique || "#"}" target="_blank" rel="noopener">Aller sur la boutique →</a></div>`;
+ dlg.querySelector(".pp-x").onclick = () => dlg.close();
+ dlg.querySelectorAll(".cmd-cp").forEach(b => b.onclick = async () => { try { await navigator.clipboard.writeText(b.dataset.cp); b.textContent = "Copié ✓"; } catch (e) { b.textContent = "Copie impossible"; } setTimeout(() => b.textContent = "Copier", 1600); });
+ dlg.onclick = e => { if (e.target === dlg) dlg.close(); };
+ dlg.showModal();
+};
+document.querySelectorAll("[data-cmd]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); openCmd(a.dataset.cmd, a.dataset.team); }));
 $("#kits").innerHTML = MAILLOTS.map((k, i) => `<div class="kit" style="--glow:${k.glow}">
  <div class="locker"><div class="kit-img"><img src="${k.img}" alt="${k.nom}" loading="lazy"></div>
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}"><span class="vents" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="carve" aria-hidden="true"><span class="hi"></span><span class="lo"></span><img src="${LOGO_IMG}" alt=""></span><span class="handle" aria-hidden="true"></span><span class="hint" aria-hidden="true">Clique pour ouvrir</span><span class="plate" aria-hidden="true">MAILLOT ${i+1}</span></button></div>
