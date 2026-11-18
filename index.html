@@ -710,7 +710,7 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 
 <div class="page" data-page="/classement">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Classement joueurs</div><span class="badge">Saison 2026-2027</span><h1><span>Classement</span> des joueurs</h1><p>Les stats de tous les joueurs Fraté, Prime et Inferno réunis. Mis à jour après chaque tableau des scores.</p></div></div>
-<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note">Classé au K/D (kills ÷ morts). En cas d’égalité, le plus de kills passe devant.</p></section>
+<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p></section>
 </div>
 
 <div class="page" data-page="/partenaires">
@@ -1157,11 +1157,12 @@ function renderClassement(mode) {
  $("#lbTabs").innerHTML = `<a href="#/classement" class="${mode === "pracc" ? "on" : ""}">🎯 Praccs</a><a href="#/classement/premier" class="${mode === "premier" ? "on" : ""}">🏆 Premier</a>`;
  const rows = Object.entries(JOUEURS).map(([nom, j]) => ({nom, t: teamDe(nom), st: j[mode] || {}})).filter(x => x.st.matchs)
   .map(x => ({...x, k: x.st.k || 0, d: x.st.m || 0, a: x.st.a || 0, kd: x.st.k != null ? ratio(x.st.k || 0, x.st.m || 0) : (x.st.kd || 0)}))
-  .sort((x, y) => y.kd - x.kd || y.k - x.k);
- if (!rows.length) { $("#lbPodium").innerHTML = ""; $("#lbBody").innerHTML = `<tr><td colspan="8" class="lb-empty">Pas encore de stats ${mode === "premier" ? "Premier" : "de pracc"}. Envoie un tableau des scores et le classement se remplit tout seul.</td></tr>`; return; }
+  .map(x => ({...x, pts: Math.round(x.k + x.a / 2 - x.d / 2 + 5 * (x.st.v || 0))}))
+  .sort((x, y) => y.pts - x.pts || y.k - x.k);
+ if (!rows.length) { $("#lbPodium").innerHTML = ""; $("#lbBody").innerHTML = `<tr><td colspan="9" class="lb-empty">Pas encore de stats ${mode === "premier" ? "Premier" : "de pracc"}. Envoie un tableau des scores et le classement se remplit tout seul.</td></tr>`; return; }
  const top = (cle, lab, f) => { const x = [...rows].sort((p, q) => q[cle] - p[cle] || q.k - p.k)[0]; return `<button type="button" class="pod" data-joueur="${x.nom}" data-team="${x.t ? x.t.id : ""}" style="--tc:${x.t ? x.t.col : "var(--red)"}"><span class="pod-kit">${x.t ? kitImg(x.t, x.nom) : ""}</span><span><small>${lab}</small><b>${x.nom}</b><i>${f(x)}</i></span></button>`; };
  $("#lbPodium").innerHTML = `<div class="pods">${top("kd", "🎯 Meilleur K/D", x => fmtKd(x.kd))}${top("k", "💥 Plus de kills", x => x.k + " kills")}${top("a", "🤝 Plus d’assists", x => x.a + " assists")}</div>`;
- $("#lbBody").innerHTML = rows.map((x, i) => `<tr style="--tc:${x.t ? x.t.col : "var(--red)"}"><td class="lb-r">${["🥇", "🥈", "🥉"][i] || i + 1}</td><td><button type="button" class="lb-j" data-joueur="${x.nom}" data-team="${x.t ? x.t.id : ""}"><span class="lb-kit">${x.t ? kitImg(x.t, x.nom) : ""}</span><span><b>${x.nom}</b><small>${x.t ? x.t.name : ""}</small></span></button></td><td>${x.st.matchs}</td><td>${x.st.v}-${x.st.d}</td><td>${x.k}</td><td>${x.d}</td><td>${x.a}</td><td class="lb-kd">${fmtKd(x.kd)}</td></tr>`).join("");
+ $("#lbBody").innerHTML = rows.map((x, i) => `<tr style="--tc:${x.t ? x.t.col : "var(--red)"}"><td class="lb-r">${["🥇", "🥈", "🥉"][i] || i + 1}</td><td><button type="button" class="lb-j" data-joueur="${x.nom}" data-team="${x.t ? x.t.id : ""}"><span class="lb-kit">${x.t ? kitImg(x.t, x.nom) : ""}</span><span><b>${x.nom}</b><small>${x.t ? x.t.name : ""}</small></span></button></td><td>${x.st.matchs}</td><td>${x.st.v}-${x.st.d}</td><td>${x.k}</td><td>${x.d}</td><td>${x.a}</td><td>${fmtKd(x.kd)}</td><td class="lb-kd">${x.pts}</td></tr>`).join("");
  document.querySelectorAll("#lbPodium .pod, #lbBody .lb-j").forEach(b => b.onclick = () => openProfil(b.dataset.joueur, b.dataset.team));
 }
 // Partenaires
