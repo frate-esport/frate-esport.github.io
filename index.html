@@ -458,6 +458,7 @@ dialog.pp{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px);padd
 .cv-leg{margin:6px 0 0;font-size:.78rem;color:var(--muted)}.cv-leg span{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 4px 0 8px;vertical-align:0}.cv-leg span:first-child{margin-left:0}.cv-leg .w{background:#23c46b}.cv-leg .l{background:#ff4d5e}
 .cv-t{font-size:.78rem;font-weight:700;margin-left:6px;letter-spacing:0;text-transform:none}.cv-t.up{color:#23c46b}.cv-t.down{color:#ff4d5e}
 .cv-empty{color:var(--muted);font-size:.9rem}
+.pp-dl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}.pp-dl .btn{margin:0}.pp-dl small{color:var(--muted)}
 .dc-live{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;font-weight:600;color:#9fe8b5}.dc-live:empty{display:none}
 .dc-live i{width:8px;height:8px;border-radius:50%;background:#23a55a;box-shadow:0 0 0 0 rgba(35,165,90,.7);animation:dcp 1.8s infinite}
 @keyframes dcp{0%{box-shadow:0 0 0 0 rgba(35,165,90,.6)}70%{box-shadow:0 0 0 8px rgba(35,165,90,0)}100%{box-shadow:0 0 0 0 rgba(35,165,90,0)}}
@@ -1059,6 +1060,48 @@ function courbe(nom) {
  ${kds.map((v, i) => `<g><circle cx="${X(i)}" cy="${Y(v)}" r="5" class="cv-dot ${pts[i].win ? "w" : "l"}"/><text x="${X(i)}" y="${Y(v) - 11}" class="cv-v" text-anchor="middle">${fmtKd(v)}</text><text x="${X(i)}" y="${H - 14}" class="cv-ax" text-anchor="middle">${jour(pts[i].date)}</text><text x="${X(i)}" y="${H - 2}" class="cv-ax" text-anchor="middle">${pts[i].k}/${pts[i].d}/${pts[i].a}</text><title>${jour(pts[i].date)} · ${pts[i].win ? "victoire" : "défaite"} · ${pts[i].k} kills, ${pts[i].d} morts, ${pts[i].a} assists</title></g>`).join("")}
  </svg><p class="cv-leg"><span class="w"></span>victoire <span class="l"></span>défaite · sous chaque point : kills / morts / assists</p></div>`;
 }
+// Carte joueur à télécharger (image 1080×1350 dessinée dans le navigateur)
+const chargeImg = src => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+async function carteJoueur(nom, t) {
+ try { await Promise.all([document.fonts.load('800 60px "Rubik"'), document.fonts.load('700 30px "Rubik"')]); } catch (e) {}
+ const j = JOUEURS[nom] || {}, st = j.pracc || {}, n = NUMEROS[nom], N = nom.toUpperCase(), rose = t.kit === "rose";
+ const [dos, logo] = await Promise.all([chargeImg(DOS_VIDE[t.kit]), chargeImg(LOGO_IMG)]);
+ const W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H; const g = cv.getContext("2d");
+ const F = (w, px) => `${w} ${px}px "Rubik", "Arial Black", Arial, sans-serif`;
+ // fond
+ const bg = g.createLinearGradient(0, 0, W, H); bg.addColorStop(0, rose ? "#9c0f5f" : "#0b3fd6"); bg.addColorStop(.55, rose ? "#3a0b3f" : "#0c1d5c"); bg.addColorStop(1, "#07080e"); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+ g.save(); g.globalAlpha = .08; g.strokeStyle = "#fff"; g.lineWidth = 4; for (let x = -H; x < W; x += 90) { g.beginPath(); g.moveTo(x, H); g.lineTo(x + H * .55, 0); g.stroke(); } g.restore();
+ g.save(); g.globalAlpha = .06; g.fillStyle = "#fff"; g.font = F(900, 300); g.textAlign = "center"; g.textBaseline = "middle"; g.translate(W / 2, 560); g.rotate(-.14); g.fillText("FRATÉ", 0, 0); g.restore();
+ const glow = g.createRadialGradient(W / 2, 560, 60, W / 2, 560, 560); glow.addColorStop(0, rose ? "rgba(255,95,168,.35)" : "rgba(80,140,255,.35)"); glow.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = glow; g.fillRect(0, 0, W, H);
+ // en-tête
+ const lh = 104, lw = lh * logo.width / logo.height; g.drawImage(logo, 56, 44, lw, lh);
+ g.fillStyle = "#fff"; g.font = F(800, 40); g.textBaseline = "alphabetic"; g.fillText("FRATÉ ESPORT", 56 + lw + 22, 92);
+ g.fillStyle = t.col; g.font = F(700, 30); g.fillText(t.name.toUpperCase() + " · VALORANT", 56 + lw + 22, 132);
+ if (n) { g.textAlign = "right"; g.fillStyle = "rgba(255,255,255,.9)"; g.font = F(800, 96); g.fillText("#" + n, W - 56, 128); g.textAlign = "left"; }
+ // polo de dos floqué
+ const pw = 540, ph = pw * dos.height / dos.width, px = (W - pw) / 2, py = 176;
+ g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 50; g.shadowOffsetY = 26; g.drawImage(dos, px, py, pw, ph); g.restore();
+ const ecrit = (txt, cx, cy, size, stroke, sw) => { g.save(); g.font = F(800, size); g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round"; if (rose) { g.shadowColor = "#12051f"; g.shadowBlur = sw * .8; } g.lineWidth = sw * 2; g.strokeStyle = stroke; g.strokeText(txt, cx, cy); g.shadowBlur = 0; g.fillStyle = "#fff"; g.fillText(txt, cx, cy); g.restore(); };
+ const cx = px + pw * .505, cq = pw / 100, stroke = rose ? "#f2c230" : "#0b0f22";
+ ecrit(N, cx, py + ph * .258, Math.min(10.5, 62 / N.length) * cq, stroke, (rose ? 1 : 1.1) * cq / 2 * 1.0);
+ if (n) ecrit(String(n), cx, py + ph * .465, 30 * cq, stroke, (rose ? 1.3 : 1.6) * cq / 2);
+ // nom + infos
+ let y = py + ph + 70;
+ g.textAlign = "center"; g.fillStyle = "#fff"; g.font = F(800, nom.length > 9 ? 78 : 92); g.fillText(nom, W / 2, y);
+ const infos = [j.poste, j.rang].filter(Boolean).join("  ·  ");
+ y += 52; g.fillStyle = "rgba(255,255,255,.75)"; g.font = F(700, 32); g.fillText(infos || t.name, W / 2, y);
+ if (j.agents && j.agents.length) { y += 44; g.fillStyle = t.col; g.font = F(700, 28); g.fillText(j.agents.join(" · "), W / 2, y); }
+ // stats
+ const cases = st.matchs ? [["MATCHS", st.matchs], ["V-D", `${st.v}-${st.d}`], ["KILLS", st.k || 0], ["ASSISTS", st.a || 0], ["K/D", fmtKd(ratio(st.k || 0, st.m || 0))]] : null;
+ const by = H - 210, bh = 120;
+ if (cases) {
+  const gap = 16, bw = (W - 112 - gap * (cases.length - 1)) / cases.length;
+  cases.forEach(([lab, val], i) => { const bx = 56 + i * (bw + gap); g.fillStyle = "rgba(255,255,255,.08)"; g.strokeStyle = "rgba(255,255,255,.16)"; g.lineWidth = 2; g.beginPath(); g.roundRect(bx, by, bw, bh, 22); g.fill(); g.stroke(); g.fillStyle = "#fff"; g.font = F(800, 46); g.fillText(String(val), bx + bw / 2, by + 62); g.fillStyle = "rgba(255,255,255,.6)"; g.font = F(700, 20); g.fillText(lab, bx + bw / 2, by + 96); });
+  g.fillStyle = "rgba(255,255,255,.55)"; g.font = F(700, 22); g.fillText("STATS PRACCS · SAISON 2026-2027", W / 2, by - 18);
+ } else { g.fillStyle = "rgba(255,255,255,.6)"; g.font = F(700, 30); g.fillText("Stats de la saison à venir", W / 2, by + 70); }
+ g.fillStyle = "rgba(255,255,255,.5)"; g.font = F(700, 22); g.fillText("frate-esport.github.io", W / 2, H - 40);
+ return cv;
+}
 function openProfil(nom, teamId){
  const t = teamOf(teamId), j = JOUEURS[nom] || {}, p = (t?.joueurs || []).find(x => x[0] === nom) || [nom, "Joueur", ""];
  const v = x => x ? x : na;
@@ -1069,8 +1112,10 @@ function openProfil(nom, teamId){
  <div><span>Poste</span><b>${v(j.poste)}</b></div><div><span>Agents</span><b>${j.agents && j.agents.length ? j.agents.join(", ") : na}</b></div>
  <div><span>Rang</span><b>${v(j.rang)}</b></div><div><span>Riot ID</span><b>${v(j.riot)}</b></div>
  <div><span>Twitch</span><b>${lien(j.twitch, "Voir la chaîne")}</b></div></div></div>
- <div><h4>Statistiques de la saison</h4><div class="pp-stats">${statBlock("🎯 Praccs", j.pracc)}${statBlock("🏆 Premier", j.premier)}</div></div>${courbe(nom)}</div>`;
+ <div><h4>Statistiques de la saison</h4><div class="pp-stats">${statBlock("🎯 Praccs", j.pracc)}${statBlock("🏆 Premier", j.premier)}</div></div>${courbe(nom)}${t ? `<div class="pp-dl"><button type="button" class="btn" data-carte>📸 Télécharger la carte joueur</button><small>Image prête à poster sur Discord ou Instagram</small></div>` : ""}</div>`;
  dlg.querySelector(".pp-x").onclick = () => dlg.close();
+ const bc = dlg.querySelector("[data-carte]");
+ if (bc) bc.onclick = async () => { bc.disabled = true; const lab = bc.textContent; bc.textContent = "Création de l’image…"; try { const cv = await carteJoueur(nom, t); cv.toBlob(blob => { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `carte-${nom.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-frate.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); bc.textContent = "Carte téléchargée ✓"; setTimeout(() => { bc.textContent = lab; bc.disabled = false; }, 1800); }, "image/png"); } catch (e) { bc.textContent = "Erreur, réessaie"; bc.disabled = false; } };
  dlg.showModal();
 }
 document.addEventListener("click", e => { const b = e.target.closest("button.pl[data-joueur]"); if (b) openProfil(b.dataset.joueur, b.dataset.team); });
