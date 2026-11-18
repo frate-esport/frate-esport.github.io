@@ -1128,7 +1128,7 @@ $("#ryShelves").addEventListener("click", e => { const a = e.target.closest("[da
 const teamDe = nom => TEAMS.find(t => t.joueurs.some(p => p[0] === nom));
 const ratio = (k, d) => +(k / Math.max(1, d)).toFixed(2);
 const fmtKd = x => x.toFixed(2).replace(".", ",");
-// MVP de la semaine : meilleur score (kills + assists/2) ÷ morts sur les praccs de la semaine en cours (lundi → dimanche)
+// MVP de la semaine : points MVP = kills + assists/2 − morts/2 + 5 par victoire, sur les praccs de la semaine en cours (lundi → dimanche)
 const lundi = d => { const x = new Date(d + "T12:00:00"); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.toISOString().slice(0, 10); };
 const mvpSemaine = () => {
  if (!PRACC_LOG.length) return null;
@@ -1136,7 +1136,7 @@ const mvpSemaine = () => {
  const sem = PRACC_LOG.some(l => lundi(l.date) === cette) ? cette : lundi(PRACC_LOG.map(l => l.date).sort().pop());
  const parJ = {};
  PRACC_LOG.filter(l => lundi(l.date) === sem).forEach(l => { const o = parJ[l.nom] = parJ[l.nom] || {nom: l.nom, k: 0, d: 0, a: 0, m: 0, v: 0}; o.k += l.k; o.d += l.d; o.a += l.a; o.m++; if (l.win) o.v++; });
- const liste = Object.values(parJ).map(o => ({...o, score: (o.k + o.a / 2) / Math.max(1, o.d)})).sort((x, y) => y.score - x.score || y.k - x.k);
+ const liste = Object.values(parJ).map(o => ({...o, score: o.k + o.a / 2 - o.d / 2 + 5 * o.v})).sort((x, y) => y.score - x.score || y.k - x.k);
  return liste.length ? {...liste[0], sem, encours: sem === cette} : null;
 };
 const mvpCard = () => {
@@ -1147,7 +1147,7 @@ const mvpCard = () => {
  <span class="mvp-kit">${t ? kitImg(t, m.nom) : ""}</span>
  <span class="mvp-txt"><span class="mvp-tag">⭐ MVP de la semaine</span><b>${m.nom}</b><small>${t ? t.name : ""} · semaine du ${jm(new Date(m.sem + "T12:00:00"))} au ${jm(fin)}</small>
  <span class="mvp-st"><span><b>${m.k}</b>kills</span><span><b>${m.d}</b>morts</span><span><b>${m.a}</b>assists</span><span><b>${fmtKd(ratio(m.k, m.d))}</b>K/D</span><span><b>${m.v}/${m.m}</b>victoires</span></span>
- <span class="mvp-note">Calculé automatiquement sur les praccs de la semaine · clique pour voir son profil</span></span></button>`;
+ <span class="mvp-note">${Math.round(m.score)} points MVP · kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire, sur les praccs de la semaine · clique pour voir son profil</span></span></button>`;
 };
 const bindMvp = el => el.querySelectorAll(".mvp").forEach(b => b.onclick = () => openProfil(b.dataset.joueur, b.dataset.team));
 $("#mvpHome").innerHTML = mvpCard(); bindMvp($("#mvpHome"));
