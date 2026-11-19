@@ -744,6 +744,11 @@ html.no-intro #intro{display:none}
 .egg-toast{position:fixed;left:50%;bottom:24px;z-index:9998;transform:translate(-50%,20px);padding:12px 18px;border-radius:14px;background:#0b0c12;border:1px solid #c4163a;box-shadow:0 0 24px -4px #c4163a;color:#fff;font-weight:700;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none}
 .egg-toast.on{opacity:1;transform:translate(-50%,0)}
 .egg-toast code{font:800 1.05rem ui-monospace,Menlo,monospace;letter-spacing:.1em;color:#ff5d7a}
+
+.kf-front-w{position:absolute;top:0;left:50%;height:100%;transform:translateX(-50%);container-type:inline-size;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.kit.lk .kflip .kf-front-w img.kf-front{object-fit:fill}
+.kf-front-w .kn{z-index:2}
+.feu{position:fixed;inset:0;width:100vw;height:100vh;z-index:9990;pointer-events:none}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1515,7 +1520,7 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
   <span class="lk-hint" aria-hidden="true">Clique pour ouvrir</span>
  </button></div>
  <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><b>${k.prix}</b><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("") + `<div class="kit lk soon" style="--glow:#c4163a">
- <div class="locker"><div class="kit-img"><span class="lk-light"></span><span class="kflip"><span class="kflip-in"><img class="kf-front" src="${IMG_THIRD}" alt="Polo Third (avant-première)" loading="lazy"><span class="kf-back-w fl-rose" style="aspect-ratio:900/1122"><img class="kf-back" src="${IMG_THIRD_DOS}" alt="Polo Third vu de dos, floqué FRATÉ 10" loading="lazy"><span class="fl-name" style="--fs:10.5cqw">FRATÉ</span><span class="fl-num">10</span></span></span></span><span class="kflip-tip">↻ Survole pour voir le dos</span><span class="ap-badge">🔓 Avant-première</span><span class="lk-shelf"></span></div>
+ <div class="locker"><div class="kit-img"><span class="lk-light"></span><span class="kflip"><span class="kflip-in"><span class="kf-front-w fl-rose" style="aspect-ratio:749/881"><img class="kf-front" src="${IMG_THIRD}" alt="Polo Third (avant-première), numéro 10" loading="lazy"><span class="kn kn-rose">10</span></span><span class="kf-back-w fl-rose" style="aspect-ratio:900/1122"><img class="kf-back" src="${IMG_THIRD_DOS}" alt="Polo Third vu de dos, floqué FRATÉ 10" loading="lazy"><span class="fl-name" style="--fs:10.5cqw">FRATÉ</span><span class="fl-num">10</span></span></span></span><span class="kflip-tip">↻ Survole pour voir le dos</span><span class="ap-badge">🔓 Avant-première</span><span class="lk-shelf"></span></div>
  <button class="door" type="button" aria-label="Polo Third : casier verrouillé, trouve la clé">
   <span class="st-num" aria-hidden="true">03</span>
   <span class="st-louver t" aria-hidden="true"></span>
@@ -1529,6 +1534,26 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
  <form class="kp" autocomplete="off"><button type="button" class="kp-x" aria-label="Fermer">×</button><b>🔒 Casier verrouillé</b><p>Une <b>clé</b> est cachée quelque part <b>sur le site</b>… Attention, il y a des fausses ! Trouve la bonne pour voir le polo Third en avant-première 👀</p><input type="text" name="cle" placeholder="Entre la clé" aria-label="Clé du casier" spellcheck="false"><button type="submit" class="btn">Déverrouiller</button><small class="kp-msg" aria-live="polite"></small></form></div>
  <div class="kit-info"><div><h3>Polo Third</h3><p>Le 3e polo Fraté arrive bientôt. Restez connectés 👀</p></div><div class="kit-buy"><span class="soon-tag">Bientôt</span></div></div></div>`;
 // Chasse aux clés : la vraie en bas de la fiche de Tibz
+// Feu d'artifice (canvas plein écran, ~3,5 s)
+function feuArtifice() {
+ if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+ const cv = document.createElement("canvas"), g = cv.getContext("2d"), dpr = Math.min(2, devicePixelRatio || 1);
+ cv.className = "feu"; document.body.appendChild(cv);
+ const W = innerWidth, H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; g.scale(dpr, dpr);
+ const cols = ["#c4163a", "#ff3b5c", "#ffd36b", "#ffffff", "#ff7a2a", "#5b8cff"], parts = [], fusees = [];
+ const lance = (x, cible) => fusees.push({x, y: H + 10, vy: -(H * .017 + Math.random() * 3), cible, c: cols[Math.floor(Math.random() * cols.length)]});
+ const boum = (x, y, c) => { const n = 70 + Math.floor(Math.random() * 40); for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 5; parts.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, c: Math.random() < .25 ? "#ffffff" : c, r: 1.5 + Math.random() * 1.8}); } };
+ for (let i = 0; i < 9; i++) setTimeout(() => lance(W * (.12 + Math.random() * .76), H * (.12 + Math.random() * .38)), i * 260);
+ const t0 = performance.now();
+ const tick = now => {
+  g.globalCompositeOperation = "destination-out"; g.fillStyle = "rgba(0,0,0,.22)"; g.fillRect(0, 0, W, H); g.globalCompositeOperation = "lighter";
+  for (let i = fusees.length - 1; i >= 0; i--) { const f = fusees[i]; f.y += f.vy; f.vy *= .985; g.fillStyle = f.c; g.beginPath(); g.arc(f.x, f.y, 2.5, 0, Math.PI * 2); g.fill(); if (f.y <= f.cible || f.vy > -1) { boum(f.x, f.y, f.c); fusees.splice(i, 1); } }
+  for (let i = parts.length - 1; i >= 0; i--) { const q = parts[i]; q.x += q.vx; q.y += q.vy; q.vy += .07; q.vx *= .985; q.vy *= .985; q.life -= .012; if (q.life <= 0) { parts.splice(i, 1); continue; } g.globalAlpha = Math.max(0, q.life); g.fillStyle = q.c; g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill(); }
+  g.globalAlpha = 1;
+  if (now - t0 < 4200 || parts.length || fusees.length) requestAnimationFrame(tick); else cv.remove();
+ };
+ requestAnimationFrame(tick);
+}
 // Casier Third : verrouillé, s'ouvre avec la clé cachée sur le Discord (vérifiée par empreinte, la clé n'est pas écrite dans le site)
 (() => {
  const card = document.querySelector("#kits .kit.soon"); if (!card) return;
@@ -1544,7 +1569,7 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
   let h = "";
   try { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v)); h = [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, "0")).join(""); } catch (err) {}
   if (h === "9632a4b84b56506632b5f68c5b130364855d6adf36732e7948052c4f30b64e83") {
-   msg.textContent = "Clé acceptée ✓"; ouvert(); try { localStorage.setItem("frateThird", "1"); } catch (err) {}
+   msg.textContent = "Clé acceptée ✓"; ouvert(); feuArtifice(); try { localStorage.setItem("frateThird", "1"); } catch (err) {}
    setTimeout(() => { card.classList.remove("asking"); card.classList.add("open"); }, 500);
   } else if (["9593060412d1d36bcac537f4cfccb0c90eb63f5259d6223dbafe18007d8c886e", "56e6b101f270f32eb1885919d11e21568685ae3b8bf706f93f62659740a01133", "eeb27549d8fe10f8e372b5aa6c5891728b99eb846baeb739e399f3f28435307b", "3ada86ac4a109bbb25d48058cb7d305b1e52811bc2e0636343e40d6009a25c66", "e6d35a1748753378f85c2114e1013de5fefa2ba77b1334e8523aa8fd666a6c1e", "c5f468354ab05dd5ef99ba3488abfa8efde41c83bb95a5f06ffcad0cec9259da"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
   } else { msg.textContent = "Mauvaise clé… cherche encore 🔎"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad"); }
