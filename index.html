@@ -902,7 +902,7 @@ html.no-intro #intro{display:none}
 <!-- GALERIE CLIPS -->
 <div class="page" data-page="/clips">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Clips</div><span class="badge">Highlights</span><h1>Galerie <span>clips</span></h1><p>Les meilleures actions des joueurs Fraté, en match et en scrims.</p></div></div>
-<section><div class="tabs" id="clipTabs"></div><div id="clipList"></div></section>
+<section><div class="tabs" id="clipTabs"></div><div id="clipList"></div><p class="egg-k" aria-hidden="true">🗝️ SPIKE-DOWN</p></section>
 </div>
 
 <!-- ACTUS -->
@@ -1528,8 +1528,7 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
  </button>
  <form class="kp" autocomplete="off"><button type="button" class="kp-x" aria-label="Fermer">×</button><b>🔒 Casier verrouillé</b><p>Une <b>clé</b> est cachée quelque part <b>sur le site</b>… Attention, il y a des fausses ! Trouve la bonne pour voir le polo Third en avant-première 👀</p><input type="text" name="cle" placeholder="Entre la clé" aria-label="Clé du casier" spellcheck="false"><button type="submit" class="btn">Déverrouiller</button><small class="kp-msg" aria-live="polite"></small></form></div>
  <div class="kit-info"><div><h3>Polo Third</h3><p>Le 3e polo Fraté arrive bientôt. Restez connectés 👀</p></div><div class="kit-buy"><span class="soon-tag">Bientôt</span></div></div></div>`;
-// Chasse aux clés : une fausse dans la console, la vraie en bas de la fiche de Tibz
-try { console.log("%c🗝️ Tu fouilles le code ? Tiens : SPIKE-DOWN", "color:#ff5d7a;font-weight:bold"); } catch (e) {}
+// Chasse aux clés : la vraie en bas de la fiche de Tibz
 // Casier Third : verrouillé, s'ouvre avec la clé cachée sur le Discord (vérifiée par empreinte, la clé n'est pas écrite dans le site)
 (() => {
  const card = document.querySelector("#kits .kit.soon"); if (!card) return;
