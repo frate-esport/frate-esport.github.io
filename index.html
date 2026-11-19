@@ -675,6 +675,32 @@ html.no-intro #intro{display:none}
 @keyframes neonSoon{0%,30%,34%,70%,100%{opacity:1}32%,72%{opacity:.25}33%{opacity:.8}}
 .kit.soon .st-lock i{background:linear-gradient(160deg,#20232c,#0e1015)}
 @media (prefers-reduced-motion:reduce){.kit.lk .door::after,.st-plate span,.kit.soon .st-soon{animation:none}}
+
+/* ===== Casiers néon v2 : panneau noir mat, cadre néon à coins coupés, anneau, scanner ===== */
+.kit.lk .locker{padding:8px;border-radius:22px;background:#0a0b0f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),0 24px 40px -20px rgba(0,0,0,.9)}
+.kit.lk .kit-img{border-radius:16px}
+.kit.lk .door{inset:8px;border-radius:16px;overflow:hidden;background:radial-gradient(80% 55% at 50% 42%,color-mix(in srgb,var(--glow) 14%,transparent),transparent 70%),radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 1.5px) 0 0/14px 14px,linear-gradient(180deg,#121319,#0b0c10);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 28px -8px var(--glow),0 16px 26px -12px rgba(0,0,0,.85)}
+.kit.lk .door::after{display:none}
+.st-louver,.st-rivet,.st-num,.st-latch{display:none!important}
+.nx-frame{position:absolute;inset:4%;width:92%;height:92%;overflow:visible;fill:none;pointer-events:none;filter:drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 10px var(--glow));animation:neonTube 5s linear infinite}
+.nx-frame polygon{stroke:var(--glow);stroke-width:2.2px;vector-effect:non-scaling-stroke}
+.nx-frame .nx-tick{stroke:#fff;stroke-width:3px;vector-effect:non-scaling-stroke;opacity:.85}
+.nx-ring{position:absolute;left:50%;top:44%;width:48%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:2px solid var(--glow);box-shadow:0 0 8px var(--glow),0 0 22px var(--glow),inset 0 0 12px var(--glow);opacity:.9}
+.nx-ring::before{content:"";position:absolute;inset:-9%;border-radius:50%;border:1px dashed color-mix(in srgb,var(--glow) 70%,transparent);animation:nxSpin 14s linear infinite}
+@keyframes nxSpin{to{transform:rotate(360deg)}}
+.st-logo{top:44%!important;width:30%!important}
+.st-plate{top:auto!important;bottom:18%}
+.st-plate span{font-size:clamp(1rem,6.5cqw,2rem)}
+.nx-bar{position:absolute;right:9%;top:36%;width:5px;height:22%;border-radius:5px;background:#fff;box-shadow:0 0 6px #fff,0 0 12px var(--glow),0 0 24px var(--glow)}
+.nx-scan{position:absolute;right:calc(9% - 7px);top:62%;width:19px;height:19px;border-radius:50%;border:2px solid var(--glow);box-shadow:0 0 10px var(--glow);background:radial-gradient(circle,var(--glow) 0 30%,transparent 34%);animation:nxScan 1.8s ease-in-out infinite}
+@keyframes nxScan{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1)}}
+.kit.lk.open .nx-scan{border-color:#2bff88;background:radial-gradient(circle,#2bff88 0 30%,transparent 34%);box-shadow:0 0 14px #2bff88;animation:none}
+.nx-scan.off{animation:none;opacity:.5}
+.kit.soon .st-soon{top:46%}
+.kit.lk .door:hover{transform:rotateY(-7deg)}
+.kit.lk.open .door,.kit.lk.open .door:hover{transform:rotateY(-110deg)}
+.kit.lk .lk-hint{bottom:8%}
+@media (prefers-reduced-motion:reduce){.nx-frame,.nx-ring::before,.nx-scan{animation:none}}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1434,19 +1460,23 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
   <span class="st-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
   <span class="st-louver t" aria-hidden="true"></span>
   <span class="st-plate" aria-hidden="true"><span>${eq}</span></span>
+  <svg class="nx-frame" viewBox="0 0 100 120" preserveAspectRatio="none" aria-hidden="true"><polygon points="10,2 90,2 98,10 98,110 90,118 10,118 2,110 2,10"/><polyline class="nx-tick" points="30,2 70,2"/><polyline class="nx-tick" points="30,118 70,118"/></svg>
+  <span class="nx-ring" aria-hidden="true"></span>
   <span class="st-logo" aria-hidden="true"><img src="${LOGO_IMG}" alt=""></span>
+  <span class="nx-bar" aria-hidden="true"></span><span class="nx-scan" aria-hidden="true"></span>
   <span class="st-latch" aria-hidden="true"><span class="st-lock"><i></i></span></span>
   <span class="st-louver b" aria-hidden="true"></span>
   <span class="st-rivet r1"></span><span class="st-rivet r2"></span><span class="st-rivet r3"></span><span class="st-rivet r4"></span>
   <span class="lk-hint" aria-hidden="true">Clique pour ouvrir</span>
  </button></div>
- <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><b>${k.prix}</b><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("") + `<div class="kit lk soon" style="--glow:#b57bff">
+ <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><b>${k.prix}</b><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("") + `<div class="kit lk soon" style="--glow:#c4163a">
  <div class="locker"><div class="kit-img"></div>
  <div class="door" aria-label="Polo Third : bientôt disponible">
   <span class="st-num" aria-hidden="true">03</span>
   <span class="st-louver t" aria-hidden="true"></span>
   <span class="st-plate" aria-hidden="true"><span>THIRD</span></span>
-  <span class="st-soon" aria-hidden="true">SOON</span>
+  <svg class="nx-frame" viewBox="0 0 100 120" preserveAspectRatio="none" aria-hidden="true"><polygon points="10,2 90,2 98,10 98,110 90,118 10,118 2,110 2,10"/><polyline class="nx-tick" points="30,2 70,2"/><polyline class="nx-tick" points="30,118 70,118"/></svg>
+  <span class="st-soon" aria-hidden="true">SOON</span><span class="nx-bar" aria-hidden="true"></span><span class="nx-scan off" aria-hidden="true"></span>
   <span class="st-latch" aria-hidden="true"><span class="st-lock"><i></i></span></span>
   <span class="st-louver b" aria-hidden="true"></span>
   <span class="st-rivet r1"></span><span class="st-rivet r2"></span><span class="st-rivet r3"></span><span class="st-rivet r4"></span>
