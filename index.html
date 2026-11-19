@@ -1471,7 +1471,7 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}">
   <span class="st-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
   <span class="st-louver t" aria-hidden="true"></span>
-  <span class="st-plate" aria-hidden="true"><span>${eq}</span></span>
+  <span class="st-plate" aria-hidden="true"><span>MAILLOT ${i + 1}</span></span>
   <svg class="nx-frame" viewBox="0 0 100 120" preserveAspectRatio="none" aria-hidden="true"><polygon points="10,2 90,2 98,10 98,110 90,118 10,118 2,110 2,10"/><polyline class="nx-tick" points="30,2 70,2"/><polyline class="nx-tick" points="30,118 70,118"/></svg>
   <span class="nx-ring" aria-hidden="true"></span>
   <span class="st-logo" aria-hidden="true"><img src="${LOGO_IMG}" alt=""></span>
