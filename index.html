@@ -713,6 +713,11 @@ html.no-intro #intro{display:none}
 .kit.lk.open .kflip-tip{opacity:.9;transition-delay:1.2s}
 .kit.lk.open .kit-img:hover .kflip-tip{opacity:0;transition-delay:0s}
 @media (hover:none){.kflip-tip{display:none}}
+
+/* dos floqué (exemple) dans les casiers */
+.kf-back-w{position:absolute;top:0;left:50%;height:100%;container-type:inline-size;transform:translateX(-50%) rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.kit.lk .kflip .kf-back-w img.kf-back{transform:none!important;object-fit:fill}
+.kf-back-w .fl-name,.kf-back-w .fl-num{z-index:2}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1467,7 +1472,7 @@ $("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video s
 <div class="wp-i"><div><b>${f.titre}</b><small>${f.sous}</small></div></div>
 <div class="wp-dl"><div><span>PC · 1920×1080</span>${fondBtn(f, "pc", false)}${fondBtn(f, "pc", true)}</div><div><span>Téléphone · 1080×1920</span>${fondBtn(f, "telephone", false)}${fondBtn(f, "telephone", true)}</div></div></div>`).join("");
 $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(x) === k.img), eq = t ? t.name.replace(/^Fraté /, "").toUpperCase() : "FRATÉ"; return `<div class="kit lk" style="--glow:${k.glow}">
- <div class="locker"><div class="kit-img"><span class="lk-light"></span><span class="kflip"><span class="kflip-in"><img class="kf-front" src="${k.img}" alt="${k.nom}" loading="lazy">${t && DOS_VIDE[t.kit] ? `<img class="kf-back" src="${DOS_VIDE[t.kit]}" alt="${k.nom}, vu de dos" loading="lazy">` : ""}</span></span><span class="kflip-tip">↻ Survole pour voir le dos</span><span class="lk-shelf"></span></div>
+ <div class="locker"><div class="kit-img"><span class="lk-light"></span><span class="kflip"><span class="kflip-in"><img class="kf-front" src="${k.img}" alt="${k.nom}" loading="lazy">${t && DOS_VIDE[t.kit] ? `<span class="kf-back-w fl-${t.kit}" style="aspect-ratio:${t.kit === "rose" ? "900/1122" : "900/1147"}"><img class="kf-back" src="${DOS_VIDE[t.kit]}" alt="${k.nom}, vu de dos, floqué FRATÉ 10" loading="lazy"><span class="fl-name" style="--fs:10.5cqw">FRATÉ</span><span class="fl-num">10</span></span>` : ""}</span></span><span class="kflip-tip">↻ Survole pour voir le dos</span><span class="lk-shelf"></span></div>
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}">
   <span class="st-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
   <span class="st-louver t" aria-hidden="true"></span>
