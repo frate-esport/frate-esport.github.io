@@ -1093,6 +1093,12 @@ TEAMS.forEach(t => t.joueurs.forEach(p => { JOUEURS[p[0]] = {poste:"", agents:[]
 // Praccs : praccDu("AAAA-MM-JJ") puis une ligne par joueur → addPracc("pseudo", kills, morts, assists, victoire true/false)
 let PRACC_DATE = ""; const PRACC_LOG = []; const praccDu = d => { PRACC_DATE = d; };
 const addPracc = (nom, k, d, a, win) => { const j = JOUEURS[nom]; if (!j) return; PRACC_LOG.push({nom, k, d, a, win, date: PRACC_DATE}); const st = j.pracc; st.k = (st.k||0) + k; st.m = (st.m||0) + d; st.a = (st.a||0) + a; st.matchs++; win ? st.v++ : st.d++; st.kd = +(st.k / Math.max(1, st.m)).toFixed(2); };
+// 12/11/2026, Haven : victoire 18-6
+praccDu("2026-11-12");
+addPracc("SOLAX", 25, 16, 8, true); addPracc("Tibz", 22, 8, 4, true); addPracc("Evan", 21, 14, 5, true); addPracc("K1muraAa", 18, 11, 7, true); addPracc("Sky", 15, 14, 4, true);
+// 13/11/2026, Haven : victoire 17-7 (Canard boiteux01 : joueur à confirmer)
+praccDu("2026-11-13");
+addPracc("Axqua", 26, 15, 6, true); addPracc("K1muraAa", 24, 9, 6, true); addPracc("SOLAX", 17, 14, 17, true); addPracc("CAPUCHE", 16, 15, 6, true);
 // 16/11/2026, Summit : défaite 8-13
 praccDu("2026-11-16");
 addPracc("Axqua", 17, 17, 4, false); addPracc("K1muraAa", 16, 15, 2, false); addPracc("Tibz", 14, 16, 5, false); addPracc("azyialex", 13, 19, 4, false); addPracc("Cup0fSand", 9, 18, 5, false);
