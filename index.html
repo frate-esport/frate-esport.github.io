@@ -701,6 +701,18 @@ html.no-intro #intro{display:none}
 .kit.lk.open .door,.kit.lk.open .door:hover{transform:rotateY(-110deg)}
 .kit.lk .lk-hint{bottom:8%}
 @media (prefers-reduced-motion:reduce){.nx-frame,.nx-ring::before,.nx-scan{animation:none}}
+
+/* Polo qui se retourne au survol (casier ouvert) */
+.kit.lk .kflip{position:absolute;left:8%;right:8%;top:11%;height:76%;z-index:1;perspective:1100px;opacity:.15;transform:scale(.92) translateY(4%);filter:brightness(.4);transition:opacity .5s .6s,transform .7s cubic-bezier(.2,.9,.2,1.15) .6s,filter .6s .6s}
+.kit.lk.open .kflip{opacity:1;transform:none;filter:none}
+.kflip-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,.8,.2,1)}
+.kit.lk .kflip img{position:absolute!important;inset:0!important;top:0!important;left:0!important;width:100%!important;height:100%!important;object-fit:contain;opacity:1!important;transform:none!important;filter:drop-shadow(0 24px 30px rgba(0,0,0,.7))!important;transition:none!important;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.kit.lk .kflip img.kf-back{transform:rotateY(180deg)!important}
+.kit.lk.open .kit-img:hover .kflip-in{transform:rotateY(180deg)}
+.kflip-tip{position:absolute;left:50%;bottom:11%;z-index:2;transform:translateX(-50%);padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:700;white-space:nowrap;color:#fff;background:rgba(0,0,0,.55);border:1px solid color-mix(in srgb,var(--glow) 50%,transparent);opacity:0;transition:opacity .4s}
+.kit.lk.open .kflip-tip{opacity:.9;transition-delay:1.2s}
+.kit.lk.open .kit-img:hover .kflip-tip{opacity:0;transition-delay:0s}
+@media (hover:none){.kflip-tip{display:none}}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1455,7 +1467,7 @@ $("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video s
 <div class="wp-i"><div><b>${f.titre}</b><small>${f.sous}</small></div></div>
 <div class="wp-dl"><div><span>PC · 1920×1080</span>${fondBtn(f, "pc", false)}${fondBtn(f, "pc", true)}</div><div><span>Téléphone · 1080×1920</span>${fondBtn(f, "telephone", false)}${fondBtn(f, "telephone", true)}</div></div></div>`).join("");
 $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(x) === k.img), eq = t ? t.name.replace(/^Fraté /, "").toUpperCase() : "FRATÉ"; return `<div class="kit lk" style="--glow:${k.glow}">
- <div class="locker"><div class="kit-img"><span class="lk-light"></span><img src="${k.img}" alt="${k.nom}" loading="lazy"><span class="lk-shelf"></span></div>
+ <div class="locker"><div class="kit-img"><span class="lk-light"></span><span class="kflip"><span class="kflip-in"><img class="kf-front" src="${k.img}" alt="${k.nom}" loading="lazy">${t && DOS_VIDE[t.kit] ? `<img class="kf-back" src="${DOS_VIDE[t.kit]}" alt="${k.nom}, vu de dos" loading="lazy">` : ""}</span></span><span class="kflip-tip">↻ Survole pour voir le dos</span><span class="lk-shelf"></span></div>
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}">
   <span class="st-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
   <span class="st-louver t" aria-hidden="true"></span>
