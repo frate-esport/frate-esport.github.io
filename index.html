@@ -244,27 +244,35 @@ section.annonce{padding-block:40px 0}
 .locker{container-type:inline-size}
 .kit{cursor:default}
 .kit .kit-info .btn{text-decoration:none}
-/* ===== Casiers modernes : métal sombre, verre fumé, LED ===== */
-.locker{padding:12px;border-radius:24px;background:linear-gradient(160deg,#2a2f3d,#141720 55%,#0b0d14);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.6),0 20px 40px -18px rgba(0,0,0,.8)}
-.locker::before{content:"";position:absolute;left:12%;right:12%;top:5px;height:3px;border-radius:3px;z-index:4;background:var(--glow);box-shadow:0 0 10px var(--glow),0 0 24px var(--glow);animation:ledPulse 2.6s ease-in-out infinite}
-@keyframes ledPulse{0%,100%{opacity:.75}50%{opacity:1}}
-.locker .kit-img{border-radius:14px;background:radial-gradient(70% 60% at 50% 45%,color-mix(in srgb,var(--glow) 38%,transparent),transparent 70%),linear-gradient(180deg,#0e1119,#05060a);box-shadow:inset 0 0 40px rgba(0,0,0,.9),inset 3px 0 0 color-mix(in srgb,var(--glow) 55%,transparent),inset -3px 0 0 color-mix(in srgb,var(--glow) 55%,transparent)}
-.locker .kit-img::before{left:18%;right:18%;top:8%;height:2.2%;border-radius:20px;background:linear-gradient(180deg,#e9edf5,#8b93a6 60%,#5d6475);box-shadow:0 4px 10px rgba(0,0,0,.6)}
-.locker .kit-img::after{border-color:#cfd5e2;border-width:2px;top:10.4%}
-.door{inset:12px;border-radius:14px;overflow:hidden;background:linear-gradient(145deg,rgba(44,50,66,.97),rgba(18,21,31,.98) 55%,rgba(10,12,19,.99));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 1px rgba(255,255,255,.06),0 18px 34px -12px rgba(0,0,0,.75)}
-.door::before{inset:0;border-radius:0;box-shadow:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.07) 42%,transparent 48%,transparent 60%,rgba(255,255,255,.04) 66%,transparent 70%);transition:transform .8s cubic-bezier(.2,.8,.2,1);transform:translateX(-10%)}
-.door:hover::before{transform:translateX(12%)}
-.door::after{content:"";position:absolute;left:0;top:10%;bottom:10%;width:3px;border-radius:0 3px 3px 0;background:var(--glow);box-shadow:0 0 12px var(--glow)}
-.door .vents{top:9%;width:36%;gap:5px}
-.door .vents i{height:4px;border-radius:4px;background:#05060a;box-shadow:inset 0 1px 2px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.1)}
-.door .carve{top:50%;width:40%;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--glow) 80%,transparent)) drop-shadow(0 0 3px var(--glow))}
-.door .carve .hi,.door .carve .lo{display:none}
-.door .carve img{filter:none;mix-blend-mode:normal;opacity:1}
-.door .plate{bottom:9%;padding:6px 14px;border-radius:8px;background:#05070c;color:var(--glow);border:1px solid color-mix(in srgb,var(--glow) 45%,transparent);box-shadow:inset 0 0 12px rgba(0,0,0,.9),0 0 14px color-mix(in srgb,var(--glow) 35%,transparent);text-shadow:0 0 8px var(--glow);font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;letter-spacing:.22em}
-.door .handle{right:6%;width:6px;height:30%;border-radius:6px;background:linear-gradient(90deg,#6c7386,#f1f4fa 50%,#7d8497);box-shadow:0 0 0 1px rgba(0,0,0,.4),2px 4px 10px rgba(0,0,0,.6)}
-.door .handle::after{content:"";position:absolute;left:50%;top:-14px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--glow);box-shadow:0 0 8px var(--glow)}
-.door .hint{color:rgba(255,255,255,.75);text-shadow:none;top:calc(100% - 9% - 3em)}
-.kit.open .door{box-shadow:-24px 0 40px -10px rgba(0,0,0,.8)}
+/* ===== Casiers de vestiaire pro (peints aux couleurs de l'équipe, s'ouvrent au clic) ===== */
+.kit.lk .locker{padding:10px;border-radius:18px;background:linear-gradient(180deg,#30343f,#1a1d25 40%,#121419);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -3px 0 rgba(0,0,0,.6),0 24px 40px -20px rgba(0,0,0,.85)}
+.kit.lk .kit-img{border-radius:10px;background:linear-gradient(180deg,#0c0d12,#050608);box-shadow:inset 0 0 50px rgba(0,0,0,.95)}
+.kit.lk .kit-img::before{left:14%;right:14%;top:7%;height:2.4%;border-radius:20px;transform:none;font-size:0;-webkit-text-stroke:0;background:linear-gradient(180deg,#f1f3f8,#8d94a6 60%,#596073);box-shadow:0 4px 10px rgba(0,0,0,.7);z-index:2}
+.kit.lk .kit-img::after{border:2px solid #d5dae5;border-top:0;top:9.4%;z-index:2}
+.kit.lk .kit-img img{top:11%;height:76%;opacity:.15;transform:scale(.92) translateY(4%);filter:drop-shadow(0 24px 30px rgba(0,0,0,.7)) brightness(.4);transition:opacity .5s .25s,transform .7s cubic-bezier(.2,.9,.2,1.15) .25s,filter .6s .25s}
+.kit.lk.open .kit-img img{opacity:1;transform:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.7))}
+.lk-light{position:absolute;inset:0;z-index:0;opacity:0;background:radial-gradient(60% 50% at 50% 42%,color-mix(in srgb,var(--glow) 55%,transparent),transparent 70%),linear-gradient(180deg,color-mix(in srgb,var(--glow) 25%,transparent),transparent 30%)}
+.kit.lk.open .lk-light{animation:lkFlicker .9s steps(1) .3s forwards}
+.lk-shelf{position:absolute;left:4%;right:4%;bottom:6%;height:3%;border-radius:3px;z-index:1;background:linear-gradient(180deg,#3a3f4c,#1b1e26);box-shadow:0 -1px 0 rgba(255,255,255,.12),0 0 18px color-mix(in srgb,var(--glow) 40%,transparent)}
+@keyframes lkFlicker{0%{opacity:.6}10%{opacity:0}20%{opacity:.9}30%{opacity:.2}45%,100%{opacity:1}}
+.kit.lk .door{inset:10px;border-radius:10px;overflow:hidden;transform-origin:left center;transition:transform 1s cubic-bezier(.65,.05,.25,1.05),box-shadow 1s;
+ background:radial-gradient(120% 80% at 30% 10%,rgba(255,255,255,.18),transparent 55%),linear-gradient(160deg,color-mix(in srgb,var(--glow) 92%,#fff 8%),color-mix(in srgb,var(--glow) 70%,#000) 60%,color-mix(in srgb,var(--glow) 45%,#000));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(0,0,0,.25),inset -10px 0 18px -10px rgba(0,0,0,.6),0 18px 30px -12px rgba(0,0,0,.8)}
+.kit.lk .door::before{content:"";position:absolute;inset:0;border-radius:0;box-shadow:none;transform:none;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 45%,transparent 52%) -150% 0/250% 100% no-repeat;transition:background-position .9s ease}
+.kit.lk .door:hover::before{background-position:0 0,120% 0}
+.kit.lk .door::after{content:"";position:absolute;inset:5% 6%;border-radius:8px;box-shadow:inset 2px 2px 3px rgba(0,0,0,.35),inset -1px -1px 1px rgba(255,255,255,.25);pointer-events:none}
+.kit.lk .door:hover{transform:rotateY(-8deg)}
+.kit.lk.open .door{transform:rotateY(-108deg);box-shadow:-30px 0 50px -10px rgba(0,0,0,.85)}
+.lk-vent{position:absolute;left:50%;top:8%;width:44%;height:8%;transform:translateX(-50%);border-radius:6px;background:radial-gradient(circle,rgba(0,0,0,.75) 42%,transparent 46%) 0 0/9px 9px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.lk-stripe{position:absolute;left:-10%;right:-10%;top:58%;height:13%;transform:skewY(-8deg);background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,.15));border-top:2px solid rgba(255,255,255,.35);border-bottom:2px solid rgba(255,255,255,.12)}
+.lk-logo{position:absolute;left:50%;top:41%;width:34%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.lk-logo img{display:block;width:100%;height:auto}
+.lk-name{position:absolute;left:0;right:0;top:64.5%;text-align:center;transform:skewY(-8deg);font-family:var(--display);font-weight:900;font-style:italic;font-size:clamp(1rem,7cqw,2.4rem);letter-spacing:.08em;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.lk-num{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);min-width:22%;padding:4px 10px;border-radius:6px;text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(.8rem,4.2cqw,1.4rem);letter-spacing:.06em;color:#14161d;background:linear-gradient(180deg,#f4f5f8,#b9bfcc);box-shadow:0 2px 0 rgba(0,0,0,.35),inset 0 1px 0 #fff}
+.lk-handle{position:absolute;right:7%;top:50%;width:9%;height:16%;transform:translateY(-50%);border-radius:8px;background:linear-gradient(180deg,#22252e,#0e1015);box-shadow:inset 0 2px 4px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.25)}
+.lk-handle i{position:absolute;left:28%;right:28%;top:12%;bottom:12%;border-radius:6px;background:linear-gradient(90deg,#8d94a6,#f4f6fb 50%,#8d94a6);box-shadow:0 2px 6px rgba(0,0,0,.6)}
+.lk-hint{position:absolute;left:0;right:0;bottom:17%;text-align:center;font-size:.76rem;font-weight:700;color:#fff;opacity:0;transition:opacity .3s;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.kit.lk .door:hover .lk-hint{opacity:.95}
 @media (prefers-reduced-motion:reduce){.door{transition:none}}
 .ry{margin-top:0;padding:22px 22px 8px;border-radius:28px;background:var(--surface);border:1px solid var(--line)}
 .ry-head h3{margin:0 0 6px;font-family:var(--display);font-size:1.35rem}.ry-head p{margin:0;color:var(--muted);max-width:62ch}.ry-head b{color:var(--text)}
@@ -623,30 +631,6 @@ html.no-intro #intro{display:none}
 #intro .in-grid,#intro .in-line{animation-fill-mode:forwards}
 #intro.fin2 .in-grid,#intro.fin2 .in-ring{opacity:0!important;transition:opacity .3s}
 @media (prefers-reduced-motion:reduce){#intro{display:none}}
-
-/* ===== Vitrines (remplacent les casiers) ===== */
-.kit.vit{cursor:default}
-.vit-box{position:relative;aspect-ratio:1/1.02;overflow:hidden;isolation:isolate;perspective:1000px;background:#07080d;--mx:50%;--my:40%}
-.vit-bg{position:absolute;inset:0;z-index:-2;background:radial-gradient(55% 45% at 50% 38%,color-mix(in srgb,var(--glow) 34%,transparent),transparent 72%),radial-gradient(120% 60% at 50% 115%,color-mix(in srgb,var(--glow) 22%,transparent),transparent 60%),linear-gradient(180deg,#0d0f17,#06070b)}
-.vit-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px) 0 0/44px 44px;-webkit-mask:radial-gradient(circle at 50% 60%,#000,transparent 70%);mask:radial-gradient(circle at 50% 60%,#000,transparent 70%)}
-.vit-beam{position:absolute;left:50%;top:-10%;width:70%;height:85%;transform:translateX(-50%);z-index:-1;background:linear-gradient(180deg,rgba(255,255,255,.16),transparent 80%);clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);filter:blur(6px);opacity:.7;animation:vitBeam 4s ease-in-out infinite}
-.vit-big{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:-1;font-family:var(--display);font-weight:900;font-size:clamp(3rem,15vw,8.5rem);letter-spacing:-.04em;line-height:1;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px color-mix(in srgb,var(--glow) 45%,transparent);opacity:.55}
-.vit-stage{position:absolute;inset:13% 15% 19%;transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.vit-kit{position:absolute;inset:0;animation:vitFloat 4.5s ease-in-out infinite}
-.vit-kit img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 26px 30px rgba(0,0,0,.65));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.kit.vit:hover .vit-kit img{transform:scale(1.04)}
-.vit-shadow{position:absolute;left:22%;right:22%;bottom:-6%;height:8%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.7),transparent);animation:vitShadow 4.5s ease-in-out infinite}
-.vit-ped{position:absolute;left:50%;bottom:7%;width:58%;height:9%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,#1a1d28,#0b0c12);box-shadow:inset 0 2px 0 rgba(255,255,255,.08)}
-.vit-ped i{position:absolute;inset:-6% -2%;border-radius:50%;border:2px solid var(--glow);box-shadow:0 0 18px var(--glow),inset 0 0 14px color-mix(in srgb,var(--glow) 60%,transparent);animation:vitRing 2.8s ease-in-out infinite}
-.vit-chip{position:absolute;left:16px;top:16px;padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(10,12,20,.6);border:1px solid color-mix(in srgb,var(--glow) 55%,transparent);backdrop-filter:blur(8px)}
-.vit-price{position:absolute;right:16px;top:16px;padding:6px 12px;border-radius:12px;font-family:var(--display);font-weight:800;font-size:1rem;color:#0b0c12;background:var(--glow);box-shadow:0 6px 18px -4px var(--glow)}
-.vit-glass{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 35% at var(--mx) var(--my),rgba(255,255,255,.07),transparent 70%),linear-gradient(115deg,transparent 25%,rgba(255,255,255,.05) 35%,transparent 42%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-.kit.vit .kit-buy{gap:10px;flex-wrap:wrap}.kit.vit .kit-buy .btn.o{margin:0}
-@keyframes vitFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-3.5%) rotate(1deg)}}
-@keyframes vitShadow{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(.82);opacity:.55}}
-@keyframes vitRing{0%,100%{opacity:.75}50%{opacity:1}}
-@keyframes vitBeam{0%,100%{opacity:.55}50%{opacity:.8}}
-@media (prefers-reduced-motion:reduce){.vit-kit,.vit-shadow,.vit-ped i,.vit-beam{animation:none}}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1400,19 +1384,22 @@ const fondBtn = (f, fmt, anime) => { const fic = `${f.id}-${fmt}.${anime ? "mp4"
 $("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video src="${FONDS_BASE}${f.id}-pc.mp4${FONDS_V}" poster="${FONDS_BASE}${f.id}-pc.jpg${FONDS_V}" autoplay muted loop playsinline preload="metadata"></video><span class="wp-anim">● Animé</span></div>
 <div class="wp-i"><div><b>${f.titre}</b><small>${f.sous}</small></div></div>
 <div class="wp-dl"><div><span>PC · 1920×1080</span>${fondBtn(f, "pc", false)}${fondBtn(f, "pc", true)}</div><div><span>Téléphone · 1080×1920</span>${fondBtn(f, "telephone", false)}${fondBtn(f, "telephone", true)}</div></div></div>`).join("");
-$("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(x) === k.img); return `<div class="kit vit" style="--glow:${k.glow}">
- <div class="vit-box"><div class="vit-bg"></div><div class="vit-beam"></div>
- <span class="vit-big" aria-hidden="true">${t ? t.name.replace(/^Fraté /, "").toUpperCase() : "FRATÉ"}</span>
- <div class="vit-stage"><div class="vit-kit"><img src="${k.img}" alt="${k.nom}" loading="lazy"></div><div class="vit-shadow"></div></div>
- <div class="vit-ped"><i></i></div>
- <span class="vit-chip">${t ? t.name : "Fraté Esport"}</span><span class="vit-price">${k.prix}</span>
- <div class="vit-glass"></div></div>
- <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><a class="btn o" href="#/boutique">Floquer à ton nom</a><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("");
-// vitrines : le maillot suit la souris en 3D
-if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("#kits .vit-box").forEach(box => {
- const st = box.querySelector(".vit-stage");
- box.addEventListener("pointermove", e => { const r = box.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; st.style.transform = `rotateY(${x * 22}deg) rotateX(${-y * 14}deg)`; box.style.setProperty("--mx", `${(x + .5) * 100}%`); box.style.setProperty("--my", `${(y + .5) * 100}%`); });
- box.addEventListener("pointerleave", () => { st.style.transform = ""; });
+$("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(x) === k.img), eq = t ? t.name.replace(/^Fraté /, "").toUpperCase() : "FRATÉ"; return `<div class="kit lk" style="--glow:${k.glow}">
+ <div class="locker"><div class="kit-img"><span class="lk-light"></span><img src="${k.img}" alt="${k.nom}" loading="lazy"><span class="lk-shelf"></span></div>
+ <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}">
+  <span class="lk-vent" aria-hidden="true"></span>
+  <span class="lk-stripe" aria-hidden="true"></span>
+  <span class="lk-logo" aria-hidden="true"><img src="${LOGO_IMG}" alt=""></span>
+  <span class="lk-name" aria-hidden="true">${eq}</span>
+  <span class="lk-num" aria-hidden="true">0${i + 1}</span>
+  <span class="lk-handle" aria-hidden="true"><i></i></span>
+  <span class="lk-hint" aria-hidden="true">Clique pour ouvrir</span>
+ </button></div>
+ <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><b>${k.prix}</b><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("");
+document.querySelectorAll("#kits .kit").forEach(card => {
+ const door = card.querySelector(".door"), toggle = () => { const o = card.classList.toggle("open"); door.setAttribute("aria-expanded", o); door.setAttribute("aria-label", (o ? "Fermer" : "Ouvrir") + " le casier : " + card.querySelector("h3").textContent); };
+ door.addEventListener("click", toggle);
+ card.querySelector(".kit-img").addEventListener("click", () => card.classList.contains("open") && toggle());
 });
 const newsSorted = [...NEWS].sort((a,b) => b.d.localeCompare(a.d));
 $("#homeNews").innerHTML = newsSorted.slice(0,3).map(newsCard).join("");
