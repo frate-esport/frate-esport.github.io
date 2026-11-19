@@ -1540,7 +1540,7 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
  kp.querySelector(".kp-x").onclick = () => card.classList.remove("asking");
  kp.addEventListener("submit", async e => {
   e.preventDefault();
-  const v = inp.value.trim().toUpperCase().replace(/\s+/g, "");
+  const v = inp.value.toUpperCase().replace(/[\u2010-\u2015\u2212_]/g, "-").replace(/[^A-Z0-9-]/g, "");
   let h = "";
   try { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v)); h = [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, "0")).join(""); } catch (err) {}
   if (h === "9632a4b84b56506632b5f68c5b130364855d6adf36732e7948052c4f30b64e83") {
