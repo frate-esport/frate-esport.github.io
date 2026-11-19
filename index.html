@@ -245,34 +245,44 @@ section.annonce{padding-block:40px 0}
 .kit{cursor:default}
 .kit .kit-info .btn{text-decoration:none}
 /* ===== Casiers de vestiaire pro (peints aux couleurs de l'équipe, s'ouvrent au clic) ===== */
-.kit.lk .locker{padding:10px;border-radius:18px;background:linear-gradient(180deg,#30343f,#1a1d25 40%,#121419);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -3px 0 rgba(0,0,0,.6),0 24px 40px -20px rgba(0,0,0,.85)}
+.kit.lk .locker{padding:10px;border-radius:18px;background:linear-gradient(180deg,#1b1d24,#0e0f14);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -3px 0 rgba(0,0,0,.6),0 24px 40px -20px rgba(0,0,0,.85)}
 .kit.lk .kit-img{border-radius:10px;background:linear-gradient(180deg,#0c0d12,#050608);box-shadow:inset 0 0 50px rgba(0,0,0,.95)}
 .kit.lk .kit-img::before{left:14%;right:14%;top:7%;height:2.4%;border-radius:20px;transform:none;font-size:0;-webkit-text-stroke:0;background:linear-gradient(180deg,#f1f3f8,#8d94a6 60%,#596073);box-shadow:0 4px 10px rgba(0,0,0,.7);z-index:2}
 .kit.lk .kit-img::after{border:2px solid #d5dae5;border-top:0;top:9.4%;z-index:2}
-.kit.lk .kit-img img{top:11%;height:76%;opacity:.15;transform:scale(.92) translateY(4%);filter:drop-shadow(0 24px 30px rgba(0,0,0,.7)) brightness(.4);transition:opacity .5s .25s,transform .7s cubic-bezier(.2,.9,.2,1.15) .25s,filter .6s .25s}
+.kit.lk .kit-img img{top:11%;height:76%;opacity:.15;transform:scale(.92) translateY(4%);filter:drop-shadow(0 24px 30px rgba(0,0,0,.7)) brightness(.4);transition:opacity .5s .6s,transform .7s cubic-bezier(.2,.9,.2,1.15) .6s,filter .6s .6s}
 .kit.lk.open .kit-img img{opacity:1;transform:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.7))}
 .lk-light{position:absolute;inset:0;z-index:0;opacity:0;background:radial-gradient(60% 50% at 50% 42%,color-mix(in srgb,var(--glow) 55%,transparent),transparent 70%),linear-gradient(180deg,color-mix(in srgb,var(--glow) 25%,transparent),transparent 30%)}
-.kit.lk.open .lk-light{animation:lkFlicker .9s steps(1) .3s forwards}
+.kit.lk.open .lk-light{animation:lkFlicker .9s steps(1) .7s forwards}
 .lk-shelf{position:absolute;left:4%;right:4%;bottom:6%;height:3%;border-radius:3px;z-index:1;background:linear-gradient(180deg,#3a3f4c,#1b1e26);box-shadow:0 -1px 0 rgba(255,255,255,.12),0 0 18px color-mix(in srgb,var(--glow) 40%,transparent)}
 @keyframes lkFlicker{0%{opacity:.6}10%{opacity:0}20%{opacity:.9}30%{opacity:.2}45%,100%{opacity:1}}
-.kit.lk .door{inset:10px;border-radius:10px;overflow:hidden;transform-origin:left center;transition:transform 1s cubic-bezier(.65,.05,.25,1.05),box-shadow 1s;
- background:radial-gradient(120% 80% at 30% 10%,rgba(255,255,255,.18),transparent 55%),linear-gradient(160deg,color-mix(in srgb,var(--glow) 92%,#fff 8%),color-mix(in srgb,var(--glow) 70%,#000) 60%,color-mix(in srgb,var(--glow) 45%,#000));
- box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(0,0,0,.25),inset -10px 0 18px -10px rgba(0,0,0,.6),0 18px 30px -12px rgba(0,0,0,.8)}
-.kit.lk .door::before{content:"";position:absolute;inset:0;border-radius:0;box-shadow:none;transform:none;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 45%,transparent 52%) -150% 0/250% 100% no-repeat;transition:background-position .9s ease}
-.kit.lk .door:hover::before{background-position:0 0,120% 0}
-.kit.lk .door::after{content:"";position:absolute;inset:5% 6%;border-radius:8px;box-shadow:inset 2px 2px 3px rgba(0,0,0,.35),inset -1px -1px 1px rgba(255,255,255,.25);pointer-events:none}
-.kit.lk .door:hover{transform:rotateY(-8deg)}
-.kit.lk.open .door{transform:rotateY(-108deg);box-shadow:-30px 0 50px -10px rgba(0,0,0,.85)}
-.lk-vent{position:absolute;left:50%;top:8%;width:44%;height:8%;transform:translateX(-50%);border-radius:6px;background:radial-gradient(circle,rgba(0,0,0,.75) 42%,transparent 46%) 0 0/9px 9px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
-.lk-stripe{position:absolute;left:-10%;right:-10%;top:58%;height:13%;transform:skewY(-8deg);background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,.15));border-top:2px solid rgba(255,255,255,.35);border-bottom:2px solid rgba(255,255,255,.12)}
-.lk-logo{position:absolute;left:50%;top:41%;width:34%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
-.lk-logo img{display:block;width:100%;height:auto}
-.lk-name{position:absolute;left:0;right:0;top:64.5%;text-align:center;transform:skewY(-8deg);font-family:var(--display);font-weight:900;font-style:italic;font-size:clamp(1rem,7cqw,2.4rem);letter-spacing:.08em;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35)}
-.lk-num{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);min-width:22%;padding:4px 10px;border-radius:6px;text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(.8rem,4.2cqw,1.4rem);letter-spacing:.06em;color:#14161d;background:linear-gradient(180deg,#f4f5f8,#b9bfcc);box-shadow:0 2px 0 rgba(0,0,0,.35),inset 0 1px 0 #fff}
-.lk-handle{position:absolute;right:7%;top:50%;width:9%;height:16%;transform:translateY(-50%);border-radius:8px;background:linear-gradient(180deg,#22252e,#0e1015);box-shadow:inset 0 2px 4px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.25)}
-.lk-handle i{position:absolute;left:28%;right:28%;top:12%;bottom:12%;border-radius:6px;background:linear-gradient(90deg,#8d94a6,#f4f6fb 50%,#8d94a6);box-shadow:0 2px 6px rgba(0,0,0,.6)}
-.lk-hint{position:absolute;left:0;right:0;bottom:17%;text-align:center;font-size:.76rem;font-weight:700;color:#fff;opacity:0;transition:opacity .3s;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-.kit.lk .door:hover .lk-hint{opacity:.95}
+.kit.lk .locker{padding:8px 8px 10px;border-radius:10px;background:linear-gradient(180deg,#2b2f38,#16181e);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 24px 40px -20px rgba(0,0,0,.85)}
+.kit.lk .kit-img{aspect-ratio:3/3.6}
+.kit.lk .door{inset:8px 8px 10px;border-radius:6px;overflow:visible;transform-origin:left center;transition:transform 1s cubic-bezier(.65,.05,.25,1.05) .35s,box-shadow 1s .35s;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px),linear-gradient(90deg,#3c414c 0%,#5d6370 18%,#4a4f5b 42%,#3a3e48 70%,#2c3038 100%);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 0 rgba(0,0,0,.45),inset 3px 0 0 color-mix(in srgb,var(--glow) 80%,transparent),0 16px 26px -12px rgba(0,0,0,.85)}
+.kit.lk .door::before{content:"";position:absolute;inset:0;border-radius:6px;box-shadow:none;transform:none;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.1) 42%,transparent 50%) -150% 0/250% 100% no-repeat;transition:background-position 1s ease}
+.kit.lk .door:hover::before{background-position:120% 0}
+.kit.lk .door::after{content:"";position:absolute;inset:4%;border-radius:4px;border:1px solid rgba(0,0,0,.35);box-shadow:inset 1px 1px 0 rgba(255,255,255,.08);pointer-events:none}
+.kit.lk .door:hover{transform:rotateY(-6deg)}
+.kit.lk.open .door{transform:rotateY(-110deg);box-shadow:-30px 0 50px -10px rgba(0,0,0,.85)}
+.st-num{position:absolute;left:50%;top:5.5%;transform:translateX(-50%);font-family:var(--display);font-weight:900;font-size:clamp(.9rem,4.6cqw,1.6rem);letter-spacing:.1em;color:rgba(0,0,0,.45);text-shadow:0 1px 0 rgba(255,255,255,.18)}
+.st-louver{position:absolute;left:22%;right:22%;height:11%;background:repeating-linear-gradient(180deg,#14161b 0 3px,#6b7180 3px 4px,transparent 4px 9px);border-radius:3px;opacity:.9}
+.st-louver.t{top:13%}.st-louver.b{bottom:7%}
+.st-plate{position:absolute;left:50%;top:28%;transform:translateX(-50%);padding:3px;border-radius:4px;background:linear-gradient(180deg,#c9ced9,#7b8190);box-shadow:0 2px 4px rgba(0,0,0,.5)}
+.st-plate span{display:block;padding:4px 14px;border-radius:2px;background:#f4f1e8;color:#16181e;font-family:var(--display);font-weight:900;font-size:clamp(.7rem,3.6cqw,1.15rem);letter-spacing:.14em;border-bottom:3px solid var(--glow);white-space:nowrap}
+.st-logo{position:absolute;left:50%;top:55%;width:30%;transform:translate(-50%,-50%);opacity:.92;filter:drop-shadow(0 4px 6px rgba(0,0,0,.55))}
+.st-logo img{display:block;width:100%;height:auto}
+.st-latch{position:absolute;right:7%;top:46%;width:8%;height:18%;border-radius:4px;background:linear-gradient(90deg,#8e94a2,#e7eaf1 50%,#8e94a2);box-shadow:0 2px 5px rgba(0,0,0,.6),inset 0 0 0 1px rgba(0,0,0,.25)}
+.st-lock{position:absolute;left:50%;top:58%;width:210%;aspect-ratio:1/1.05;transform:translateX(-50%);transform-origin:50% -40%;transition:transform .5s cubic-bezier(.5,0,.6,1),opacity .4s .25s}
+.st-lock::before{content:"";position:absolute;left:22%;right:22%;top:-34%;height:52%;border:3px solid #cfd4de;border-bottom:0;border-radius:40px 40px 0 0;transition:transform .25s}
+.st-lock i{position:absolute;inset:0;border-radius:6px;background:linear-gradient(160deg,color-mix(in srgb,var(--glow) 85%,#fff),color-mix(in srgb,var(--glow) 60%,#000));box-shadow:0 3px 6px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.4)}
+.st-lock i::after{content:"";position:absolute;left:50%;top:38%;width:18%;height:34%;transform:translateX(-50%);border-radius:3px;background:rgba(0,0,0,.55)}
+.kit.lk.open .st-lock::before{transform:translateY(-22%)}
+.kit.lk.open .st-lock{transform:translateX(-50%) translateY(180%) rotate(28deg);opacity:0}
+.st-rivet{position:absolute;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e6e9f0,#6b7180);box-shadow:0 1px 1px rgba(0,0,0,.6)}
+.st-rivet.r1{left:6%;top:3.5%}.st-rivet.r2{right:6%;top:3.5%}.st-rivet.r3{left:6%;bottom:3.5%}.st-rivet.r4{right:6%;bottom:3.5%}
+.lk-hint{position:absolute;left:0;right:0;bottom:20%;text-align:center;font-size:.76rem;font-weight:700;color:#fff;opacity:0;transition:opacity .3s;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.kit.lk .door:hover .lk-hint{opacity:.9}
 @media (prefers-reduced-motion:reduce){.door{transition:none}}
 .ry{margin-top:0;padding:22px 22px 8px;border-radius:28px;background:var(--surface);border:1px solid var(--line)}
 .ry-head h3{margin:0 0 6px;font-family:var(--display);font-size:1.35rem}.ry-head p{margin:0;color:var(--muted);max-width:62ch}.ry-head b{color:var(--text)}
@@ -631,6 +641,40 @@ html.no-intro #intro{display:none}
 #intro .in-grid,#intro .in-line{animation-fill-mode:forwards}
 #intro.fin2 .in-grid,#intro.fin2 .in-ring{opacity:0!important;transition:opacity .3s}
 @media (prefers-reduced-motion:reduce){#intro{display:none}}
+
+/* 3 casiers côte à côte + casier « SOON » */
+#kits.kit-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:980px){#kits.kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){#kits.kit-grid{grid-template-columns:1fr}}
+.st-lock{width:150%!important}
+.kit.soon .door{cursor:not-allowed}
+.kit.soon .door:hover{transform:none}
+.st-soon{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%) rotate(-12deg);padding:6px 18px;border:4px solid rgba(255,255,255,.75);border-radius:8px;font-family:var(--display);font-weight:900;font-size:clamp(1.4rem,10cqw,3.2rem);letter-spacing:.14em;padding-left:calc(18px + .14em);color:rgba(255,255,255,.85);text-shadow:0 2px 0 rgba(0,0,0,.35);box-shadow:inset 0 0 0 2px rgba(0,0,0,.15);animation:soonPulse 2.4s ease-in-out infinite}
+@keyframes soonPulse{0%,100%{opacity:.75}50%{opacity:1}}
+.kit.soon .st-lock i{background:linear-gradient(160deg,#cfd4de,#6b7180)}
+.soon-tag{padding:8px 16px;border-radius:999px;font-weight:800;font-size:.9rem;color:var(--text);background:rgba(255,255,255,.06);border:1px dashed rgba(255,255,255,.3)}
+
+/* ===== Néons sur les casiers ===== */
+.kit.lk .locker{background:linear-gradient(180deg,#14161c,#0a0b0f)}
+.kit.lk .door{background:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px),linear-gradient(90deg,#1c1f27 0%,#2a2e38 20%,#20232b 50%,#16181e 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 26px -6px var(--glow),0 16px 26px -12px rgba(0,0,0,.85)}
+.kit.lk .door::after{inset:4%;border-radius:8px;border:2px solid var(--glow);box-shadow:0 0 6px var(--glow),0 0 16px var(--glow),inset 0 0 6px var(--glow),inset 0 0 18px color-mix(in srgb,var(--glow) 35%,transparent);animation:neonTube 5s linear infinite}
+@keyframes neonTube{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.35}}
+.st-louver{background:repeating-linear-gradient(180deg,#07080b 0 3px,color-mix(in srgb,var(--glow) 75%,#fff) 3px 4px,transparent 4px 9px);box-shadow:0 0 14px -2px color-mix(in srgb,var(--glow) 70%,transparent);opacity:.85}
+.st-num{color:var(--glow);text-shadow:0 0 6px var(--glow),0 0 14px var(--glow);opacity:.85}
+.st-plate{background:none;box-shadow:none;padding:0}
+.st-plate span{background:none;border:0;color:#fff;font-style:italic;font-size:clamp(1rem,6cqw,1.9rem);letter-spacing:.12em;text-shadow:0 0 4px #fff,0 0 10px var(--glow),0 0 22px var(--glow),0 0 40px var(--glow);animation:neonText 4s linear infinite}
+@keyframes neonText{0%,8%,10%,100%{opacity:1}9%{opacity:.5}}
+.st-logo{filter:drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 24px color-mix(in srgb,var(--glow) 60%,transparent))}
+.st-latch{background:linear-gradient(90deg,#2d313b,#4b505d 50%,#2d313b);box-shadow:0 0 10px -2px var(--glow)}
+.st-lock::before{border-color:#8e94a2}
+.st-lock i{background:linear-gradient(160deg,#20232c,#0e1015);box-shadow:0 0 0 2px var(--glow),0 0 12px var(--glow)}
+.st-lock i::after{background:var(--glow);box-shadow:0 0 6px var(--glow)}
+.st-rivet{background:radial-gradient(circle at 35% 35%,#9aa0ad,#3a3f4b)}
+.kit.lk .kit-img{background:radial-gradient(70% 55% at 50% 45%,color-mix(in srgb,var(--glow) 18%,transparent),transparent 70%),#050608}
+.kit.soon .st-soon{border-color:var(--glow);color:#fff;text-shadow:0 0 4px #fff,0 0 12px var(--glow),0 0 28px var(--glow);box-shadow:0 0 10px var(--glow),inset 0 0 10px var(--glow);animation:neonSoon 3.2s linear infinite}
+@keyframes neonSoon{0%,30%,34%,70%,100%{opacity:1}32%,72%{opacity:.25}33%{opacity:.8}}
+.kit.soon .st-lock i{background:linear-gradient(160deg,#20232c,#0e1015)}
+@media (prefers-reduced-motion:reduce){.kit.lk .door::after,.st-plate span,.kit.soon .st-soon{animation:none}}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1387,16 +1431,28 @@ $("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video s
 $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(x) === k.img), eq = t ? t.name.replace(/^Fraté /, "").toUpperCase() : "FRATÉ"; return `<div class="kit lk" style="--glow:${k.glow}">
  <div class="locker"><div class="kit-img"><span class="lk-light"></span><img src="${k.img}" alt="${k.nom}" loading="lazy"><span class="lk-shelf"></span></div>
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}">
-  <span class="lk-vent" aria-hidden="true"></span>
-  <span class="lk-stripe" aria-hidden="true"></span>
-  <span class="lk-logo" aria-hidden="true"><img src="${LOGO_IMG}" alt=""></span>
-  <span class="lk-name" aria-hidden="true">${eq}</span>
-  <span class="lk-num" aria-hidden="true">0${i + 1}</span>
-  <span class="lk-handle" aria-hidden="true"><i></i></span>
+  <span class="st-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
+  <span class="st-louver t" aria-hidden="true"></span>
+  <span class="st-plate" aria-hidden="true"><span>${eq}</span></span>
+  <span class="st-logo" aria-hidden="true"><img src="${LOGO_IMG}" alt=""></span>
+  <span class="st-latch" aria-hidden="true"><span class="st-lock"><i></i></span></span>
+  <span class="st-louver b" aria-hidden="true"></span>
+  <span class="st-rivet r1"></span><span class="st-rivet r2"></span><span class="st-rivet r3"></span><span class="st-rivet r4"></span>
   <span class="lk-hint" aria-hidden="true">Clique pour ouvrir</span>
  </button></div>
- <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><b>${k.prix}</b><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("");
-document.querySelectorAll("#kits .kit").forEach(card => {
+ <div class="kit-info"><div><h3>${k.nom}</h3><p>${k.desc}</p></div><div class="kit-buy"><b>${k.prix}</b><a class="btn" href="${CLUB.boutique||"#"}"${CLUB.boutique?' target="_blank" rel="noopener"':""}>Commander</a></div></div></div>`; }).join("") + `<div class="kit lk soon" style="--glow:#b57bff">
+ <div class="locker"><div class="kit-img"></div>
+ <div class="door" aria-label="Polo Third : bientôt disponible">
+  <span class="st-num" aria-hidden="true">03</span>
+  <span class="st-louver t" aria-hidden="true"></span>
+  <span class="st-plate" aria-hidden="true"><span>THIRD</span></span>
+  <span class="st-soon" aria-hidden="true">SOON</span>
+  <span class="st-latch" aria-hidden="true"><span class="st-lock"><i></i></span></span>
+  <span class="st-louver b" aria-hidden="true"></span>
+  <span class="st-rivet r1"></span><span class="st-rivet r2"></span><span class="st-rivet r3"></span><span class="st-rivet r4"></span>
+ </div></div>
+ <div class="kit-info"><div><h3>Polo Third</h3><p>Le 3e polo Fraté arrive bientôt. Restez connectés 👀</p></div><div class="kit-buy"><span class="soon-tag">Bientôt</span></div></div></div>`;
+document.querySelectorAll("#kits .kit:not(.soon)").forEach(card => {
  const door = card.querySelector(".door"), toggle = () => { const o = card.classList.toggle("open"); door.setAttribute("aria-expanded", o); door.setAttribute("aria-label", (o ? "Fermer" : "Ouvrir") + " le casier : " + card.querySelector("h3").textContent); };
  door.addEventListener("click", toggle);
  card.querySelector(".kit-img").addEventListener("click", () => card.classList.contains("open") && toggle());
