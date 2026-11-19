@@ -737,6 +737,12 @@ html.no-intro #intro{display:none}
 .kp-x{position:absolute;right:8px;top:6px;border:0;background:none;color:#fff;font-size:1.4rem;cursor:pointer;opacity:.7}
 .ap-badge{position:absolute;left:10px;top:10px;z-index:3;padding:5px 10px;border-radius:999px;font-size:.72rem;font-weight:800;color:#fff;background:var(--glow);box-shadow:0 0 14px var(--glow);opacity:0;transition:opacity .4s 1s}
 .kit.soon.open .ap-badge{opacity:1}
+
+.egg-k{margin:40px 0 0;text-align:right;font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.07);user-select:all}
+.egg-k:hover{color:rgba(255,255,255,.35)}
+.egg-toast{position:fixed;left:50%;bottom:24px;z-index:9998;transform:translate(-50%,20px);padding:12px 18px;border-radius:14px;background:#0b0c12;border:1px solid #c4163a;box-shadow:0 0 24px -4px #c4163a;color:#fff;font-weight:700;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none}
+.egg-toast.on{opacity:1;transform:translate(-50%,0)}
+.egg-toast code{font:800 1.05rem ui-monospace,Menlo,monospace;letter-spacing:.1em;color:#ff5d7a}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -880,7 +886,7 @@ html.no-intro #intro{display:none}
 <!-- MERCATO -->
 <div class="page" data-page="/mercato">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Mercato</div><span class="badge">Saison 2026-2027</span><h1><span>Mercato</span> Fraté</h1><p>Toutes les arrivées, les départs et les changements de roster du club.</p></div></div>
-<section><div class="tabs" id="mcTabs"></div><div id="mcList"></div></section>
+<section><div class="tabs" id="mcTabs"></div><div id="mcList"></div><p class="egg-k" aria-hidden="true">🗝️ FRATE-ROUGE</p></section>
 </div>
 
 <!-- SUIVI PREMIER -->
@@ -930,7 +936,7 @@ html.no-intro #intro{display:none}
 
 <div class="page" data-page="/classement">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Classement joueurs</div><span class="badge">Saison 2026-2027</span><h1><span>Classement</span> des joueurs</h1><p>Les stats de tous les joueurs Fraté, Prime et Inferno réunis. Mis à jour après chaque tableau des scores.</p></div></div>
-<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p></section>
+<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note" title="🗝️ FRATE-THIRD">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p></section>
 </div>
 
 <div class="page" data-page="/partenaires">
@@ -1519,8 +1525,18 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
   <span class="st-louver b" aria-hidden="true"></span>
   <span class="st-rivet r1"></span><span class="st-rivet r2"></span><span class="st-rivet r3"></span><span class="st-rivet r4"></span>
  </button>
- <form class="kp" autocomplete="off"><button type="button" class="kp-x" aria-label="Fermer">×</button><b>🔒 Casier verrouillé</b><p>Une <b>clé</b> est cachée quelque part sur le Discord Fraté… Trouve-la pour voir le polo Third en avant-première 👀</p><input type="text" name="cle" placeholder="Entre la clé" aria-label="Clé du casier" spellcheck="false"><button type="submit" class="btn">Déverrouiller</button><small class="kp-msg" aria-live="polite"></small></form></div>
+ <form class="kp" autocomplete="off"><button type="button" class="kp-x" aria-label="Fermer">×</button><b>🔒 Casier verrouillé</b><p>Une <b>clé</b> est cachée quelque part <b>sur le site</b>… Attention, il y a des fausses ! Trouve la bonne pour voir le polo Third en avant-première 👀</p><input type="text" name="cle" placeholder="Entre la clé" aria-label="Clé du casier" spellcheck="false"><button type="submit" class="btn">Déverrouiller</button><small class="kp-msg" aria-live="polite"></small></form></div>
  <div class="kit-info"><div><h3>Polo Third</h3><p>Le 3e polo Fraté arrive bientôt. Restez connectés 👀</p></div><div class="kit-buy"><span class="soon-tag">Bientôt</span></div></div></div>`;
+// Chasse aux clés : une fausse dans la console, la vraie après 5 clics sur le logo du bas de page
+try { console.log("%c🗝️ Tu fouilles le code ? Tiens : FRATE-2027", "color:#ff5d7a;font-weight:bold"); } catch (e) {}
+(() => {
+ const logo = document.querySelector("footer [data-logo]"); if (!logo) return;
+ let n = 0, tmr; logo.style.cursor = "pointer";
+ logo.addEventListener("click", () => { n++; clearTimeout(tmr); tmr = setTimeout(() => n = 0, 1500);
+  if (n >= 5) { n = 0; const k = atob("WFVBRURST0ItRVRBUkY=").split("").reverse().join("");
+   let t = document.querySelector(".egg-toast"); if (!t) { t = document.createElement("div"); t.className = "egg-toast"; document.body.appendChild(t); }
+   t.innerHTML = `🔑 Bravo ! La vraie clé du casier 03 : <code>${k}</code>`; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 6000); } });
+})();
 // Casier Third : verrouillé, s'ouvre avec la clé cachée sur le Discord (vérifiée par empreinte, la clé n'est pas écrite dans le site)
 (() => {
  const card = document.querySelector("#kits .kit.soon"); if (!card) return;
