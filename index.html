@@ -1262,14 +1262,15 @@ const PARTENAIRES = [
 $("#parts").innerHTML = PARTENAIRES.map(x => `<a class="part" href="${x.lien}" style="--pc:${x.col}"><span class="part-mono${x.logo ? " has-logo" : ""}">${x.logo ? `<img src="${x.logo}" alt="Logo ${x.nom}">` : x.mono}</span><span class="part-t"><small>${x.type}</small><b>${x.nom}</b><span>${x.texte}</span><i>${x.lab} →</i></span></a>`).join("");
 // Fonds d'écran : images + vidéos animées (boucle de 6 s), fichiers dans /fonds
 const FONDS_BASE = /github\.io$/.test(location.hostname) ? "fonds/" : "https://frate-esport.github.io/fonds/";
+const FONDS_V = "?v=2";
 const FONDS = [
  {id: "frate", titre: "Fraté Esport", sous: "Rouge & bleu"},
  {id: "prime", titre: "Fraté Prime", sous: "Rose & violet"},
  {id: "inferno", titre: "Fraté Inferno", sous: "Braises & bleu"},
  {id: "noir", titre: "Fraté Noir", sous: "Sombre & néon"}
 ];
-const fondBtn = (f, fmt, anime) => { const fic = `${f.id}-${fmt}.${anime ? "mp4" : "jpg"}`; return `<a class="btn${anime ? "" : " o"}" href="${FONDS_BASE}${fic}" download="fond-ecran-${fic}" target="_blank" rel="noopener">${fmt === "pc" ? "💻" : "📱"} ${anime ? "Animé" : "Image"}</a>`; };
-$("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video src="${FONDS_BASE}${f.id}-pc.mp4" poster="${FONDS_BASE}${f.id}-pc.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="wp-anim">● Animé</span></div>
+const fondBtn = (f, fmt, anime) => { const fic = `${f.id}-${fmt}.${anime ? "mp4" : "jpg"}`; return `<a class="btn${anime ? "" : " o"}" href="${FONDS_BASE}${fic}${FONDS_V}" download="fond-ecran-${fic}" target="_blank" rel="noopener">${fmt === "pc" ? "💻" : "📱"} ${anime ? "Animé" : "Image"}</a>`; };
+$("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video src="${FONDS_BASE}${f.id}-pc.mp4${FONDS_V}" poster="${FONDS_BASE}${f.id}-pc.jpg${FONDS_V}" autoplay muted loop playsinline preload="metadata"></video><span class="wp-anim">● Animé</span></div>
 <div class="wp-i"><div><b>${f.titre}</b><small>${f.sous}</small></div></div>
 <div class="wp-dl"><div><span>PC · 1920×1080</span>${fondBtn(f, "pc", false)}${fondBtn(f, "pc", true)}</div><div><span>Téléphone · 1080×1920</span>${fondBtn(f, "telephone", false)}${fondBtn(f, "telephone", true)}</div></div></div>`).join("");
 $("#kits").innerHTML = MAILLOTS.map((k, i) => `<div class="kit" style="--glow:${k.glow}">
