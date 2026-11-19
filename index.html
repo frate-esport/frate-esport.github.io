@@ -1538,6 +1538,7 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
   if (h === "25bc86f591027f3f58890fa267dced3bea633aa5fd9e7d2e3e43e152e537ec96") {
    msg.textContent = "Clé acceptée ✓"; ouvert(); try { localStorage.setItem("frateThird", "1"); } catch (err) {}
    setTimeout(() => { card.classList.remove("asking"); card.classList.add("open"); }, 500);
+  } else if (["0569874b25accb897e39bc47c5ef99ef85ba899b3b32c4effce67ae4603a4065", "45ffbfd262ebf40210df8bbd6e7126aa4815bee1b48e501447b55c0ba482e596", "357339b9c11f74696fd0800cda59d214920c73a09c14fcc430e6876285903620"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
   } else { msg.textContent = "Mauvaise clé… cherche encore 🔎"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad"); }
  });
 })();
