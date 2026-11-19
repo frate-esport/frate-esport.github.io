@@ -480,6 +480,9 @@ dialog.pp{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px);padd
 .cv-t{font-size:.78rem;font-weight:700;margin-left:6px;letter-spacing:0;text-transform:none}.cv-t.up{color:#23c46b}.cv-t.down{color:#ff4d5e}
 .cv-empty{color:var(--muted);font-size:.9rem}
 .pp-dl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}.pp-dl .btn{margin:0}.pp-dl small{color:var(--muted)}
+#chiffres{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.vis-card .big{display:flex;align-items:center;min-height:1.2em}.vis-card .big img{height:34px;width:auto;border-radius:6px;display:block}
+.vis-foot img{height:20px;width:auto;vertical-align:middle;border-radius:4px}
 .dc-live{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;font-weight:600;color:#9fe8b5}.dc-live:empty{display:none}
 .dc-live i{width:8px;height:8px;border-radius:50%;background:#23a55a;box-shadow:0 0 0 0 rgba(35,165,90,.7);animation:dcp 1.8s infinite}
 @keyframes dcp{0%{box-shadow:0 0 0 0 rgba(35,165,90,.6)}70%{box-shadow:0 0 0 8px rgba(35,165,90,0)}100%{box-shadow:0 0 0 0 rgba(35,165,90,0)}}
@@ -865,7 +868,7 @@ html.no-intro #intro{display:none}
 <div><h4>Nous rejoindre</h4><a href="#/recrutement">Recrutement</a><a href="#/contact">Contact</a><a href="#/boutique">Boutique</a><a href="#/partenaires">Partenaires</a><a href="#/fonds-ecran">Fonds d’écran</a></div>
 <div><h4>Réseaux</h4><div data-social data-plain></div></div>
 </div>
-<div class="cp">© 2026 <span data-nom></span> · <a href="#/mentions-legales">Mentions légales</a></div>
+<div class="cp">© 2026 <span data-nom></span> · <a href="#/mentions-legales">Mentions légales</a><span class="vis-foot" data-visites></span></div>
 </footer>
 
 <script>
@@ -1388,6 +1391,14 @@ const newsSorted = [...NEWS].sort((a,b) => b.d.localeCompare(a.d));
 $("#homeNews").innerHTML = newsSorted.slice(0,3).map(newsCard).join("");
 $("#allNews").innerHTML = newsSorted.map(newsCard).join("");
 $("#chiffres").innerHTML = CHIFFRES.map(c => `<div class="card"${c[1] === "Membres Discord" ? ' id="dcCard"' : ""}><div class="big">${c[0]}</div><p>${c[1]}</p></div>`).join("");
+// Compteur de visites (hits.sh) : chaque chargement du site en ligne ajoute 1 ; une seule requête même si l'image est affichée deux fois
+(() => {
+ if (!/github\.io$/.test(location.hostname)) return; // pas de comptage depuis les copies de prévisualisation
+ const src = "https://hits.sh/frate-esport.github.io.svg?style=for-the-badge&label=VISITES&color=ff2a44&labelColor=12141c";
+ const card = document.createElement("div"); card.className = "card vis-card"; card.innerHTML = `<div class="big"><img src="${src}" alt="Nombre de visites du site" height="34"></div><p>Visites du site</p>`;
+ $("#chiffres").appendChild(card);
+ document.querySelectorAll("[data-visites]").forEach(el => el.innerHTML = ` · <img src="${src}" alt="Visites du site" height="20">`);
+})();
 // Membres Discord en direct (compteur de l'invitation, sans widget)
 (async () => {
  const code = (CLUB.discord || "").split("/").pop(); if (!code) return;
