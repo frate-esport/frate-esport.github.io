@@ -481,8 +481,7 @@ dialog.pp{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px);padd
 .cv-empty{color:var(--muted);font-size:.9rem}
 .pp-dl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}.pp-dl .btn{margin:0}.pp-dl small{color:var(--muted)}
 #chiffres{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
-.vis-card .big{display:flex;align-items:center;min-height:1.2em}.vis-card .big img{height:34px;width:auto;border-radius:6px;display:block}
-.vis-foot img{height:20px;width:auto;vertical-align:middle;border-radius:4px}
+.vis-foot{white-space:nowrap}.vis-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff2a44;box-shadow:0 0 8px #ff2a44;margin-right:6px;vertical-align:1px}
 .dc-live{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;font-weight:600;color:#9fe8b5}.dc-live:empty{display:none}
 .dc-live i{width:8px;height:8px;border-radius:50%;background:#23a55a;box-shadow:0 0 0 0 rgba(35,165,90,.7);animation:dcp 1.8s infinite}
 @keyframes dcp{0%{box-shadow:0 0 0 0 rgba(35,165,90,.6)}70%{box-shadow:0 0 0 8px rgba(35,165,90,0)}100%{box-shadow:0 0 0 0 rgba(35,165,90,0)}}
@@ -1391,13 +1390,21 @@ const newsSorted = [...NEWS].sort((a,b) => b.d.localeCompare(a.d));
 $("#homeNews").innerHTML = newsSorted.slice(0,3).map(newsCard).join("");
 $("#allNews").innerHTML = newsSorted.map(newsCard).join("");
 $("#chiffres").innerHTML = CHIFFRES.map(c => `<div class="card"${c[1] === "Membres Discord" ? ' id="dcCard"' : ""}><div class="big">${c[0]}</div><p>${c[1]}</p></div>`).join("");
-// Compteur de visites (hits.sh) : chaque chargement du site en ligne ajoute 1 ; une seule requête même si l'image est affichée deux fois
+// Compteur de visites (abacus) : +1 une fois par visite, puis affiché comme les autres chiffres
 (() => {
  if (!/github\.io$/.test(location.hostname)) return; // pas de comptage depuis les copies de prévisualisation
- const src = "https://hits.sh/frate-esport.github.io.svg?style=for-the-badge&label=VISITES&color=ff2a44&labelColor=12141c";
- const card = document.createElement("div"); card.className = "card vis-card"; card.innerHTML = `<div class="big"><img src="${src}" alt="Nombre de visites du site" height="34"></div><p>Visites du site</p>`;
+ const card = document.createElement("div"); card.className = "card vis-card"; card.innerHTML = `<div class="big" data-vis>…</div><p>Visites du site</p>`;
  $("#chiffres").appendChild(card);
- document.querySelectorAll("[data-visites]").forEach(el => el.innerHTML = ` · <img src="${src}" alt="Visites du site" height="20">`);
+ let deja = false; try { deja = !!sessionStorage.getItem("frateVu"); sessionStorage.setItem("frateVu", "1"); } catch (e) {}
+ const ctl = new AbortController(); setTimeout(() => ctl.abort(), 12000);
+ fetch(`https://abacus.jasoncameron.dev/${deja ? "get" : "hit"}/frate-esport-test/visites2`, {signal: ctl.signal})
+  .then(r => r.ok ? r.json() : Promise.reject()).then(j => {
+   const n = +j.value; if (!n) throw 0;
+   const el = card.querySelector("[data-vis]"), t0 = performance.now(), d = 1200;
+   const step = now => { const k = Math.min(1, (now - t0) / d), v = Math.round(n * (1 - Math.pow(1 - k, 3))); el.textContent = v.toLocaleString("fr-FR"); if (k < 1) requestAnimationFrame(step); };
+   requestAnimationFrame(step);
+   document.querySelectorAll("[data-visites]").forEach(x => x.innerHTML = ` · <span class="vis-dot"></span>${n.toLocaleString("fr-FR")} visites`);
+  }).catch(() => card.remove());
 })();
 // Membres Discord en direct (compteur de l'invitation, sans widget)
 (async () => {
