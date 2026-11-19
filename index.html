@@ -492,9 +492,13 @@ table.lb tbody tr{border-top:1px solid var(--line)}table.lb tbody tr:hover{backg
 .part-mono.has-logo{background:#000;overflow:hidden;box-shadow:0 10px 24px -8px var(--pc),0 0 0 1px rgba(255,255,255,.12)}.part-mono img{width:100%;height:100%;object-fit:cover}
 .part-t{display:flex;flex-direction:column;gap:4px}.part-t small{color:var(--pc);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}.part-t b{font-family:var(--display);font-size:1.4rem}.part-t span{color:var(--muted)}.part-t i{font-style:normal;font-weight:700;margin-top:6px}
 .part-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.part-cta p{color:var(--muted);max-width:60ch}.part-cta>div:last-child{display:flex;gap:10px;flex-wrap:wrap}
-.wps{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.wps{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr))}
 .wp{border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
-.wp canvas{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.wp-v{position:relative;aspect-ratio:16/9;background:#05060a}.wp-v video{display:block;width:100%;height:100%;object-fit:cover}
+.wp-anim{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.04em;background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(6px)}
+.wp-i>div{display:block!important}.wp-i b{display:block;font-size:1.1rem}.wp-i small{display:block;color:var(--muted);font-size:.8rem}
+.wp-dl{display:grid;gap:8px;padding:0 16px 16px}.wp-dl>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.wp-dl span{flex:1 1 100%;font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.wp-dl .btn{margin:0;padding:8px 14px;font-size:.85rem;flex:1;text-align:center}
+.wp-help{margin-top:26px;padding:22px 24px;border-radius:22px;background:var(--surface);border:1px solid var(--line)}.wp-help h3{margin:0 0 10px;font-family:var(--display)}.wp-help ul{margin:0;padding-left:20px;display:grid;gap:8px;color:var(--muted)}.wp-help b{color:var(--text)}
 .wp-i{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px}.wp-i b{font-family:var(--display)}.wp-i>div{display:flex;gap:8px}.wp-i .btn{margin:0;padding:8px 14px;font-size:.85rem}
 dialog.cmd{width:min(520px,calc(100vw - 32px))}
 .cmd-in{position:relative;padding:26px}
@@ -736,8 +740,12 @@ dialog.pp::backdrop{background:rgba(4,5,9,.72);backdrop-filter:blur(6px)}
 </div>
 
 <div class="page" data-page="/fonds-ecran">
-<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Fonds d’écran</div><h1>Fonds <span>d’écran</span></h1><p>Affiche tes couleurs. Choisis un fond, puis télécharge-le pour ton PC ou ton téléphone.</p></div></div>
-<section><div class="wps" id="wps"></div></section>
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Fonds d’écran</div><h1>Fonds <span>d’écran</span></h1><p>Affiche tes couleurs. 4 fonds, en image ou animés, pour ton PC et ton téléphone.</p></div></div>
+<section><div class="wps" id="wps"></div>
+<div class="wp-help"><h3>🎬 Mettre un fond animé</h3><ul>
+<li><b>PC (Windows)</b> : installe <b>Lively Wallpaper</b> (gratuit, sur le Microsoft Store) ou <b>Wallpaper Engine</b> (Steam), puis glisse la vidéo dedans.</li>
+<li><b>Android</b> : sur beaucoup de téléphones (Samsung par exemple), ouvre la vidéo dans la Galerie → « Définir comme fond d’écran ». Sinon, une appli de fond vidéo fait l’affaire.</li>
+<li><b>iPhone</b> : l’iPhone n’accepte pas les vidéos en fond d’écran. Prends la version <b>Image</b>, ou transforme la vidéo en Live Photo avec une appli comme intoLive.</li></ul></div></section>
 </div>
 
 <div class="page" data-page="/contact">
@@ -1252,30 +1260,18 @@ const PARTENAIRES = [
  {nom: "Yoko Esport", mono: "Y", logo: "data:image/webp;base64,UklGRiwEAABXRUJQVlA4ICAEAACwGQCdASqAAIAAPj0cjESiIaESyLzoIAPEtIAJ7d+28nr7K5xH7Dfc/y4/I7UVbwrBD5ZvU7/Kv9l+W/OZ0APyv/1vZT/k/9D/ffyk9qf0V/0PcI/k/9Z/439x9rf11+hh+sZI44R3Fs/DdvKsgxrXHeLNU8khK/jxKrWQuq8XxRbLjWvmhJQkQ/HKojMGEdHltrtH3u8AfwH88CQNxGpj/YC2kFq10CGj1AhUmuZqiRshRvgJgZsmdWG8n5/jQDWldNwxnfyUNGTv/6JjV5pADoul1wwAAP7+fJRk9W+tqe/9C4f/53tf8td2YGe94rCgAybeqooxFouCkijxp0r/CzSmGcpIY1H7XfxTOvGko60D17anL2RlxAr3qkDe52R6rs+NupLtUiqZ3XeVAnWVwxPa+/U4mAaofBj/DVeZfHmxURELxu3cv/Raf8/H5XosJvmYOztW1/KsyxMBM1SZnscZJ0Y+cYWWRxxgtuyMLvG9JCxcvsKMvuA1tTQqMKTt/gDVoyIzhuOPegr7nhGLBbmJAEmnL+H+NxvfaMlEQmLTAe3+nGZNRKdQixYgU4FpKqoe1g2D4pOQCAN4LsETDhPSL76rXn0mHmhuGCrIIWSN7cd4R5RLZHbkFpbpoMBq8Uh9rxey3GzzikwbDDPebEnXlMfmeqEO93sdMqPYYYW9LeLD2O182+D9yYwkzPx+XH7F/NpFasrcmpzJz+NEpw68DwztUS3c5vWJOnadQVoep+6s2OfPYP6rzG4xvQ95j5q15f6WUQ1U7+2/LOMsFQ0Ws05EzR0u7etfLxGdYz+25JnSVffpTbp8v9NJXTZCkml4Dro3YTizroRTU2zuWKNLmK4i3QlE6CrPtMrRoW46Xbv7fo8t2I60FnsDUgJxOGbBQrArmjpDSpXnDtMODPU4JWbapQxbRUdfXVTY7q1hassqMhnWAj45B7GpXSBNOZDknZdsXrkXpjLkQ9mJmGwK7Gn70G7+6ErX+qkrs2bFVh3U+Tyke0tBn/s1tB90euZbOR58V1Xt/raeUHoyacUmxMshK/b6O/ykyKXe5A2Kd+mt6To7yghBk3w8P5WVB6X3sQL9ngggU8rpuv54PJXekvfKqa6xPf6MsyIPbNVZoaHv5xMOW3bgdzpEq2xA2EGCB79r32nRlvXVZSXsabF/idx8ctMXVHRfGlSUJctDshFjlcQNcM87fq+0fkzv8uVRUS4ZM511y2rkBi1Gp5UVT05rld/ND5eGynFqBw2UlMIaBtylbDyS9q5oH3600BLtClAemY2xIERtZ9ga7Ozxk8dl7ffb81/b8UMfjWetQ/x1ScylXKzAsfxJLu3DFUvL//6sbep+Xx8cSg2r/+EqksgRerRPARZYka4ZORa9PQ24IjXQWdtl0XkIAAA=", type: "Équipementier officiel", texte: "Nos polos et maillots officiels sont fabriqués et vendus par Yoko Esport, avec flocage pseudo et numéro.", lien: "#/boutique", lab: "Voir la boutique", col: "#2a6bff"}
 ];
 $("#parts").innerHTML = PARTENAIRES.map(x => `<a class="part" href="${x.lien}" style="--pc:${x.col}"><span class="part-mono${x.logo ? " has-logo" : ""}">${x.logo ? `<img src="${x.logo}" alt="Logo ${x.nom}">` : x.mono}</span><span class="part-t"><small>${x.type}</small><b>${x.nom}</b><span>${x.texte}</span><i>${x.lab} →</i></span></a>`).join("");
-// Fonds d'écran (générés dans le navigateur)
-const WPS = [
- {id: "frate", titre: "Fraté Esport", sous: "ESPORT · VALORANT", c1: "#c4122f", c2: "#0b2a8a", tag: ""},
- ...TEAMS.map(t => ({id: t.id, titre: t.name, sous: t.compet.toUpperCase(), c1: t.kit === "rose" ? "#b0126b" : t.col, c2: t.kit === "bleu" ? "#0b3fd6" : "#3a0d4a", tag: t.name.replace(/^Fraté /, "").toUpperCase(), col: t.col})),
- {id: "noir", titre: "Fraté Noir", sous: "ESPORT · VALORANT", c1: "#151821", c2: "#05060a", tag: ""}
+// Fonds d'écran : images + vidéos animées (boucle de 6 s), fichiers dans /fonds
+const FONDS_BASE = /github\.io$/.test(location.hostname) ? "fonds/" : "https://frate-esport.github.io/fonds/";
+const FONDS = [
+ {id: "frate", titre: "Fraté Esport", sous: "Rouge & bleu"},
+ {id: "prime", titre: "Fraté Prime", sous: "Rose & violet"},
+ {id: "inferno", titre: "Fraté Inferno", sous: "Braises & bleu"},
+ {id: "noir", titre: "Fraté Noir", sous: "Sombre & néon"}
 ];
-const logoImg = new Image(); logoImg.src = LOGO_IMG;
-const drawWp = (cv, w, h, wp) => {
- cv.width = w; cv.height = h; const g = cv.getContext("2d"), m = Math.min(w, h);
- const bg = g.createLinearGradient(0, 0, w, h); bg.addColorStop(0, wp.c1); bg.addColorStop(1, wp.c2); g.fillStyle = bg; g.fillRect(0, 0, w, h);
- g.save(); g.globalAlpha = .07; g.fillStyle = "#fff"; g.font = `900 ${Math.round(Math.min(m * .42, w * .27))}px "Inter", "Arial Black", sans-serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.translate(w / 2, h / 2); g.rotate(-.14); g.fillText("FRATÉ", 0, 0); g.restore();
- g.save(); g.globalAlpha = .1; g.strokeStyle = "#fff"; g.lineWidth = m * .004; for (let i = -h; i < w; i += m * .09) { g.beginPath(); g.moveTo(i, h); g.lineTo(i + h * .6, 0); g.stroke(); } g.restore();
- const vg = g.createRadialGradient(w / 2, h * .45, m * .1, w / 2, h / 2, Math.max(w, h) * .75); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,.55)"); g.fillStyle = vg; g.fillRect(0, 0, w, h);
- const L = m * (w > h ? .46 : .62), lw = L * logoImg.width / logoImg.height, ly = h * (w > h ? .44 : .42);
- g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = m * .05; g.shadowOffsetY = m * .02; g.drawImage(logoImg, w / 2 - lw / 2, ly - L / 2, lw, L); g.restore();
- if (wp.tag) { const fs = m * .045; g.font = `800 ${fs}px "Inter", "Arial Black", sans-serif`; const tw = g.measureText(wp.tag).width + fs * 1.6, ty = ly + L / 2 + fs * .2; g.fillStyle = "#0b0f22"; g.strokeStyle = wp.col; g.lineWidth = fs * .12; g.beginPath(); g.roundRect(w / 2 - tw / 2, ty, tw, fs * 1.6, fs * .3); g.fill(); g.stroke(); g.fillStyle = wp.col; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(wp.tag, w / 2, ty + fs * .82); }
- g.fillStyle = "rgba(255,255,255,.85)"; g.font = `700 ${m * .026}px "Inter", Arial, sans-serif`; g.textAlign = "center"; g.textBaseline = "alphabetic"; g.fillText(wp.sous, w / 2, h - m * .07);
-};
-const renderWps = () => {
- $("#wps").innerHTML = WPS.map(wp => `<div class="wp"><canvas data-wp="${wp.id}" width="480" height="270"></canvas><div class="wp-i"><b>${wp.titre}</b><div><button type="button" class="btn" data-dl="${wp.id}" data-w="1920" data-h="1080">💻 PC</button><button type="button" class="btn o" data-dl="${wp.id}" data-w="1080" data-h="1920">📱 Téléphone</button></div></div></div>`).join("");
- document.querySelectorAll("#wps canvas").forEach(cv => drawWp(cv, 960, 540, WPS.find(x => x.id === cv.dataset.wp)));
- document.querySelectorAll("#wps [data-dl]").forEach(b => b.onclick = () => { const wp = WPS.find(x => x.id === b.dataset.dl), cv = document.createElement("canvas"); drawWp(cv, +b.dataset.w, +b.dataset.h, wp); cv.toBlob(blob => { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `fond-ecran-${wp.id}-${b.dataset.w}x${b.dataset.h}.png`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }, "image/png"); });
-};
-logoImg.complete ? renderWps() : logoImg.addEventListener("load", renderWps);
+const fondBtn = (f, fmt, anime) => { const fic = `${f.id}-${fmt}.${anime ? "mp4" : "jpg"}`; return `<a class="btn${anime ? "" : " o"}" href="${FONDS_BASE}${fic}" download="fond-ecran-${fic}" target="_blank" rel="noopener">${fmt === "pc" ? "💻" : "📱"} ${anime ? "Animé" : "Image"}</a>`; };
+$("#wps").innerHTML = FONDS.map(f => `<div class="wp"><div class="wp-v"><video src="${FONDS_BASE}${f.id}-pc.mp4" poster="${FONDS_BASE}${f.id}-pc.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="wp-anim">● Animé</span></div>
+<div class="wp-i"><div><b>${f.titre}</b><small>${f.sous}</small></div></div>
+<div class="wp-dl"><div><span>PC · 1920×1080</span>${fondBtn(f, "pc", false)}${fondBtn(f, "pc", true)}</div><div><span>Téléphone · 1080×1920</span>${fondBtn(f, "telephone", false)}${fondBtn(f, "telephone", true)}</div></div></div>`).join("");
 $("#kits").innerHTML = MAILLOTS.map((k, i) => `<div class="kit" style="--glow:${k.glow}">
  <div class="locker"><div class="kit-img"><img src="${k.img}" alt="${k.nom}" loading="lazy"></div>
  <button class="door" type="button" aria-expanded="false" aria-label="Ouvrir le casier : ${k.nom}"><span class="vents" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="carve" aria-hidden="true"><span class="hi"></span><span class="lo"></span><img src="${LOGO_IMG}" alt=""></span><span class="handle" aria-hidden="true"></span><span class="hint" aria-hidden="true">Clique pour ouvrir</span><span class="plate" aria-hidden="true">MAILLOT ${i+1}</span></button></div>
