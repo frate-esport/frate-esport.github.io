@@ -1559,9 +1559,10 @@ function feuArtifice() {
  const card = document.querySelector("#kits .kit.soon"); if (!card) return;
  const door = card.querySelector(".door"), kp = card.querySelector(".kp"), msg = kp.querySelector(".kp-msg"), inp = kp.querySelector("input");
  const ouvert = () => { card.classList.add("unlocked"); door.setAttribute("aria-label", "Ouvrir le casier : Polo Third"); };
- try { if (localStorage.getItem("frateThird") === "1") ouvert(); } catch (e) {}
- door.addEventListener("click", () => { if (card.classList.contains("unlocked")) { card.classList.toggle("open"); return; } card.classList.add("asking"); setTimeout(() => inp.focus(), 50); });
- card.querySelector(".kit-img").addEventListener("click", () => card.classList.contains("open") && card.classList.remove("open"));
+ try { localStorage.removeItem("frateThird"); } catch (e) {}
+ const reverrouille = () => { card.classList.remove("open"); setTimeout(() => { card.classList.remove("unlocked"); door.setAttribute("aria-label", "Polo Third : casier verrouillé, trouve la clé"); inp.value = ""; msg.textContent = ""; }, 900); };
+ door.addEventListener("click", () => { if (card.classList.contains("open")) { reverrouille(); return; } if (card.classList.contains("unlocked")) { card.classList.add("open"); return; } card.classList.add("asking"); setTimeout(() => inp.focus(), 50); });
+ card.querySelector(".kit-img").addEventListener("click", () => card.classList.contains("open") && reverrouille());
  kp.querySelector(".kp-x").onclick = () => card.classList.remove("asking");
  kp.addEventListener("submit", async e => {
   e.preventDefault();
@@ -1569,7 +1570,7 @@ function feuArtifice() {
   let h = "";
   try { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v)); h = [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, "0")).join(""); } catch (err) {}
   if (h === "9632a4b84b56506632b5f68c5b130364855d6adf36732e7948052c4f30b64e83") {
-   msg.textContent = "Clé acceptée ✓"; ouvert(); feuArtifice(); try { localStorage.setItem("frateThird", "1"); } catch (err) {}
+   msg.textContent = "Clé acceptée ✓"; ouvert(); feuArtifice();
    setTimeout(() => { card.classList.remove("asking"); card.classList.add("open"); }, 500);
   } else if (["9593060412d1d36bcac537f4cfccb0c90eb63f5259d6223dbafe18007d8c886e", "56e6b101f270f32eb1885919d11e21568685ae3b8bf706f93f62659740a01133", "eeb27549d8fe10f8e372b5aa6c5891728b99eb846baeb739e399f3f28435307b", "3ada86ac4a109bbb25d48058cb7d305b1e52811bc2e0636343e40d6009a25c66", "e6d35a1748753378f85c2114e1013de5fefa2ba77b1334e8523aa8fd666a6c1e", "c5f468354ab05dd5ef99ba3488abfa8efde41c83bb95a5f06ffcad0cec9259da"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
   } else { msg.textContent = "Mauvaise clé… cherche encore 🔎"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad"); }
