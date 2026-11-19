@@ -886,7 +886,7 @@ html.no-intro #intro{display:none}
 <!-- MERCATO -->
 <div class="page" data-page="/mercato">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Mercato</div><span class="badge">Saison 2026-2027</span><h1><span>Mercato</span> Fraté</h1><p>Toutes les arrivées, les départs et les changements de roster du club.</p></div></div>
-<section><div class="tabs" id="mcTabs"></div><div id="mcList"></div><p class="egg-k" aria-hidden="true">🗝️ FRATE-ROUGE</p></section>
+<section><div class="tabs" id="mcTabs"></div><div id="mcList"></div><p class="egg-k" aria-hidden="true">🗝️ CLUTCH-1V5</p></section>
 </div>
 
 <!-- SUIVI PREMIER -->
@@ -936,7 +936,7 @@ html.no-intro #intro{display:none}
 
 <div class="page" data-page="/classement">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Classement joueurs</div><span class="badge">Saison 2026-2027</span><h1><span>Classement</span> des joueurs</h1><p>Les stats de tous les joueurs Fraté, Prime et Inferno réunis. Mis à jour après chaque tableau des scores.</p></div></div>
-<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note" title="🗝️ FRATE-THIRD">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p></section>
+<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note" title="🗝️ RADIANT-2027">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p></section>
 </div>
 
 <div class="page" data-page="/partenaires">
@@ -1528,12 +1528,12 @@ $("#kits").innerHTML = MAILLOTS.map((k, i) => { const t = TEAMS.find(x => kitOf(
  <form class="kp" autocomplete="off"><button type="button" class="kp-x" aria-label="Fermer">×</button><b>🔒 Casier verrouillé</b><p>Une <b>clé</b> est cachée quelque part <b>sur le site</b>… Attention, il y a des fausses ! Trouve la bonne pour voir le polo Third en avant-première 👀</p><input type="text" name="cle" placeholder="Entre la clé" aria-label="Clé du casier" spellcheck="false"><button type="submit" class="btn">Déverrouiller</button><small class="kp-msg" aria-live="polite"></small></form></div>
  <div class="kit-info"><div><h3>Polo Third</h3><p>Le 3e polo Fraté arrive bientôt. Restez connectés 👀</p></div><div class="kit-buy"><span class="soon-tag">Bientôt</span></div></div></div>`;
 // Chasse aux clés : une fausse dans la console, la vraie après 5 clics sur le logo du bas de page
-try { console.log("%c🗝️ Tu fouilles le code ? Tiens : FRATE-2027", "color:#ff5d7a;font-weight:bold"); } catch (e) {}
+try { console.log("%c🗝️ Tu fouilles le code ? Tiens : SPIKE-DOWN", "color:#ff5d7a;font-weight:bold"); } catch (e) {}
 (() => {
  const logo = document.querySelector("footer [data-logo]"); if (!logo) return;
  let n = 0, tmr; logo.style.cursor = "pointer";
  logo.addEventListener("click", () => { n++; clearTimeout(tmr); tmr = setTimeout(() => n = 0, 1500);
-  if (n >= 5) { n = 0; const k = atob("WFVBRURST0ItRVRBUkY=").split("").reverse().join("");
+  if (n >= 5) { n = 0; const k = atob("NzctUk9UQVJFUE8=").split("").reverse().join("");
    let t = document.querySelector(".egg-toast"); if (!t) { t = document.createElement("div"); t.className = "egg-toast"; document.body.appendChild(t); }
    t.innerHTML = `🔑 Bravo ! La vraie clé du casier 03 : <code>${k}</code>`; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 6000); } });
 })();
@@ -1551,10 +1551,10 @@ try { console.log("%c🗝️ Tu fouilles le code ? Tiens : FRATE-2027", "color:#
   const v = inp.value.trim().toUpperCase().replace(/\s+/g, "");
   let h = "";
   try { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v)); h = [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, "0")).join(""); } catch (err) {}
-  if (h === "25bc86f591027f3f58890fa267dced3bea633aa5fd9e7d2e3e43e152e537ec96") {
+  if (h === "9632a4b84b56506632b5f68c5b130364855d6adf36732e7948052c4f30b64e83") {
    msg.textContent = "Clé acceptée ✓"; ouvert(); try { localStorage.setItem("frateThird", "1"); } catch (err) {}
    setTimeout(() => { card.classList.remove("asking"); card.classList.add("open"); }, 500);
-  } else if (["0569874b25accb897e39bc47c5ef99ef85ba899b3b32c4effce67ae4603a4065", "45ffbfd262ebf40210df8bbd6e7126aa4815bee1b48e501447b55c0ba482e596", "357339b9c11f74696fd0800cda59d214920c73a09c14fcc430e6876285903620"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
+  } else if (["9593060412d1d36bcac537f4cfccb0c90eb63f5259d6223dbafe18007d8c886e", "56e6b101f270f32eb1885919d11e21568685ae3b8bf706f93f62659740a01133", "eeb27549d8fe10f8e372b5aa6c5891728b99eb846baeb739e399f3f28435307b"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
   } else { msg.textContent = "Mauvaise clé… cherche encore 🔎"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad"); }
  });
 })();
