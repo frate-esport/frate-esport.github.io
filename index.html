@@ -931,7 +931,7 @@ html.no-intro #intro{display:none}
 <div class="page" data-page="/boutique">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Boutique</div><h1><span>Boutique</span></h1><p>Le polo officiel de ton joueur, floqué à son nom et à son numéro. Passe la souris sur un maillot pour voir le devant, clique dessus pour le commander.</p></div></div>
 <section><div class="ry" id="rayon"><div class="ry-head"><h3>🛒 Le rayon joueurs</h3><p>Clique sur le polo de ton joueur : on te donne le <b>pseudo</b> et le <b>numéro</b> à mettre sur la boutique, prêts à copier.</p></div><div id="ryShelves"></div></div>
-<div class="kit-more"><span>Aussi dispo : <b>manchette Fraté Esport</b> à 14,99 €</span><a class="btn" data-shop href="#">Commander sur Yoko Esport →</a></div></section>
+<div class="kit-more"><span>Aussi dispo : <b>manchette Fraté Esport</b> à 14,99 €</span><a class="btn" data-shop href="#">Commander sur Yoko Esport →</a></div><p class="egg-k" aria-hidden="true">🗝️ ACE-PISTOL</p></section>
 </div>
 
 <div class="page" data-page="/classement">
@@ -951,7 +951,7 @@ html.no-intro #intro{display:none}
 <div class="wp-help"><h3>🎬 Mettre un fond animé</h3><ul>
 <li><b>PC (Windows)</b> : installe <b>Lively Wallpaper</b> (gratuit, sur le Microsoft Store) ou <b>Wallpaper Engine</b> (Steam), puis glisse la vidéo dedans.</li>
 <li><b>Android</b> : sur beaucoup de téléphones (Samsung par exemple), ouvre la vidéo dans la Galerie → « Définir comme fond d’écran ». Sinon, une appli de fond vidéo fait l’affaire.</li>
-<li><b>iPhone</b> : l’iPhone n’accepte pas les vidéos en fond d’écran. Prends la version <b>Image</b>, ou transforme la vidéo en Live Photo avec une appli comme intoLive.</li></ul></div></section>
+<li class="egg-li"><b>iPhone</b> : l’iPhone n’accepte pas les vidéos en fond d’écran. Prends la version <b>Image</b>, ou transforme la vidéo en Live Photo avec une appli comme intoLive.</li></ul><p class="egg-k" aria-hidden="true">🗝️ HEADSHOT-99</p></div></section>
 </div>
 
 <div class="page" data-page="/contact">
@@ -1554,7 +1554,7 @@ try { console.log("%c🗝️ Tu fouilles le code ? Tiens : SPIKE-DOWN", "color:#
   if (h === "9632a4b84b56506632b5f68c5b130364855d6adf36732e7948052c4f30b64e83") {
    msg.textContent = "Clé acceptée ✓"; ouvert(); try { localStorage.setItem("frateThird", "1"); } catch (err) {}
    setTimeout(() => { card.classList.remove("asking"); card.classList.add("open"); }, 500);
-  } else if (["9593060412d1d36bcac537f4cfccb0c90eb63f5259d6223dbafe18007d8c886e", "56e6b101f270f32eb1885919d11e21568685ae3b8bf706f93f62659740a01133", "eeb27549d8fe10f8e372b5aa6c5891728b99eb846baeb739e399f3f28435307b"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
+  } else if (["9593060412d1d36bcac537f4cfccb0c90eb63f5259d6223dbafe18007d8c886e", "56e6b101f270f32eb1885919d11e21568685ae3b8bf706f93f62659740a01133", "eeb27549d8fe10f8e372b5aa6c5891728b99eb846baeb739e399f3f28435307b", "3ada86ac4a109bbb25d48058cb7d305b1e52811bc2e0636343e40d6009a25c66", "e6d35a1748753378f85c2114e1013de5fefa2ba77b1334e8523aa8fd666a6c1e", "c5f468354ab05dd5ef99ba3488abfa8efde41c83bb95a5f06ffcad0cec9259da"].includes(h)) { msg.textContent = "🤡 Fausse clé ! Bien essayé… la vraie est ailleurs"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad");
   } else { msg.textContent = "Mauvaise clé… cherche encore 🔎"; kp.classList.remove("bad"); void kp.offsetWidth; kp.classList.add("bad"); }
  });
 })();
@@ -1566,7 +1566,7 @@ document.querySelectorAll("#kits .kit:not(.soon)").forEach(card => {
 const newsSorted = [...NEWS].sort((a,b) => b.d.localeCompare(a.d));
 $("#homeNews").innerHTML = newsSorted.slice(0,3).map(newsCard).join("");
 $("#allNews").innerHTML = newsSorted.map(newsCard).join("");
-$("#chiffres").innerHTML = CHIFFRES.map(c => `<div class="card"${c[1] === "Membres Discord" ? ' id="dcCard"' : ""}><div class="big">${c[0]}</div><p>${c[1]}</p></div>`).join("");
+$("#chiffres").innerHTML = CHIFFRES.map(c => `<div class="card"${c[1] === "Membres Discord" ? ' id="dcCard"' : ""}${c[1] === "Année de création" ? ' title="🗝️ ECO-ROUND"' : ""}><div class="big">${c[0]}</div><p>${c[1]}</p></div>`).join("");
 // Compteur de visites (abacus) : +1 une fois par visite, puis affiché comme les autres chiffres
 (() => {
  if (!/github\.io$/.test(location.hostname)) return; // pas de comptage depuis les copies de prévisualisation
