@@ -798,7 +798,7 @@ html.no-intro #intro{display:none}
 <a class="band ann" href="#/actu/fusion-memis"><div><span class="ann-tag">🔴🔵 Annonce officielle</span><h3>La Fraté × MEMIS : on fusionne ! 🤝</h3><p>Deux structures, une vision, un projet commun. Découvre ce qui change pour toi.</p></div><span class="btn">Lire l’annonce →</span></a>
 </section>
 
-<section class="mvp-sec"><div id="mvpHome"></div></section>
+<section class="mvp-sec"><div id="mvpHome"></div><p class="egg-k" aria-hidden="true" style="margin-top:10px">🗝️ ECO-ROUND</p></section>
 
 <section class="kits">
 <h2>Nos maillots</h2>
@@ -937,7 +937,7 @@ html.no-intro #intro{display:none}
 
 <div class="page" data-page="/classement">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Classement joueurs</div><span class="badge">Saison 2026-2027</span><h1><span>Classement</span> des joueurs</h1><p>Les stats de tous les joueurs Fraté, Prime et Inferno réunis. Mis à jour après chaque tableau des scores.</p></div></div>
-<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note" title="🗝️ RADIANT-2027">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p></section>
+<section><div id="mvpLb"></div><div class="tabs" id="lbTabs"></div><div id="lbPodium"></div><div class="tbl"><table class="lb"><thead><tr><th>#</th><th>Joueur</th><th>Matchs</th><th>V-D</th><th>Kills</th><th>Morts</th><th>Assists</th><th>K/D</th><th>Points</th></tr></thead><tbody id="lbBody"></tbody></table></div><p class="lb-note">Classé aux <b>points MVP</b> : kills + assists ÷ 2 − morts ÷ 2 + 5 par victoire (même calcul que le MVP de la semaine). En cas d’égalité, le plus de kills passe devant.</p><p class="egg-k" aria-hidden="true">🗝️ RADIANT-2027</p></section>
 </div>
 
 <div class="page" data-page="/partenaires">
@@ -1558,7 +1558,7 @@ document.querySelectorAll("#kits .kit:not(.soon)").forEach(card => {
 const newsSorted = [...NEWS].sort((a,b) => b.d.localeCompare(a.d));
 $("#homeNews").innerHTML = newsSorted.slice(0,3).map(newsCard).join("");
 $("#allNews").innerHTML = newsSorted.map(newsCard).join("");
-$("#chiffres").innerHTML = CHIFFRES.map(c => `<div class="card"${c[1] === "Membres Discord" ? ' id="dcCard"' : ""}${c[1] === "Année de création" ? ' title="🗝️ ECO-ROUND"' : ""}><div class="big">${c[0]}</div><p>${c[1]}</p></div>`).join("");
+$("#chiffres").innerHTML = CHIFFRES.map(c => `<div class="card"${c[1] === "Membres Discord" ? ' id="dcCard"' : ""}><div class="big">${c[0]}</div><p>${c[1]}</p></div>`).join("");
 // Compteur de visites (abacus) : +1 une fois par visite, puis affiché comme les autres chiffres
 (() => {
  if (!/github\.io$/.test(location.hostname)) return; // pas de comptage depuis les copies de prévisualisation
