@@ -1542,15 +1542,15 @@ function feuArtifice() {
  const W = innerWidth, H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; g.scale(dpr, dpr);
  const cols = ["#c4163a", "#ff3b5c", "#ffd36b", "#ffffff", "#ff7a2a", "#5b8cff"], parts = [], fusees = [];
  const lance = (x, cible) => fusees.push({x, y: H + 10, vy: -(H * .017 + Math.random() * 3), cible, c: cols[Math.floor(Math.random() * cols.length)]});
- const boum = (x, y, c) => { const n = 70 + Math.floor(Math.random() * 40); for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, v = 2 + Math.random() * 5; parts.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, c: Math.random() < .25 ? "#ffffff" : c, r: 1.5 + Math.random() * 1.8}); } };
- for (let i = 0; i < 9; i++) setTimeout(() => lance(W * (.12 + Math.random() * .76), H * (.12 + Math.random() * .38)), i * 260);
+ const boum = (x, y, c) => { const n = 110 + Math.floor(Math.random() * 70), anneau = Math.random() < .35, c2 = cols[Math.floor(Math.random() * cols.length)]; for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, v = anneau ? 5.5 + Math.random() * .8 : 2 + Math.random() * 6.5; parts.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1 + Math.random() * .3, c: Math.random() < .2 ? "#ffffff" : (i % 2 ? c : c2), r: 1.6 + Math.random() * 2.2}); } };
+ for (let i = 0; i < 26; i++) setTimeout(() => { lance(W * (.06 + Math.random() * .88), H * (.08 + Math.random() * .42)); if (i % 3 === 0) lance(W * (.06 + Math.random() * .88), H * (.08 + Math.random() * .42)); }, i * 190);
  const t0 = performance.now();
  const tick = now => {
   g.globalCompositeOperation = "destination-out"; g.fillStyle = "rgba(0,0,0,.22)"; g.fillRect(0, 0, W, H); g.globalCompositeOperation = "lighter";
   for (let i = fusees.length - 1; i >= 0; i--) { const f = fusees[i]; f.y += f.vy; f.vy *= .985; g.fillStyle = f.c; g.beginPath(); g.arc(f.x, f.y, 2.5, 0, Math.PI * 2); g.fill(); if (f.y <= f.cible || f.vy > -1) { boum(f.x, f.y, f.c); fusees.splice(i, 1); } }
-  for (let i = parts.length - 1; i >= 0; i--) { const q = parts[i]; q.x += q.vx; q.y += q.vy; q.vy += .07; q.vx *= .985; q.vy *= .985; q.life -= .012; if (q.life <= 0) { parts.splice(i, 1); continue; } g.globalAlpha = Math.max(0, q.life); g.fillStyle = q.c; g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill(); }
+  for (let i = parts.length - 1; i >= 0; i--) { const q = parts[i]; q.x += q.vx; q.y += q.vy; q.vy += .07; q.vx *= .985; q.vy *= .985; q.life -= .0095; if (q.life <= 0) { parts.splice(i, 1); continue; } g.globalAlpha = Math.max(0, q.life); g.fillStyle = q.c; g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill(); }
   g.globalAlpha = 1;
-  if (now - t0 < 4200 || parts.length || fusees.length) requestAnimationFrame(tick); else cv.remove();
+  if (now - t0 < 6500 || parts.length || fusees.length) requestAnimationFrame(tick); else cv.remove();
  };
  requestAnimationFrame(tick);
 }
