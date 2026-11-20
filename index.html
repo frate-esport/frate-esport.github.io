@@ -765,6 +765,11 @@ html.no-intro #intro{display:none}
 
 /* Même hauteur de nom pour tous : les pseudos longs sont resserrés en largeur */
 .fl-name{transform:translate(-50%,-50%) scaleX(var(--sx,1))}
+
+/* Page Anciens : bientôt */
+.soon-page{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;padding:70px 20px;border-radius:22px;background:radial-gradient(60% 70% at 50% 40%,rgba(255,42,68,.12),transparent 70%),#0a0b10;border:1px solid rgba(255,255,255,.06)}
+.soon-stamp{font-family:var(--display);font-weight:900;font-size:clamp(3rem,12vw,6.5rem);letter-spacing:.14em;padding:10px 34px 10px calc(34px + .14em);border:5px solid #ff2a44;border-radius:14px;color:#fff;transform:rotate(-6deg);text-shadow:0 0 12px #ff2a44,0 0 32px #ff2a44;box-shadow:0 0 18px -2px #ff2a44,inset 0 0 18px -6px #ff2a44;animation:soonPulse 2.4s ease-in-out infinite}
+.soon-page p{max-width:52ch;margin:0;color:var(--muted)}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -788,7 +793,7 @@ html.no-intro #intro{display:none}
 <nav class="menu" id="menu">
 <a href="#/">Accueil</a>
 <div class="dd"><button>Le club ▾</button>
-<div class="sub"><a href="#/club">Histoire du club</a><a href="#/organigramme">👑 Organigramme</a><a href="#/palmares">🏆 Palmarès</a><a href="#/mercato">🔁 Mercato</a><a href="#/partenaires">🤝 Partenaires</a><a href="#/fonds-ecran">🖼️ Fonds d’écran</a></div></div>
+<div class="sub"><a href="#/club">Histoire du club</a><a href="#/organigramme">👑 Organigramme</a><a href="#/palmares">🏆 Palmarès</a><a href="#/mercato">🔁 Mercato</a><a href="#/anciens">🕰️ Anciens</a><a href="#/partenaires">🤝 Partenaires</a><a href="#/fonds-ecran">🖼️ Fonds d’écran</a></div></div>
 <div class="dd"><button>Équipes ▾</button>
 <div class="sub" id="teamMenu"></div></div>
 <div class="dd"><button>Matchs ▾</button>
@@ -879,6 +884,11 @@ html.no-intro #intro{display:none}
 </div>
 
 <!-- PALMARES -->
+<div class="page" data-page="/anciens">
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Anciens</div><span class="badge">Hall of fame</span><h1>Les <span>anciens</span> de la Fraté</h1><p>Tous les joueurs qui ont porté nos couleurs et écrit l’histoire du club.</p></div></div>
+<section><div class="soon-page"><span class="soon-stamp">SOON</span><p>Le mur des anciens arrive bientôt : chaque joueur passé par la Fraté, ses années au club et ses meilleurs moments 👀</p><a class="btn o" href="#/mercato">Voir le Mercato →</a></div></section>
+</div>
+
 <div class="page" data-page="/palmares">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/club">Le club</a> › Palmarès</div><h1>Notre <span>palmarès</span></h1><p>Titres, podiums et classements des équipes Fraté.</p></div></div>
 <section><div class="trophies" id="palmAll"></div></section>
@@ -1003,7 +1013,7 @@ html.no-intro #intro{display:none}
 <footer>
 <div>
 <div><span data-logo style="display:block;width:70px;margin-bottom:10px"></span><h4 data-nom>Mon Club Esport</h4><span>Équipe esport Valorant</span></div>
-<div><h4>Le club</h4><a href="#/club">Histoire du club</a><a href="#/organigramme">Organigramme</a><a href="#/palmares">Palmarès</a><a href="#/mercato">Mercato</a><a href="#/actualites">Actualités</a></div>
+<div><h4>Le club</h4><a href="#/club">Histoire du club</a><a href="#/organigramme">Organigramme</a><a href="#/palmares">Palmarès</a><a href="#/mercato">Mercato</a><a href="#/anciens">Anciens</a><a href="#/actualites">Actualités</a></div>
 <div><h4>Équipes</h4><div id="footTeams"></div></div>
 <div><h4>Matchs</h4><a href="#/prochain-match">Prochain match</a><a href="#/calendrier">Calendrier &amp; résultats</a><a href="#/premier">Suivi Premier</a><a href="#/stream">Stream</a><a href="#/classement">Classement joueurs</a><a href="#/clips">Clips</a></div>
 <div><h4>Nous rejoindre</h4><a href="#/recrutement">Recrutement</a><a href="#/contact">Contact</a><a href="#/boutique">Boutique</a><a href="#/partenaires">Partenaires</a><a href="#/fonds-ecran">Fonds d’écran</a></div>
