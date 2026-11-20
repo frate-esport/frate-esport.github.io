@@ -762,6 +762,9 @@ html.no-intro #intro{display:none}
 .px-old{color:var(--muted);font-weight:500;font-size:.8em}
 .px-new{color:#e0b55a;white-space:nowrap}
 .px-old{white-space:nowrap}
+
+/* Même hauteur de nom pour tous : les pseudos longs sont resserrés en largeur */
+.fl-name{transform:translate(-50%,-50%) scaleX(var(--sx,1))}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -1473,7 +1476,7 @@ const MAILLOTS = [
 (() => { const t = Date.now(); if (t > PROMO.fin) return; const on = promoActive();
  const html = `<div class="bf-band"><b>🖤 ${PROMO.nom} · -20 %</b><span>${on ? "Tous les polos à <s>40,00 €</s> <strong>32,00 €</strong> sur la boutique Yoko, jusqu’au 30 novembre 23h59 !" : "Du 23 au 30 novembre : tous les polos à <strong>32,00 €</strong> au lieu de 40 € sur la boutique Yoko."}</span></div>`;
  ["#kits", "#rayon"].forEach(sel => { const el = $(sel); if (el) el.insertAdjacentHTML("beforebegin", html); }); })();
-$("#ryShelves").innerHTML = [THIRD_T, ...TEAMS].filter(t => DOS_VIDE[t.kit]).map(t => { const mod = MAILLOTS.find(m => m.img === kitOf(t)); const js = t.joueurs.map(p => p[0]).sort((a, b) => (NUMEROS[a] ?? 999) - (NUMEROS[b] ?? 999)); return `<div class="ry-row" style="--tc:${t.col}"><div class="ry-lab"><b>${t.name}</b><span>${mod ? mod.nom + " · " + prixAff(mod.prix) : ""}</span></div><div class="ry-shelf">${js.map(nom => { const n = NUMEROS[nom], N = nom.toUpperCase(); return `<button type="button" class="ry-it" data-cmd="${nom}" data-team="${t.id}" aria-label="Commander le polo ${nom}${n ? " numéro " + n : ""}"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt="" loading="lazy"><span class="fl-name" style="--fs:${Math.min(10.5, 62 / N.length).toFixed(2)}cqw">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span><span class="ry-front">${n ? kitImg(t, nom) : `<span class="kf"><img src="${KIT_VIDE[t.kit]}" alt="" loading="lazy"></span>`}</span></span><span class="ry-flock"><b>${N}</b><i>${n ? "N° " + n : "N° à venir"}</i></span><span class="ry-cta">Commander →</span></button>`; }).join("")}</div></div>`; }).join("");
+$("#ryShelves").innerHTML = [THIRD_T, ...TEAMS].filter(t => DOS_VIDE[t.kit]).map(t => { const mod = MAILLOTS.find(m => m.img === kitOf(t)); const js = t.joueurs.map(p => p[0]).sort((a, b) => (NUMEROS[a] ?? 999) - (NUMEROS[b] ?? 999)); return `<div class="ry-row" style="--tc:${t.col}"><div class="ry-lab"><b>${t.name}</b><span>${mod ? mod.nom + " · " + prixAff(mod.prix) : ""}</span></div><div class="ry-shelf">${js.map(nom => { const n = NUMEROS[nom], N = nom.toUpperCase(); return `<button type="button" class="ry-it" data-cmd="${nom}" data-team="${t.id}" aria-label="Commander le polo ${nom}${n ? " numéro " + n : ""}"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt="" loading="lazy"><span class="fl-name" style="--fs:9.5cqw;--sx:${Math.min(1, 62 / (N.length * 9.5)).toFixed(3)}">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span><span class="ry-front">${n ? kitImg(t, nom) : `<span class="kf"><img src="${KIT_VIDE[t.kit]}" alt="" loading="lazy"></span>`}</span></span><span class="ry-flock"><b>${N}</b><i>${n ? "N° " + n : "N° à venir"}</i></span><span class="ry-cta">Commander →</span></button>`; }).join("")}</div></div>`; }).join("");
 const DRAPEAUX = {
  France: `<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ed2939"/></svg>`,
  Suisse: `<svg class="flag sq" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#da291c"/><path d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z" fill="#fff"/></svg>`,
@@ -1485,7 +1488,7 @@ const openCmd = (nom, teamId) => {
  dlg.style.setProperty("--tc", t.col);
  const ligne = (lab, val) => `<div class="cmd-f"><span>${lab}</span><b>${val}</b><button type="button" class="cmd-cp" data-cp="${val}">Copier</button></div>`;
  dlg.innerHTML = `<div class="cmd-in"><button type="button" class="pp-x" aria-label="Fermer">×</button>
- <div class="cmd-top"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt=""><span class="fl-name" style="--fs:${Math.min(10.5, 62 / N.length).toFixed(2)}cqw">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span></span>
+ <div class="cmd-top"><span class="ry-img fl-${t.kit}"><span class="ry-back"><img src="${DOS_VIDE[t.kit]}" alt=""><span class="fl-name" style="--fs:9.5cqw;--sx:${Math.min(1, 62 / (N.length * 9.5)).toFixed(3)}">${N}</span>${n ? `<span class="fl-num">${n}</span>` : ""}</span></span>
  <div><small>${t.name}</small><h3 id="cmdT">Polo ${nom}${n ? " · N° " + n : ""}</h3><p>${mod ? mod.nom + " · " + prixAff(mod.prix) : ""}</p></div></div>
  <p class="cmd-help">La boutique Yoko ne peut pas remplir le flocage toute seule. Voici quoi mettre, en 4 étapes :</p>
  <ol class="cmd-steps"><li>Sur la boutique, clique sur <b>${mod ? mod.nom : "le polo"}</b> → « Voir et choisir ».</li><li>Choisis ta <b>taille</b>.</li><li>${ligne("Pseudo", N)}</li><li>${n ? ligne("Numéro", n) : `<div class="cmd-f"><span>Numéro</span><b>à venir</b></div>`}</li></ol>
