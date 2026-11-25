@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.Frate" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:statusBarColor">@color/frate_bg</item>
+        <item name="android:navigationBarColor">@color/frate_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

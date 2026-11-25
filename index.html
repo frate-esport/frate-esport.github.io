@@ -15,6 +15,13 @@
 <meta property="og:image" content="https://frate-esport.github.io/logo.png">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#06070c">
+<link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fraté">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SportsTeam","name":"Fraté Esport","alternateName":"Frate Esport","sport":"Esports","url":"https://frate-esport.github.io/","logo":"https://frate-esport.github.io/logo.png","sameAs":["https://www.twitch.tv/frateesport","https://www.instagram.com/frate_esport/","https://discord.gg/U6AJGPHXWe"]}</script>
 <title>Fraté Esport (Frate Esport) | Équipe esport Valorant</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -770,6 +777,12 @@ html.no-intro #intro{display:none}
 .soon-page{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;padding:70px 20px;border-radius:22px;background:radial-gradient(60% 70% at 50% 40%,rgba(255,42,68,.12),transparent 70%),#0a0b10;border:1px solid rgba(255,255,255,.06)}
 .soon-stamp{font-family:var(--display);font-weight:900;font-size:clamp(3rem,12vw,6.5rem);letter-spacing:.14em;padding:10px 34px 10px calc(34px + .14em);border:5px solid #ff2a44;border-radius:14px;color:#fff;transform:rotate(-6deg);text-shadow:0 0 12px #ff2a44,0 0 32px #ff2a44;box-shadow:0 0 18px -2px #ff2a44,inset 0 0 18px -6px #ff2a44;animation:soonPulse 2.4s ease-in-out infinite}
 .soon-page p{max-width:52ch;margin:0;color:var(--muted)}
+.app-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.app-card{padding:28px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.app-card h3{margin:10px 0 8px;font-size:1.4rem}.app-card p{color:var(--muted);margin:0 0 14px}
+.app-ico{font-size:2.2rem}.app-steps{margin:0 0 14px;padding-left:22px;display:grid;gap:8px}.app-note{font-size:.9rem}
+html.in-app .app-card .btn{display:none}
+#installBtn[hidden]{display:none}
 </style>
 
 <canvas class="site-flag" aria-hidden="true"></canvas>
@@ -800,7 +813,7 @@ html.no-intro #intro{display:none}
 <div class="sub"><a href="#/prochain-match">⏱ Prochain match</a><a href="#/calendrier">📅 Calendrier &amp; résultats</a><a href="#/premier">📈 Suivi Premier</a><a href="#/stream">🔴 Stream</a><a href="#/clips">🎬 Clips</a><a href="#/classement">🏅 Classement joueurs</a></div></div>
 <a href="#/actualites">Actus</a>
 <div class="dd"><button>Nous rejoindre ▾</button>
-<div class="sub right"><a href="#/recrutement">🎮 Recrutement</a><a href="#/contact">✉️ Contact</a></div></div>
+<div class="sub right"><a href="#/recrutement">🎮 Recrutement</a><a href="#/contact">✉️ Contact</a><a href="#/appli">📱 L’appli Fraté</a></div></div>
 <a class="dcnav" data-discord href="#">Discord</a><a class="shop" href="#/boutique">Boutique</a>
 </nav>
 </div>
@@ -994,6 +1007,19 @@ html.no-intro #intro{display:none}
 </div></section>
 </div>
 
+<!-- APPLI -->
+<div class="page" data-page="/appli">
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › L’appli</div><span class="badge">Gratuite</span><h1>L’appli <span>Fraté</span></h1><p>Le club dans ta poche : rosters, prochains matchs, mercato, clips et boutique, en plein écran avec l’icône Fraté sur ton téléphone.</p></div></div>
+<section><div class="app-grid">
+<div class="app-card"><div class="app-ico">🤖</div><h3>Android</h3><p>Télécharge l’appli et installe-la. La première fois, Android te demande d’autoriser l’installation depuis ton navigateur : accepte, c’est l’appli officielle du club.</p>
+<a class="btn" id="apkBtn" href="https://github.com/frate-esport/frate-esport.github.io/releases/latest/download/frate-esport.apk">⬇️ Télécharger pour Android</a>
+<button class="btn o" id="installBtn" hidden>📲 Installer directement</button></div>
+<div class="app-card"><div class="app-ico">🍎</div><h3>iPhone</h3><p>Apple ne permet pas d’installer une appli hors de l’App Store, mais l’appli Fraté s’ajoute en 3 secondes :</p>
+<ol class="app-steps"><li>Ouvre ce site dans <b>Safari</b></li><li>Appuie sur <b>Partager</b> (le carré avec la flèche)</li><li>Choisis <b>« Sur l’écran d’accueil »</b> puis <b>Ajouter</b></li></ol><p class="app-note">L’icône Fraté apparaît sur ton écran et l’appli s’ouvre en plein écran.</p></div>
+</div>
+<div class="note" style="margin-top:22px">L’appli affiche toujours la dernière version du site : pas besoin de la mettre à jour.</div></section>
+</div>
+
 <!-- MENTIONS -->
 <div class="page" data-page="/mentions-legales">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Mentions légales</div><h1>Mentions <span>légales</span></h1><p>Informations légales et données personnelles.</p></div></div>
@@ -1016,7 +1042,7 @@ html.no-intro #intro{display:none}
 <div><h4>Le club</h4><a href="#/club">Histoire du club</a><a href="#/organigramme">Organigramme</a><a href="#/palmares">Palmarès</a><a href="#/mercato">Mercato</a><a href="#/anciens">Anciens</a><a href="#/actualites">Actualités</a></div>
 <div><h4>Équipes</h4><div id="footTeams"></div></div>
 <div><h4>Matchs</h4><a href="#/prochain-match">Prochain match</a><a href="#/calendrier">Calendrier &amp; résultats</a><a href="#/premier">Suivi Premier</a><a href="#/stream">Stream</a><a href="#/classement">Classement joueurs</a><a href="#/clips">Clips</a></div>
-<div><h4>Nous rejoindre</h4><a href="#/recrutement">Recrutement</a><a href="#/contact">Contact</a><a href="#/boutique">Boutique</a><a href="#/partenaires">Partenaires</a><a href="#/fonds-ecran">Fonds d’écran</a></div>
+<div><h4>Nous rejoindre</h4><a href="#/recrutement">Recrutement</a><a href="#/contact">Contact</a><a href="#/boutique">Boutique</a><a href="#/partenaires">Partenaires</a><a href="#/appli">L’appli Fraté</a><a href="#/fonds-ecran">Fonds d’écran</a></div>
 <div><h4>Réseaux</h4><div data-social data-plain></div></div>
 </div>
 <div class="cp">© 2026 <span data-nom></span> · <a href="#/mentions-legales">Mentions légales</a><span class="vis-foot" data-visites></span></div>
@@ -1803,6 +1829,16 @@ function route(){
 }
 window.addEventListener("hashchange", route);
 route();
+
+// ===== Appli Fraté : installation (Android/PC) et mode hors-ligne =====
+{
+ const inApp = matchMedia("(display-mode: standalone)").matches || navigator.standalone || /FrateApp/.test(navigator.userAgent);
+ if (inApp) document.documentElement.classList.add("in-app");
+ if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+ let deferred = null; const ib = document.getElementById("installBtn");
+ window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferred = e; if (ib) ib.hidden = false; });
+ if (ib) ib.addEventListener("click", async () => { if (!deferred) return; deferred.prompt(); await deferred.userChoice; deferred = null; ib.hidden = true; });
+}
 
 </script>
 </html>
