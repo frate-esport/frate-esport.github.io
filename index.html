@@ -104,7 +104,6 @@ header.top{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index
 .hero-soc{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
 .hsoc{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:.92rem;font-weight:600;text-decoration:none;color:var(--text);background:color-mix(in srgb,var(--sc) 14%,transparent);border:1px solid color-mix(in srgb,var(--sc) 55%,transparent);transition:background .2s,transform .2s}
 .hsoc:hover{background:color-mix(in srgb,var(--sc) 30%,transparent);transform:translateY(-2px)}
-.soc-band{margin-top:34px;padding:22px 20px;border-radius:14px;text-align:center;background:linear-gradient(90deg,rgba(227,27,47,.10),rgba(26,111,214,.10));border:1px solid rgba(255,255,255,.12)}.soc-band h3{margin:0 0 4px}.soc-band p{margin:0 0 6px;opacity:.85}
 .btn.dc{background:#5865f2;box-shadow:0 8px 28px -8px rgba(88,101,242,.8)}.btn.dc:hover{background:#6d78ff;box-shadow:0 12px 34px -8px rgba(88,101,242,1)}
 .menu a.dcnav{background:#5865f2;color:#fff;font-weight:600;margin-left:6px}.menu a.dcnav:hover{background:#6d78ff;color:#fff}
 @media (max-width:940px){.menu a.dcnav{margin:10px 0 0;text-align:center}}
@@ -953,7 +952,7 @@ html.in-app .app-card .btn{display:none}
 <!-- ACTUS -->
 <div class="page" data-page="/actualites">
 <div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Actualités</div><h1><span>Actualités</span></h1><p>Résultats, mercato et vie du club.</p></div></div>
-<section><div class="news" id="allNews"></div><div id="newsSoc"></div></section>
+<section><div class="news" id="allNews"></div></section>
 </div>
 <div class="page" data-page="/actu" id="actuPage"></div>
 
@@ -1354,10 +1353,6 @@ document.querySelectorAll("[data-discord]").forEach(a => CLUB.discord ? ext(a, C
 const SOC_COUL = {Twitch:"#9146ff", Instagram:"#e1306c", TikTok:"#25f4ee"};
 $("#heroSoc").innerHTML = SOCIAL.filter(r => SOC_COUL[r.nom]).map(r => `<a class="hsoc" style="--sc:${SOC_COUL[r.nom]}" href="${r.url||"#"}"${r.url?' target="_blank" rel="noopener"':" data-soon"}>${r.ico} ${r.nom}</a>`).join("");
 $("#heroSoc").querySelectorAll("[data-soon]").forEach(a => soon(a, "TikTok"));
-// Bloc "Suis-nous" (page Actus + bas de chaque article)
-const SOC_COUL_ALL = Object.assign({Discord:"#5865f2"}, SOC_COUL);
-const socBand = () => `<div class="soc-band"><h3>📲 Suis la Fraté sur les réseaux</h3><p>Résultats, clips et coulisses en direct.</p><div class="hero-soc">${SOCIAL.filter(r => r.url && SOC_COUL_ALL[r.nom]).map(r => `<a class="hsoc" style="--sc:${SOC_COUL_ALL[r.nom]}" href="${r.url}" target="_blank" rel="noopener">${r.ico} ${r.nom}</a>`).join("")}</div></div>`;
-$("#newsSoc").innerHTML = socBand();
 document.querySelectorAll("[data-social]").forEach(box => {
  const plain = box.hasAttribute("data-plain");
  box.innerHTML = SOCIAL.map(r => `<a href="${r.url||"#"}"${r.url?' target="_blank" rel="noopener"':' data-soon'}${plain?"":' class="sbtn"'}>${plain?"":`<span>${r.ico}</span>`}${r.nom}</a>`).join("");
@@ -1807,7 +1802,7 @@ function renderCal(sel){
 }
 function newsPage(n){
  return `<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › <a href="#/actualites">Actualités</a></div>${n.team && teamOf(n.team) ? `<div class="team-hero"><div>${teamLogo(teamOf(n.team), "150px")}</div><div><span class="badge">${fmtLong(n.d)}</span><h1>${n.titre}</h1></div></div>` : `<span class="badge">${fmtLong(n.d)}</span><h1>${n.titre}</h1>`}</div></div>
- <section><div class="article"><p><b>${n.resume}</b></p>${n.texte.split(/\n\s*\n/).map(b => b.startsWith("## ") ? `<h3>${b.slice(3)}</h3>` : `<p>${b}</p>`).join("")}</div>${socBand()}<a class="btn b" style="margin-top:22px" href="#/actualites">← Toutes les actus</a></section>`;
+ <section><div class="article"><p><b>${n.resume}</b></p>${n.texte.split(/\n\s*\n/).map(b => b.startsWith("## ") ? `<h3>${b.slice(3)}</h3>` : `<p>${b}</p>`).join("")}</div><a class="btn b" href="#/actualites">← Toutes les actus</a></section>`;
 }
 
 
