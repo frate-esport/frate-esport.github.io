@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<title>Fraté Esport · Overlays stream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fira+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--r:#e3202f;--b:#1f6fe5;--bl:#5d9bff;--n:#0a1838;--n2:#06102a}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;overflow:hidden;width:100%;height:100%}
+.ant{font-family:Anton,Impact,sans-serif;letter-spacing:.02em;text-transform:uppercase}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+
+/* ===== ÉCRANS PLEIN ÉCRAN ===== */
+.screen{width:1920px;height:1080px;position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;background:var(--n2)}
+.glow{position:absolute;width:1300px;height:1300px;border-radius:50%;filter:blur(40px);opacity:.75}
+.glow.r{background:radial-gradient(circle,rgba(227,32,47,.75),transparent 65%);left:-650px;top:-110px;animation:dr 9s ease-in-out infinite alternate}
+.glow.b{background:radial-gradient(circle,rgba(31,111,229,.8),transparent 65%);right:-650px;top:-110px;animation:db 11s ease-in-out infinite alternate}
+@keyframes dr{to{transform:translate(160px,120px) scale(1.15)}}
+@keyframes db{to{transform:translate(-160px,-100px) scale(1.12)}}
+.grid{position:absolute;inset:-60px;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:60px 60px;animation:gr 6s linear infinite;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%)}
+@keyframes gr{to{transform:translate(60px,60px)}}
+.slash{position:absolute;top:-250px;bottom:-250px;width:14px;left:50%;transform:rotate(18deg);background:linear-gradient(var(--r),var(--b));box-shadow:0 0 50px rgba(255,255,255,.3);overflow:hidden;animation:sp 3s ease-in-out infinite}
+.slash::after{content:"";position:absolute;left:0;right:0;height:260px;background:linear-gradient(transparent,#fff,transparent);animation:st 2.6s linear infinite}
+@keyframes st{from{top:-300px}to{top:110%}}
+@keyframes sp{50%{box-shadow:0 0 110px rgba(255,255,255,.55)}}
+.parts i{position:absolute;bottom:-30px;width:8px;height:8px;transform:rotate(45deg);animation:up linear infinite;opacity:0}
+@keyframes up{10%{opacity:.9}90%{opacity:.6}to{transform:translateY(-1200px) rotate(400deg);opacity:0}}
+.corner{position:absolute;width:220px;height:220px;border:10px solid;animation:cp 2.4s ease-in-out infinite}
+.c1{top:50px;left:50px;border-color:var(--r) transparent transparent var(--r)}
+.c2{bottom:50px;right:50px;border-color:transparent var(--b) var(--b) transparent;animation-delay:1.2s}
+@keyframes cp{50%{transform:scale(1.06);filter:drop-shadow(0 0 18px currentColor)}}
+.c1{color:var(--r)}.c2{color:var(--b)}
+.content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-bottom:40px}
+.logo{position:relative;height:400px;animation:fl 4s ease-in-out infinite,in .9s cubic-bezier(.2,1.4,.4,1) both}
+.logo img{height:100%;animation:lg 3s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-16px)}}
+@keyframes lg{0%,100%{filter:drop-shadow(0 0 30px rgba(227,32,47,.7))}50%{filter:drop-shadow(0 0 40px rgba(31,111,229,.9))}}
+@keyframes in{from{opacity:0;transform:scale(.4) rotate(-12deg)}}
+.big{font-size:150px;line-height:1;margin-top:18px;text-shadow:0 8px 0 rgba(0,0,0,.35);display:flex;gap:36px}
+.big span{display:inline-block;animation:sl .8s cubic-bezier(.2,1,.3,1) both}
+.big .w1{color:var(--r);animation-delay:.3s;--x:-300px}.big .w2{color:var(--bl);animation-delay:.45s;--x:300px}
+@keyframes sl{from{opacity:0;transform:translateX(var(--x)) skewX(-15deg)}}
+.big.gl span{animation:sl .8s cubic-bezier(.2,1,.3,1) both,gli 5s steps(1) 2s infinite}
+@keyframes gli{0%,93%,100%{transform:none;text-shadow:0 8px 0 rgba(0,0,0,.35)}94%{transform:translate(-6px,2px);text-shadow:6px 0 var(--b),-6px 0 var(--r)}96%{transform:translate(5px,-3px);text-shadow:-6px 0 var(--b),6px 0 var(--r)}98%{transform:translate(-2px,0)}}
+.sub{font-size:38px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;margin-top:22px;animation:fu .8s .7s both}
+@keyframes fu{from{opacity:0;transform:translateY(30px)}}
+.dots b{display:inline-block;animation:dt 1.4s infinite}.dots b:nth-child(2){animation-delay:.2s}.dots b:nth-child(3){animation-delay:.4s}
+@keyframes dt{0%,60%,100%{opacity:.2}30%{opacity:1}}
+.cd{font-family:Anton;font-size:110px;line-height:1;margin-top:26px;padding:10px 48px;border-radius:20px;background:rgba(0,0,0,.35);border:4px solid;border-image:linear-gradient(90deg,var(--r),var(--b)) 1;animation:fu .8s .9s both;font-variant-numeric:tabular-nums}
+.foot{position:absolute;bottom:56px;left:0;right:0;display:flex;justify-content:center;gap:28px}
+.pill{display:flex;align-items:center;gap:14px;padding:16px 30px;border-radius:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.18);font-size:30px;font-weight:700;animation:fu .7s both,pg 6s ease-in-out infinite}
+.pill:nth-child(1){animation-delay:1s,2s}.pill:nth-child(2){animation-delay:1.15s,4s}.pill:nth-child(3){animation-delay:1.3s,6s}
+@keyframes pg{0%,30%,100%{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}12%{border-color:#fff;background:rgba(255,255,255,.2)}}
+.pill b{width:14px;height:14px;border-radius:50%}
+
+/* ===== WEBCAM ===== */
+.cam{position:absolute;inset:0 0 44px 0}
+.cam .fr{position:absolute;inset:0;border-radius:18px;padding:10px;overflow:hidden;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.cam .fr::before{content:"";position:absolute;inset:-50%;background:conic-gradient(var(--r),var(--b),#fff 8%,var(--b) 20%,var(--r) 50%,#fff 58%,var(--r) 70%,var(--b));animation:rot 4s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.cam .tag{position:absolute;left:24px;bottom:-40px;display:flex;align-items:center;gap:12px;padding:10px 22px 10px 12px;background:var(--n);border-radius:12px;border:3px solid var(--r);font-size:30px;animation:tg 3s ease-in-out infinite}
+@keyframes tg{50%{border-color:var(--b);box-shadow:0 0 24px rgba(31,111,229,.7)}}
+.cam .tag img{height:44px;animation:fl 3s ease-in-out infinite}
+.cam .live{position:absolute;right:26px;top:24px;background:var(--r);padding:4px 14px;border-radius:8px;font-size:22px;display:flex;align-items:center;gap:8px}
+.cam .live i{width:10px;height:10px;border-radius:50%;background:#fff;animation:dt 1.2s infinite}
+
+/* ===== BANDEAU EN JEU ===== */
+.bar{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(10,24,56,.94),rgba(6,16,42,.94));animation:bu .8s cubic-bezier(.2,1,.3,1) both;overflow:hidden}
+.bar::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--r),var(--b),var(--r));background-size:200% 100%;animation:mv 4s linear infinite}
+@keyframes mv{to{background-position:200% 0}}
+.bar::after{content:"";position:absolute;top:0;bottom:0;width:160px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);animation:sh 7s ease-in-out infinite}
+@keyframes sh{0%{left:-200px}35%,100%{left:110%}}
+@keyframes bu{from{transform:translateY(100%)}}
+.bar .lg{position:relative;z-index:2;height:100%;display:flex;align-items:center;gap:14px;padding:0 34px 0 18px;background:linear-gradient(90deg,var(--r),#a3172a);clip-path:polygon(0 0,100% 0,calc(100% - 30px) 100%,0 100%)}
+.bar .lg img{height:52px;animation:fl 3s ease-in-out infinite}
+.bar .lg span{font-size:34px}
+.tick{position:relative;flex:1;height:100%;margin-left:30px}
+.tick div{position:absolute;inset:0;display:flex;align-items:center;gap:12px;font-size:28px;font-weight:700;opacity:0;transform:translateY(100%);transition:.6s cubic-bezier(.2,1,.3,1)}
+.tick div.on{opacity:1;transform:none}.tick div.out{opacity:0;transform:translateY(-100%)}
+.tick em{font-style:normal;color:var(--bl)}
+.bar .end{position:relative;z-index:2;height:100%;display:flex;align-items:center;gap:12px;padding:0 26px 0 50px;background:linear-gradient(90deg,#174fae,var(--b));clip-path:polygon(30px 0,100% 0,100% 100%,0 100%);font-size:28px}
+.bar .end i{width:12px;height:12px;border-radius:50%;background:var(--r);box-shadow:0 0 10px var(--r);animation:dt 1.2s infinite}
+
+/* ===== ALERTE ===== */
+.al{position:absolute;left:0;top:0;width:900px;height:260px;display:flex;align-items:center}
+.al .box{position:absolute;left:110px;right:0;top:40px;bottom:40px;background:linear-gradient(90deg,var(--n),#0d2350);border:4px solid;border-image:linear-gradient(90deg,var(--r),var(--b)) 1;transform-origin:left;animation:bx .5s .35s cubic-bezier(.2,1,.3,1) both,bo .4s 4.4s ease-in forwards;overflow:hidden}
+.al .box::after{content:"";position:absolute;top:0;bottom:0;width:140px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:sha 1.2s 1.2s ease-in-out both}
+@keyframes sha{from{left:-200px}to{left:110%}}
+@keyframes bx{from{transform:scaleX(0)}}
+@keyframes bo{to{transform:scaleX(0)}}
+.al img{position:relative;height:250px;z-index:2;filter:drop-shadow(0 10px 20px rgba(0,0,0,.5));animation:ld .6s cubic-bezier(.2,1.5,.4,1) both,lo .4s 4.6s ease-in forwards}
+@keyframes ld{from{transform:translateY(-300px) rotate(-25deg) scale(.6);opacity:0}}
+@keyframes lo{to{transform:scale(0) rotate(30deg);opacity:0}}
+.al .tx{position:relative;z-index:2;margin-left:30px;animation:tx .5s .7s both,to .3s 4.3s forwards}
+@keyframes tx{from{opacity:0;transform:translateX(-40px)}}
+@keyframes to{to{opacity:0;transform:translateX(40px)}}
+.al .k{font-size:64px;line-height:1;background:linear-gradient(90deg,var(--r),var(--bl),var(--r));background-size:200% 100%;-webkit-background-clip:text;color:transparent;animation:mv 2s linear infinite}
+.al .s{font-size:24px;letter-spacing:.2em;font-weight:800;opacity:.9;text-transform:uppercase;margin-top:6px}
+.burst i{position:absolute;left:125px;top:130px;width:10px;height:10px;transform:rotate(45deg);opacity:0;animation:bs 1s .4s cubic-bezier(.1,.8,.3,1) both}
+@keyframes bs{0%{opacity:1;transform:translate(0,0) rotate(45deg)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(300deg)}}
+
+/* ===== PAGE D'ACCUEIL ===== */
+.home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
+.home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
+.home li{margin:14px 0}.home a{color:var(--bl)}
+</style></head><body><div id="root"></div><script>
+const Q=new URLSearchParams(location.search),V=Q.get('v');
+const L='../logo.png';
+const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"></b>discord.gg/U6AJGPHXWe</div><div class="pill"><b style="background:var(--r)"></b>@frate_esport</div><div class="pill"><b style="background:var(--b)"></b>frate-esport.github.io</div></div>`;
+const screen=(w1,w2,sub,extra='',foot=pills)=>`<div class="screen"><div class="glow r"></div><div class="glow b"></div><div class="grid"></div><div class="parts"></div><div class="slash"></div><div class="corner c1"></div><div class="corner c2"></div>
+<div class="content"><div class="logo"><img src="${L}"></div><div class="big gl ant"><span class="w1">${w1}</span><span class="w2">${w2}</span></div><div class="sub">${sub}</div>${extra}</div>${foot}</div>`;
+const min=parseFloat(Q.get('min')||'0');
+const T={
+ debut:screen('Le live','commence','Installe-toi<span class="dots"><b>.</b><b>.</b><b>.</b></span>',min?'<div class="cd" id="cd">--:--</div>':''),
+ pause:screen('Petite','pause','On revient très vite<span class="dots"><b>.</b><b>.</b><b>.</b></span>'),
+ fin:screen('Merci',"d'être passé",'Rejoins la Fraté sur Discord'),
+ ecran:screen('Fraté','Esport','Valorant · Premier','',''),
+ cam:`<div class="cam"><div class="fr"></div><div class="live ant"><i></i>Live</div><div class="tag ant"><img src="${L}">Fraté Esport</div></div>`,
+ jeu:`<div class="bar"><div class="lg"><img src="${L}"><span class="ant">Fraté</span></div><div class="tick" id="tick"></div><div class="end ant"><i></i>Live Valorant</div></div>`,
+ alerte:`<div class="al"><div class="box"></div><div class="burst"></div><img src="${L}"><div class="tx"><div class="k ant">${Q.get('t')||'Merci !'}</div><div class="s">${Q.get('s')||'Bienvenue dans la Fraté'}</div></div></div>`
+};
+const R=document.getElementById('root');
+if(!T[V]){document.body.style.overflow='auto';R.innerHTML=`<div class="home"><h1>Overlays Fraté</h1><p>À ajouter dans Streamlabs en <b>Source navigateur</b> :</p><ul>
+<li><a href="?v=debut&min=5">Début avec compte à rebours</a> · 1920×1080 · <code>min=5</code> = durée en minutes</li>
+<li><a href="?v=debut">Début sans compte à rebours</a> · 1920×1080</li>
+<li><a href="?v=pause">Pause</a> · 1920×1080</li><li><a href="?v=fin">Fin</a> · 1920×1080</li><li><a href="?v=ecran">Écran Fraté</a> · 1920×1080</li>
+<li><a href="?v=jeu">Bandeau en jeu</a> · 1920×1080</li><li><a href="?v=cam">Cadre webcam</a> · 680×460</li><li><a href="?v=alerte">Alerte</a> · 900×260</li></ul></div>`;}
+else{
+R.innerHTML=T[V];
+// adapte l'écran à la taille de la source
+const sc=R.querySelector('.screen');
+if(sc){const fit=()=>{sc.style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`};fit();addEventListener('resize',fit);
+ const P=sc.querySelector('.parts');for(let k=0;k<40;k++){const i=document.createElement('i');i.style.left=Math.random()*100+'%';i.style.background=k%2?'var(--r)':'var(--bl)';i.style.animationDuration=(7+Math.random()*8)+'s';i.style.animationDelay=(-Math.random()*15)+'s';const s=4+Math.random()*8;i.style.width=i.style.height=s+'px';P.appendChild(i);}}
+if(V==='jeu'){const B=R.querySelector('.bar');B.style.position='fixed';const msg=['💬 <em>!discord</em> Rejoins la Fraté · discord.gg/U6AJGPHXWe','💜 <em>!abo</em> Abonne-toi gratuitement avec Prime Gaming','💎 <em>!bits</em> Soutiens l\'équipe avec des Bits','📸 <em>Insta & TikTok</em> @frate_esport · @frateesport','🌐 <em>Site & appli</em> frate-esport.github.io'];
+ const tk=document.getElementById('tick');const els=msg.map(m=>{const d=document.createElement('div');d.innerHTML=m;tk.appendChild(d);return d});let n=0;
+ const go=()=>{els.forEach(e=>e.classList.remove('out'));const p=els[(n+els.length-1)%els.length];p.classList.remove('on');p.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}
+if(V==='alerte'){const bu=R.querySelector('.burst');for(let k=0;k<18;k++){const i=document.createElement('i');const a=k/18*Math.PI*2,d=140+Math.random()*80;i.style.setProperty('--dx',Math.cos(a)*d+'px');i.style.setProperty('--dy',Math.sin(a)*d+'px');i.style.background=k%2?'var(--r)':'var(--bl)';bu.appendChild(i);}
+ if(!Q.has('once'))setInterval(()=>{const x=R.innerHTML;R.innerHTML='';R.innerHTML=x},6000);}
+if(min){const end=Date.now()+min*60000,el=document.getElementById('cd');const t=()=>{const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=s?String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):"C'est parti !"};t();setInterval(t,250);}
+}
+</script></body></html>
