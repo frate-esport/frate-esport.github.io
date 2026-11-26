@@ -46,6 +46,7 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .dots b{display:inline-block;animation:dt 1.4s infinite}.dots b:nth-child(2){animation-delay:.2s}.dots b:nth-child(3){animation-delay:.4s}
 @keyframes dt{0%,60%,100%{opacity:.2}30%{opacity:1}}
 .cd{font-family:Anton;font-size:110px;line-height:1;margin-top:26px;padding:10px 48px;border-radius:20px;background:rgba(0,0,0,.35);border:4px solid;border-image:linear-gradient(90deg,var(--r),var(--b)) 1;animation:fu .8s .9s both;font-variant-numeric:tabular-nums}
+.cd.rot{font-size:46px;padding:16px 40px;min-width:900px;font-family:'Fira Sans';font-weight:800;transition:opacity .4s}
 .foot{position:absolute;bottom:56px;left:0;right:0;display:flex;justify-content:center;gap:28px}
 .pill{display:flex;align-items:center;gap:14px;padding:16px 30px;border-radius:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.18);font-size:30px;font-weight:700;animation:fu .7s both,pg 6s ease-in-out infinite}
 .pill:nth-child(1){animation-delay:1s,2s}.pill:nth-child(2){animation-delay:1.15s,4s}.pill:nth-child(3){animation-delay:1.3s,6s}
@@ -114,6 +115,7 @@ const T={
  pause:screen('Petite','pause','On revient très vite<span class="dots"><b>.</b><b>.</b><b>.</b></span>'),
  fin:screen('Merci',"d'être passé",'Rejoins la Fraté sur Discord'),
  ecran:screen('Fraté','Esport','Valorant · Premier','',''),
+ inter:screen('Entre','deux games','La prochaine arrive<span class="dots"><b>.</b><b>.</b><b>.</b></span>','<div class="cd rot" id="rot"></div>'),
  cam:`<div class="cam"><div class="fr"></div><div class="live ant"><i></i>Live</div><div class="tag ant"><img src="${L}">Fraté Esport</div></div>`,
  jeu:`<div class="bar"><div class="lg"><img src="${L}"><span class="ant">Fraté</span></div><div class="tick" id="tick"></div><div class="end ant"><i></i>Live Valorant</div></div>`,
  alerte:`<div class="al"><div class="box"></div><div class="burst"></div><img src="${L}"><div class="tx"><div class="k ant">${Q.get('t')||'Merci !'}</div><div class="s">${Q.get('s')||'Bienvenue dans la Fraté'}</div></div></div>`
@@ -122,7 +124,7 @@ const R=document.getElementById('root');
 if(!T[V]){document.body.style.overflow='auto';R.innerHTML=`<div class="home"><h1>Overlays Fraté</h1><p>À ajouter dans Streamlabs en <b>Source navigateur</b> :</p><ul>
 <li><a href="?v=debut&min=5">Début avec compte à rebours</a> · 1920×1080 · <code>min=5</code> = durée en minutes</li>
 <li><a href="?v=debut">Début sans compte à rebours</a> · 1920×1080</li>
-<li><a href="?v=pause">Pause</a> · 1920×1080</li><li><a href="?v=fin">Fin</a> · 1920×1080</li><li><a href="?v=ecran">Écran Fraté</a> · 1920×1080</li>
+<li><a href="?v=pause">Pause</a> · 1920×1080</li><li><a href="?v=fin">Fin</a> · 1920×1080</li><li><a href="?v=inter">Inter scène</a> · 1920×1080</li><li><a href="?v=ecran">Écran Fraté</a> · 1920×1080</li>
 <li><a href="?v=jeu">Bandeau en jeu</a> · 1920×1080</li><li><a href="?v=cam">Cadre webcam</a> · 680×460</li><li><a href="?v=alerte">Alerte</a> · 900×260</li></ul></div>`;}
 else{
 R.innerHTML=T[V];
@@ -135,6 +137,7 @@ if(V==='jeu'){const B=R.querySelector('.bar');B.style.position='fixed';const msg
  const go=()=>{els.forEach(e=>e.classList.remove('out'));const p=els[(n+els.length-1)%els.length];p.classList.remove('on');p.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}
 if(V==='alerte'){const bu=R.querySelector('.burst');for(let k=0;k<18;k++){const i=document.createElement('i');const a=k/18*Math.PI*2,d=140+Math.random()*80;i.style.setProperty('--dx',Math.cos(a)*d+'px');i.style.setProperty('--dy',Math.sin(a)*d+'px');i.style.background=k%2?'var(--r)':'var(--bl)';bu.appendChild(i);}
  if(!Q.has('once'))setInterval(()=>{const x=R.innerHTML;R.innerHTML='';R.innerHTML=x},6000);}
+if(V==='inter'){const rm=['💬 Tape !discord pour rejoindre la Fraté','💜 Abonne-toi gratuitement avec Prime Gaming','💎 Les Bits soutiennent l\'équipe','📸 Suis-nous sur Insta & TikTok','🔁 Partage le live à tes potes'];const el=document.getElementById('rot');let k=0;const nx=()=>{el.style.opacity=0;setTimeout(()=>{el.textContent=rm[k++%rm.length];el.style.opacity=1},400)};nx();setInterval(nx,5000);}
 if(min){const end=Date.now()+min*60000,el=document.getElementById('cd');const t=()=>{const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=s?String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):"C'est parti !"};t();setInterval(t,250);}
 }
 </script></body></html>
