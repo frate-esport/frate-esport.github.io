@@ -356,7 +356,7 @@ const T={
 </div>`,
  alerte:`<div class="al"><div class="box"></div><div class="burst"></div><img src="${L}"><div class="tx"><div class="k ant">${Q.get('t')||'Merci !'}</div><div class="s">${Q.get('s')||'Bienvenue dans la Fraté'}</div></div></div>`
 };
-let STY=(Q.get('style')||'').toLowerCase();try{if(!STY)STY=localStorage.getItem('frate-style')||''}catch(e){}if(V==='hud'&&STY&&T['hud'+STY])T.hud=T['hud'+STY];if(V==='hud'&&(!STY||!T['hud'+STY])){STY='cote';T.hud=T.hudcote}
+let STY=(Q.get('style')||'').toLowerCase();try{if(!STY)STY=localStorage.getItem('frate-style')||''}catch(e){}if(V==='hud'&&STY&&T['hud'+STY])T.hud=T['hud'+STY];if(V==='hud'&&(!STY||!T['hud'+STY])){STY='neon';T.hud=T.hudneon}
 const R=document.getElementById('root');
 if(!T[V]){document.body.style.overflow='auto';R.innerHTML=`<div class="home"><h1>Overlays Fraté</h1><p>À ajouter dans Streamlabs en <b>Source navigateur</b> :</p><ul>
 <li><a href="?v=debut&min=5">Début avec compte à rebours</a> · 1920×1080 · <code>min=5</code> = durée en minutes</li>
@@ -431,7 +431,7 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
  addEventListener('storage',ev=>{try{if(ev.key===KEY){S=Object.assign({w:[]},JSON.parse(ev.newValue));draw()}if(ev.key===SK){SER=JSON.parse(ev.newValue);setN();draw()}}catch(e){}});draw();
  if(V==='hud'){const hc=document.getElementById('hc');const hm=['!discord · rejoins la Fraté','!abo · Prime Gaming gratuit','@frate_esport'];let q=0;setInterval(()=>{hc.style.opacity=0;setTimeout(()=>{hc.textContent=hm[q++%hm.length];hc.style.opacity=1},300)},5000);}
  if(V==='match'){const B2=R.querySelector('.bar');B2.style.position='fixed';const msg=['💬 <em>!discord</em> Rejoins la Fraté','💜 <em>!abo</em> Prime Gaming = abo gratuit','📸 <em>@frate_esport</em> Insta & TikTok'];const tk=document.getElementById('tick');const els=msg.map(m=>{const d=document.createElement('div');d.innerHTML=m;tk.appendChild(d);return d});let n=0;const go=()=>{els.forEach(e=>e.classList.remove('out'));const pv=els[(n+els.length-1)%els.length];pv.classList.remove('on');pv.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}}
-if(V==='hud'){const hc2=R.querySelector('.hcorner');if(hc2){hc2.style.cursor='pointer';hc2.title='Clic : changer de style';hc2.onclick=()=>{const L2=['cote','vct','neon'];const c=L2.indexOf(STY);try{localStorage.setItem('frate-style',L2[(c+1)%L2.length])}catch(e){}const u=new URL(location.href);u.searchParams.delete('style');location.replace(u.toString())}}
+if(V==='hud'){const hc2=R.querySelector('.hcorner');if(hc2){hc2.style.cursor='pointer';hc2.title='Clic : changer de style';hc2.onclick=()=>{const L2=['neon','vct','cote'];const c=L2.indexOf(STY);try{localStorage.setItem('frate-style',L2[(c+1)%L2.length])}catch(e){}const u=new URL(location.href);u.searchParams.delete('style');location.replace(u.toString())}}
  addEventListener('storage',ev=>{if(ev.key==='frate-style')location.reload()})}
 if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.style.cursor='pointer';el.title='Clic +1 min · clic droit −1 min · double-clic = relancer';
  const t=()=>{const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=s?String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):"C'est parti !"};
@@ -440,5 +440,5 @@ if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.s
 }
 
 // mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795785112';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
+(()=>{const V0='1795785181';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
 </script></body></html>
