@@ -302,15 +302,21 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .vfull .vin{flex:1;display:flex;align-items:center;justify-content:space-evenly;gap:18px}
 .vfull .it.skip{opacity:.4}.vfull .fin b{color:#ffd76b}
 .vfull .pre{gap:8px}.vfull .pre .mbadge{font-size:13px;padding:1px 8px;border-radius:4px}.vfull .pre .bo{font-size:14px;opacity:.85;cursor:pointer}
-/* blocs spec agrandis : recouvrent portraits + barres d'ulti */
-.neon .nt{height:var(--h);width:var(--w)}
-.neon .nl .nlogo{left:30px;top:6px}.neon .nr .nlogo{right:30px;top:6px}
-.neon .nlogo{width:96px;height:calc(var(--h) - 12px)}.neon .nlogo img{height:calc(var(--h) - 14px)!important}
-.neon .nl .nn{padding-left:120px}.neon .nr .nn{padding-right:120px}
-.neon .nn span{font-size:32px}
-.neon .nn .dia{margin-top:8px}.neon .nn .dia i{width:11px;height:11px}
-.neon .nt b{font-size:58px;min-width:66px;padding:6px 8px}
-.neon .nt::before{content:"";position:absolute;left:22px;right:22px;bottom:0;height:5px;background:rgba(255,255,255,.85);box-shadow:0 0 12px rgba(255,255,255,.6)}
+/* blocs spec épurés : recouvrent portraits + barres d'ulti */
+.neon .nt{height:var(--h);width:var(--w);padding:0 22px;gap:16px;box-shadow:none;animation:wi .7s cubic-bezier(.2,1,.3,1) both}
+.neon .nt::after{display:none}
+.neon .nl{background:linear-gradient(90deg,#090e1e 0%,#090e1e 45%,#6e0d1a 100%);clip-path:polygon(0 0,100% 0,calc(100% - 18px) 100%,0 100%)}
+.neon .nr{background:linear-gradient(270deg,#090e1e 0%,#090e1e 45%,#0d2b70 100%);clip-path:polygon(0 0,100% 0,100% 100%,18px 100%)}
+.neon .nt::before{content:"";position:absolute;top:0;height:3px;left:0;right:0;background:var(--tcol)}
+.neon .nl{--tcol:#e3202f}.neon .nr{--tcol:#1f6fe5}
+.neon .nlogo{position:static;width:auto;height:auto;flex:none}
+.neon .nlogo img{height:62px!important;animation:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5))!important}
+.neon .nl .nn,.neon .nr .nn{padding:0;flex:1}
+.neon .nl .nn{align-items:flex-start}.neon .nr .nn{align-items:flex-end}
+.neon .nn span{font-size:30px;letter-spacing:.03em;text-shadow:none;color:#fff}
+.neon .nn .dia{margin-top:7px;gap:5px}.neon .nn .dia i{width:8px;height:8px;border-width:1.5px}
+.neon .nt b{background:none;box-shadow:none;color:#fff;font-size:60px;min-width:48px;padding:0;margin:0;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.neon .nl{flex-direction:row}.neon .nr{flex-direction:row}
 .vfull .hl2{right:calc(960px + var(--g) + var(--w) + 10px)!important}
 .vfull .hr2{left:calc(960px + var(--g) + var(--w) + 10px)!important}
 /* ===== PAGE D'ACCUEIL ===== */
@@ -318,7 +324,7 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
 .home li{margin:14px 0}.home a{color:var(--bl)}
 </style></head><body><script>// mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795817237';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
+(()=>{const V0='1795817342';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
 const Q=new URLSearchParams(location.search),V=Q.get('v');
 const L='../logo.png';
 const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"></b>discord.gg/U6AJGPHXWe</div><div class="pill"><b style="background:var(--r)"></b>@frate_esport</div><div class="pill"><b style="background:var(--b)"></b>frate-esport.github.io</div></div>`;
@@ -370,10 +376,10 @@ const T={
 </div>
 <div class="hcorner ant"><img src="${L}"><div><b>Fraté Esport</b><small id="hc">!discord · !abo</small></div><i></i></div>
 </div>`,
- hudneon:`<div class="hud neon" style="--y:${+(Q.get('y')||0)}px;--g:${+(Q.get('ecart')||160)}px;--w:${+(Q.get('largeur')||430)}px;--h:${+(Q.get('hauteur')||96)}px">
+ hudneon:`<div class="hud neon" style="--y:${+(Q.get('y')||0)}px;--g:${+(Q.get('ecart')||160)}px;--w:${+(Q.get('largeur')||430)}px;--h:${+(Q.get('hauteur')||90)}px">
 <div class="vfull ant"><div class="half hl2"><span class="it pre"><span class="mbadge" data-mode>${MODE}</span><span class="bo">BO1</span></span><span class="vin" id="strip"></span></div><div class="half hr2"><span class="vin" id="strip2"></span></div></div>
-<div class="nt nl ant"><div class="nlogo"><img src="${L}"></div><div class="nn"><span style="font-size:${A.length>9?(A.length>13?18:21):28}px">${A}</span><div class="dia" data-k="a"></div></div><b class="sc" data-k="a">0</b></div>
-<div class="nt nr ant"><b class="sc" data-k="b">0</b><div class="nn"><span style="font-size:${B.length>9?(B.length>13?18:21):28}px">${B}</span><div class="dia" data-k="b"></div></div><div class="nlogo"><div class="opp s">${B.trim().charAt(0)||'?'}</div></div></div>
+<div class="nt nl ant"><div class="nlogo"><img src="${L}"></div><div class="nn"><span style="font-size:${A.length>13?22:A.length>9?27:30}px">${A}</span><div class="dia" data-k="a"></div></div><b class="sc" data-k="a">0</b></div>
+<div class="nt nr ant"><b class="sc" data-k="b">0</b><div class="nn"><span style="font-size:${B.length>13?22:B.length>9?27:30}px">${B}</span><div class="dia" data-k="b"></div></div><div class="nlogo"><div class="opp s">${B.trim().charAt(0)||'?'}</div></div></div>
 <div class="hcorner ant"><img src="${L}"><div><b>Fraté Esport</b><small id="hc">!discord · !abo</small></div><i></i></div>
 </div>`,
  hudcote:`<div class="hud">
