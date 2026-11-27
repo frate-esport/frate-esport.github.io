@@ -141,7 +141,7 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 @keyframes vsi{from{transform:translate(-50%,-55%) scale(4);opacity:0}}
 @keyframes vsp{50%{filter:drop-shadow(0 0 70px rgba(255,255,255,.85))}}
 .vfoot{position:absolute;bottom:64px;left:0;right:0;display:flex;justify-content:center;gap:24px;animation:fu .8s 1s both}
-.vfoot span{font-size:44px;padding:10px 34px;background:rgba(0,0,0,.4);border:3px solid;border-image:linear-gradient(90deg,var(--r),var(--b)) 1}
+.vside span{font-size:44px;padding:10px 34px;background:rgba(0,0,0,.4);border:3px solid;border-image:linear-gradient(90deg,var(--r),var(--b)) 1}
 /* ===== HUD MATCH ===== */
 .hud{position:fixed;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
 .htop{position:absolute;left:calc(960px - var(--e) - 250px);right:calc(960px - var(--e) - 250px);top:calc(var(--y) + 0px);height:6px;background:linear-gradient(90deg,transparent,var(--r) 18%,var(--r) 45%,var(--b) 55%,var(--b) 82%,transparent);background-size:200% 100%;animation:mv 5s linear infinite;box-shadow:0 0 18px rgba(255,255,255,.25)}
@@ -173,6 +173,29 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .mbadge.m-ranked{background:#14a37f;box-shadow:0 0 20px rgba(20,163,127,.6)}
 .mbadge.m-showmatch{background:linear-gradient(90deg,var(--r),var(--b));box-shadow:0 0 20px rgba(255,255,255,.4)}
 .mbadge{background:#334;transition:background .3s}
+/* ===== SÉRIE DE MAPS ===== */
+.series{display:flex;gap:14px;justify-content:center}
+.mc{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,var(--mc1,#23315e),var(--mc2,#0b1533));border:3px solid rgba(255,255,255,.15);transition:.3s}
+.mc::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px);pointer-events:none}
+.mc small{font-family:'Fira Sans';font-weight:800;opacity:.75;letter-spacing:.15em;text-transform:uppercase}
+.mc b{font-weight:400;cursor:pointer;line-height:1}
+.mc .pk{font-style:normal;cursor:pointer;border-radius:5px;padding:2px 10px;margin-top:6px}
+.mc .pk.a{background:var(--r)}.mc .pk.b{background:var(--b)}.mc .pk.dec{background:#fff;color:#0a1838;cursor:default}
+.mc .stt{font-family:'Fira Sans';font-weight:800;margin-top:6px;text-transform:uppercase;letter-spacing:.08em}
+.mc.live{border-color:#fff;box-shadow:0 0 30px rgba(255,255,255,.5);animation:lv 1.6s ease-in-out infinite}
+@keyframes lv{50%{box-shadow:0 0 50px rgba(255,255,255,.85)}}
+.mc.live .stt::before{content:"● ";color:var(--r);animation:dt 1.2s infinite}
+.mc.played{opacity:.7}.mc.played.a{border-color:var(--r)}.mc.played.b{border-color:var(--b)}
+.mc.skip{opacity:.35}
+.series.grand .mc{width:300px;height:190px}.series.grand .mc small{font-size:18px}.series.grand .mc b{font-size:56px}.series.grand .mc .pk{font-size:20px}.series.grand .mc .stt{font-size:18px}
+.series.mini{position:absolute;left:50%;top:calc(var(--y) + 150px);transform:translateX(-50%);gap:8px;animation:fu .8s .7s both}
+.series.mini .mc{width:140px;height:74px;border-width:2px;border-radius:8px}.series.mini .mc small{display:none}.series.mini .mc b{font-size:24px}.series.mini .mc .pk{font-size:12px;padding:1px 6px;margin-top:3px}.series.mini .mc .stt{font-size:11px;margin-top:3px}
+.vfoot{align-items:flex-end}.vside{display:flex;flex-direction:column;gap:14px;justify-content:flex-end}
+.vside span{display:block;text-align:center}
+.map-summit{--mc1:#5a7fa8;--mc2:#1b2b45}.map-abyss{--mc1:#3b2f6b;--mc2:#0b0820}.map-sunset{--mc1:#e2733b;--mc2:#5e1f3d}.map-lotus{--mc1:#2f9c8a;--mc2:#173a48}
+.map-corrode{--mc1:#7a6a3a;--mc2:#2a1f12}.map-haven{--mc1:#b88a4a;--mc2:#3b2a1a}.map-bind{--mc1:#c99a55;--mc2:#4a2c17}.map-ascent{--mc1:#7d9bb5;--mc2:#2b3a4f}
+.map-split{--mc1:#c0435a;--mc2:#321a2e}.map-pearl{--mc1:#2e8fb5;--mc2:#102c45}.map-breeze{--mc1:#2fb8b0;--mc2:#0f4250}.map-fracture{--mc1:#c77b2e;--mc2:#3a1d1d}.map-icebox{--mc1:#7fc4e8;--mc2:#1d3f63}
+.hinfo .cm{min-width:150px;text-align:center}
 /* ===== PAGE D'ACCUEIL ===== */
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
@@ -203,17 +226,17 @@ const T={
 <div class="side sl"><img src="${L}"><div class="tn ant">${A}</div><div class="sc ant" data-k="a">0</div></div>
 <div class="vsb ant">VS</div>
 <div class="side sr"><div class="opp ant">${B.trim().charAt(0)||'?'}</div><div class="tn ant">${B}</div><div class="sc ant" data-k="b">0</div></div>
-<div class="vfoot ant">${MAP?`<span>🗺️ ${MAP}</span>`:''}${BO?`<span>${BO}</span>`:''}${min?'<span id="cd">--:--</span>':''}</div></div>`,
+<div class="vfoot ant"><div class="series grand ant" id="series"></div><div class="vside">${BO?`<span class="bo" id="boReset">${BO}</span>`:''}${min?'<span id="cd">--:--</span>':''}</div></div></div>`,
  match:`<div class="bar mbar"><div class="lg"><img src="${L}"><span class="ant">Fraté</span></div>
 <div class="mbadge ant" data-mode>${MODE}</div>
 <div class="msc ant"><span class="ta">${A}</span><b class="sc" data-k="a">0</b><i>:</i><b class="sc" data-k="b">0</b><span class="tb">${B}</span></div>
-<div class="mmap ant" id="mmap">${[MAP,BO].filter(Boolean).join(' · ')||(NOM||'Valorant')}</div>
+<div class="mmap ant" id="mmap"><span class="curmap"></span>${BO?' · '+BO:''}</div>
 <div class="tick" id="tick"></div><div class="end ant"><i></i>Live</div></div>`,
  hud:`<div class="hud" style="--e:${ECART}px;--y:${HY}px">
 <div class="htop"></div>
 <div class="wing wl"><div class="wbg"></div><img src="${L}"><div class="wtx"><div class="wn ant" style="font-size:${A.length>8?(A.length>12?18:22):28}px">${A}</div><div class="dots" data-k="a"></div></div><div class="wsc ant sc" data-k="a">0</div></div>
 <div class="wing wr"><div class="wbg"></div><div class="wsc ant sc" data-k="b">0</div><div class="wtx"><div class="wn ant" style="font-size:${B.length>8?(B.length>12?18:22):28}px">${B}</div><div class="dots" data-k="b"></div></div><div class="opp s ant">${B.trim().charAt(0)||'?'}</div></div>
-<div class="hinfo ant"><span class="mbadge" data-mode>${MODE}</span>${[NOM,MAP,BO].filter(Boolean).map(x=>`<span>${x}</span>`).join('')}</div>
+<div class="hinfo ant"><span class="mbadge" data-mode>${MODE}</span>${NOM?`<span>${NOM}</span>`:''}<span class="curmap cm"></span>${BO?`<span class="bo" id="boReset">${BO}</span>`:''}</div><div class="series mini ant" id="series"></div>
 <div class="hcorner ant"><img src="${L}"><div><b>Fraté Esport</b><small id="hc">!discord · !abo</small></div><i></i></div>
 </div>`,
  alerte:`<div class="al"><div class="box"></div><div class="burst"></div><img src="${L}"><div class="tx"><div class="k ant">${Q.get('t')||'Merci !'}</div><div class="s">${Q.get('s')||'Bienvenue dans la Fraté'}</div></div></div>`
@@ -245,13 +268,33 @@ if(V==='inter'){const rm=['💬 Tape !discord pour rejoindre la Fraté','💜 Ab
  const setM=m=>{M=m;try{localStorage.setItem(MK,M)}catch(e){}paint()};
  document.querySelectorAll('[data-mode]').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{const i=MODES.indexOf(M);setM(MODES[(i+1)%MODES.length])};e.oncontextmenu=ev=>{ev.preventDefault();const i=MODES.indexOf(M);setM(MODES[(i-1+MODES.length)%MODES.length])}});
  addEventListener('storage',ev=>{if(ev.key===MK&&ev.newValue){M=ev.newValue;paint()}});paint();}
-if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score';let S={a:+(Q.get('sa')||0),b:+(Q.get('sb')||0)};
- try{const st=JSON.parse(localStorage.getItem(KEY));if(st&&!Q.has('sa')&&!Q.has('sb'))S=st}catch(e){}
- const NB=Math.ceil((+(Q.get('bo')||1))/2);const draw=()=>{document.querySelectorAll('.dots').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,i)=>`<i class="${i<v?'on':''}"></i>`).join('')});document.querySelectorAll('.sc').forEach(e=>{const v=S[e.dataset.k];if(e.textContent!=v){e.textContent=v;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}})};
+if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
+ const POOL=['Summit','Abyss','Sunset','Lotus','Corrode','Haven','Bind','Ascent','Split','Pearl','Breeze','Fracture','Icebox'];
+ const N=Math.max(1,+(Q.get('bo')||1)),NB=Math.ceil(N/2);
+ let S={a:+(Q.get('sa')||0),b:+(Q.get('sb')||0),w:[]};
+ try{const st=JSON.parse(localStorage.getItem(KEY));if(st&&!Q.has('sa')&&!Q.has('sb'))S=Object.assign({w:[]},st)}catch(e){}
+ const urlMaps=(Q.get('maps')||Q.get('map')||'').split(',').map(x=>x.trim()).filter(Boolean);
+ const fit=m=>{const f=POOL.find(x=>x.toLowerCase()===m.toLowerCase());return f||m};
+ const defMaps=()=>{const l=urlMaps.map(fit);for(const m of POOL){if(l.length>=N)break;if(!l.includes(m))l.push(m)}return l.slice(0,N)};
+ let SER={maps:defMaps(),pick:Array.from({length:N},(_,i)=>i%2?'b':'a'),sig:''};
+ const sig=(Q.get('maps')||Q.get('map')||'')+'|'+N;
+ try{const st=JSON.parse(localStorage.getItem(SK));if(st&&st.sig===sig&&st.maps&&st.maps.length===N)SER=st}catch(e){}SER.sig=sig;
+ const esc=t=>String(t).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+ const drawSeries=()=>{const done=S.a>=NB||S.b>=NB,ci=Math.min(S.a+S.b,N-1);
+  document.querySelectorAll('.curmap').forEach(e=>{e.textContent=(N>1?'Map '+(ci+1)+' · ':'')+SER.maps[ci]});
+  const box=document.getElementById('series');if(!box)return;
+  box.innerHTML=SER.maps.map((m,i)=>{let st,cl;if(i<S.a+S.b){const w=S.w[i];st=w?(w==='a'?'✔ '+esc(A):'✔ '+esc(B)):'Jouée';cl='played '+(w||'')}else if(i===ci&&!done){st='En ce moment';cl='live'}else if(done){st='Non jouée';cl='skip'}else{st='Après';cl='next'}
+   const pk=(N>1&&i===N-1)?'<em class="pk dec">Décider</em>':N>1?`<em class="pk ${SER.pick[i]}" data-i="${i}">Pick ${esc(SER.pick[i]==='a'?A:B)}</em>`:'';
+   return `<div class="mc ${cl} map-${m.toLowerCase().replace(/[^a-z]/g,'')}"><small>Map ${i+1}</small><b data-i="${i}">${esc(m)}</b>${pk}<span class="stt">${st}</span></div>`}).join('');
+  box.querySelectorAll('b[data-i]').forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])-1+POOL.length)%POOL.length];saveSer()}});
+  box.querySelectorAll('em.pk[data-i]').forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});};
+ document.querySelectorAll('.curmap.cm').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{const ci=Math.min(S.a+S.b,N-1);SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();const ci=Math.min(S.a+S.b,N-1);SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])-1+POOL.length)%POOL.length];saveSer()}});
+ const saveSer=()=>{try{localStorage.setItem(SK,JSON.stringify(SER))}catch(e){}drawSeries()};
+ const draw=()=>{document.querySelectorAll('.dots').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,i)=>`<i class="${i<v?'on':''}"></i>`).join('')});document.querySelectorAll('.sc').forEach(e=>{const v=S[e.dataset.k];if(e.textContent!=v){e.textContent=v;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}});drawSeries()};
  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}draw()};
- document.querySelectorAll('.sc').forEach(e=>{e.onclick=()=>{S[e.dataset.k]++;save()};e.oncontextmenu=ev=>{ev.preventDefault();S[e.dataset.k]=Math.max(0,S[e.dataset.k]-1);save()}});
- const mm=document.getElementById('mmap')||document.querySelector('.hinfo');if(mm)mm.ondblclick=()=>{S={a:0,b:0};save()};
- addEventListener('storage',ev=>{if(ev.key===KEY){try{S=JSON.parse(ev.newValue)}catch(e){}draw()}});draw();
+ document.querySelectorAll('.sc').forEach(e=>{const k=e.dataset.k;e.onclick=()=>{S[k]++;S.w.push(k);save()};e.oncontextmenu=ev=>{ev.preventDefault();if(S[k]>0){S[k]--;const x=S.w.lastIndexOf(k);if(x>-1)S.w.splice(x,1)}save()}});
+ const rs=document.getElementById('boReset')||document.getElementById('mmap');if(rs){rs.style.cursor='pointer';rs.title='Double-clic : remettre à 0';rs.ondblclick=()=>{S={a:0,b:0,w:[]};save()}};
+ addEventListener('storage',ev=>{try{if(ev.key===KEY){S=Object.assign({w:[]},JSON.parse(ev.newValue));draw()}if(ev.key===SK){SER=JSON.parse(ev.newValue);drawSeries()}}catch(e){}});draw();
  if(V==='hud'){const hc=document.getElementById('hc');const hm=['!discord · rejoins la Fraté','!abo · Prime Gaming gratuit','@frate_esport'];let q=0;setInterval(()=>{hc.style.opacity=0;setTimeout(()=>{hc.textContent=hm[q++%hm.length];hc.style.opacity=1},300)},5000);}
  if(V==='match'){const B2=R.querySelector('.bar');B2.style.position='fixed';const msg=['💬 <em>!discord</em> Rejoins la Fraté','💜 <em>!abo</em> Prime Gaming = abo gratuit','📸 <em>@frate_esport</em> Insta & TikTok'];const tk=document.getElementById('tick');const els=msg.map(m=>{const d=document.createElement('div');d.innerHTML=m;tk.appendChild(d);return d});let n=0;const go=()=>{els.forEach(e=>e.classList.remove('out'));const pv=els[(n+els.length-1)%els.length];pv.classList.remove('on');pv.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}}
 if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.style.cursor='pointer';el.title='Clic +1 min · clic droit −1 min · double-clic = relancer';
