@@ -87,7 +87,7 @@
     ],
     [
      "GoNe",
-     "Joueur"
+     "Contrôleur"
     ],
     [
      "K1nda",
@@ -112,7 +112,8 @@
   "tim": "03",
   "Ina": 11,
   "Cherco25": 25,
-  "Jéma_tw": 21
+  "Jéma_tw": 21,
+  "GoNe": 11
  },
  "discord": "https://discord.gg/U6AJGPHXWe",
  "boutique": "https://yokoesport.fr/equipes/frate-esport"
