@@ -196,6 +196,25 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .map-corrode{--mc1:#7a6a3a;--mc2:#2a1f12}.map-haven{--mc1:#b88a4a;--mc2:#3b2a1a}.map-bind{--mc1:#c99a55;--mc2:#4a2c17}.map-ascent{--mc1:#7d9bb5;--mc2:#2b3a4f}
 .map-split{--mc1:#c0435a;--mc2:#321a2e}.map-pearl{--mc1:#2e8fb5;--mc2:#102c45}.map-breeze{--mc1:#2fb8b0;--mc2:#0f4250}.map-fracture{--mc1:#c77b2e;--mc2:#3a1d1d}.map-icebox{--mc1:#7fc4e8;--mc2:#1d3f63}
 .hinfo .cm{min-width:150px;text-align:center}
+/* ===== PANNEAU MATCH (bas gauche) ===== */
+.hpanel{position:absolute;left:24px;bottom:24px;width:580px;padding:12px 14px 14px;background:linear-gradient(160deg,rgba(10,24,56,.93),rgba(6,16,42,.93));border-radius:14px;border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.5);animation:fu .8s cubic-bezier(.2,1,.3,1) both;overflow:hidden}
+.hpanel::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--r),var(--b),var(--r));background-size:200% 100%;animation:mv 4s linear infinite}
+.hp-row1{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.hp-row1 .mbadge{font-size:20px;padding:3px 12px}
+.hp-pill{font-size:20px;padding:3px 12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;white-space:nowrap}
+.hp-row1 .curmap{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis}
+.hp-score{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.hp-team{flex:1;min-width:0;display:flex;align-items:center;gap:10px;height:62px;padding:0 10px;border-radius:10px}
+.hp-team.ta{background:linear-gradient(90deg,rgba(227,32,47,.85),rgba(227,32,47,.25))}
+.hp-team.tb{background:linear-gradient(270deg,rgba(31,111,229,.85),rgba(31,111,229,.25));justify-content:flex-end;text-align:right}
+.hp-team>div{min-width:0}.hp-team img{height:50px}
+.hp-n{line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hp-team .dots{margin-top:5px}.hp-team.tb .dots{justify-content:flex-end}.hp-team .dots i{width:18px;height:6px}
+.hp-team .opp.s{width:44px;height:52px;font-size:32px}
+.hp-sc{display:flex;align-items:center;gap:6px;font-size:46px;line-height:1}
+.hp-sc b{font-weight:400;min-width:40px;text-align:center;background:rgba(0,0,0,.35);border-radius:8px;padding:4px 6px;cursor:pointer}.hp-sc i{font-style:normal;opacity:.5;font-size:34px}
+.hpanel .series.mini{position:static;transform:none;justify-content:stretch;animation:none}
+.hpanel .series.mini .mc{flex:1;width:auto;height:66px}
 /* ===== PAGE D'ACCUEIL ===== */
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
@@ -226,17 +245,22 @@ const T={
 <div class="side sl"><img src="${L}"><div class="tn ant">${A}</div><div class="sc ant" data-k="a">0</div></div>
 <div class="vsb ant">VS</div>
 <div class="side sr"><div class="opp ant">${B.trim().charAt(0)||'?'}</div><div class="tn ant">${B}</div><div class="sc ant" data-k="b">0</div></div>
-<div class="vfoot ant"><div class="series grand ant" id="series"></div><div class="vside">${BO?`<span class="bo" id="boReset">${BO}</span>`:''}${min?'<span id="cd">--:--</span>':''}</div></div></div>`,
+<div class="vfoot ant"><div class="series grand ant" id="series"></div><div class="vside"><span class="bo" id="boReset">BO1</span>${min?'<span id="cd">--:--</span>':''}</div></div></div>`,
  match:`<div class="bar mbar"><div class="lg"><img src="${L}"><span class="ant">Fraté</span></div>
 <div class="mbadge ant" data-mode>${MODE}</div>
 <div class="msc ant"><span class="ta">${A}</span><b class="sc" data-k="a">0</b><i>:</i><b class="sc" data-k="b">0</b><span class="tb">${B}</span></div>
-<div class="mmap ant" id="mmap"><span class="curmap"></span>${BO?' · '+BO:''}</div>
+<div class="mmap ant" id="mmap"><span class="curmap"></span> · <span class="bo">BO1</span></div>
 <div class="tick" id="tick"></div><div class="end ant"><i></i>Live</div></div>`,
- hud:`<div class="hud" style="--e:${ECART}px;--y:${HY}px">
-<div class="htop"></div>
-<div class="wing wl"><div class="wbg"></div><img src="${L}"><div class="wtx"><div class="wn ant" style="font-size:${A.length>8?(A.length>12?18:22):28}px">${A}</div><div class="dots" data-k="a"></div></div><div class="wsc ant sc" data-k="a">0</div></div>
-<div class="wing wr"><div class="wbg"></div><div class="wsc ant sc" data-k="b">0</div><div class="wtx"><div class="wn ant" style="font-size:${B.length>8?(B.length>12?18:22):28}px">${B}</div><div class="dots" data-k="b"></div></div><div class="opp s ant">${B.trim().charAt(0)||'?'}</div></div>
-<div class="hinfo ant"><span class="mbadge" data-mode>${MODE}</span>${NOM?`<span>${NOM}</span>`:''}<span class="curmap cm"></span>${BO?`<span class="bo" id="boReset">${BO}</span>`:''}</div><div class="series mini ant" id="series"></div>
+ hud:`<div class="hud">
+<div class="hpanel ant">
+ <div class="hp-row1"><span class="mbadge" data-mode>${MODE}</span>${NOM?`<span class="hp-pill">${NOM}</span>`:''}<span class="hp-pill curmap cm"></span><span class="hp-pill bo" id="boReset">BO1</span></div>
+ <div class="hp-score">
+  <div class="hp-team ta"><img src="${L}"><div><div class="hp-n" style="font-size:${A.length>8?(A.length>12?17:21):27}px">${A}</div><div class="dots" data-k="a"></div></div></div>
+  <div class="hp-sc"><b class="sc" data-k="a">0</b><i>:</i><b class="sc" data-k="b">0</b></div>
+  <div class="hp-team tb"><div><div class="hp-n" style="font-size:${B.length>8?(B.length>12?17:21):27}px">${B}</div><div class="dots" data-k="b"></div></div><div class="opp s">${B.trim().charAt(0)||'?'}</div></div>
+ </div>
+ <div class="series mini" id="series"></div>
+</div>
 <div class="hcorner ant"><img src="${L}"><div><b>Fraté Esport</b><small id="hc">!discord · !abo</small></div><i></i></div>
 </div>`,
  alerte:`<div class="al"><div class="box"></div><div class="burst"></div><img src="${L}"><div class="tx"><div class="k ant">${Q.get('t')||'Merci !'}</div><div class="s">${Q.get('s')||'Bienvenue dans la Fraté'}</div></div></div>`
@@ -270,31 +294,36 @@ if(V==='inter'){const rm=['💬 Tape !discord pour rejoindre la Fraté','💜 Ab
  addEventListener('storage',ev=>{if(ev.key===MK&&ev.newValue){M=ev.newValue;paint()}});paint();}
 if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
  const POOL=(Q.get('pool')||'Abyss,Bind,Corrode,Haven,Lotus,Summit,Sunset').split(',').map(x=>x.trim()).filter(Boolean); // pool compétitif V26 Acte 6
- const N=Math.max(1,+(Q.get('bo')||1)),NB=Math.ceil(N/2);
+ const urlBo=Math.max(1,+(Q.get('bo')||1));let N=urlBo,NB=Math.floor(N/2)+1;
  let S={a:+(Q.get('sa')||0),b:+(Q.get('sb')||0),w:[]};
  try{const st=JSON.parse(localStorage.getItem(KEY));if(st&&!Q.has('sa')&&!Q.has('sb'))S=Object.assign({w:[]},st)}catch(e){}
  const urlMaps=(Q.get('maps')||Q.get('map')||'').split(',').map(x=>x.trim()).filter(Boolean);
  const fit=m=>{const f=POOL.find(x=>x.toLowerCase()===m.toLowerCase());return f||m};
- const defMaps=()=>{const l=urlMaps.map(fit);for(const m of POOL){if(l.length>=N)break;if(!l.includes(m))l.push(m)}return l.slice(0,N)};
- let SER={maps:defMaps(),pick:Array.from({length:N},(_,i)=>i%2?'b':'a'),sig:''};
- const sig=(Q.get('maps')||Q.get('map')||'')+'|'+N;
- try{const st=JSON.parse(localStorage.getItem(SK));if(st&&st.sig===sig&&st.maps&&st.maps.length===N)SER=st}catch(e){}SER.sig=sig;
+ const fill=(l,n)=>{l=l.slice(0,n);for(const m of POOL){if(l.length>=n)break;if(!l.includes(m))l.push(m)}while(l.length<n)l.push(POOL[l.length%POOL.length]);return l};
+ const sig=(Q.get('maps')||Q.get('map')||'')+'|'+urlBo;
+ let SER={n:urlBo,maps:fill(urlMaps.map(fit).filter(m=>POOL.includes(m)),urlBo),pick:Array.from({length:urlBo},(_,i)=>i%2?'b':'a'),sig};
+ try{const st=JSON.parse(localStorage.getItem(SK));if(st&&st.sig===sig&&st.maps&&st.n)SER=st}catch(e){}
+ const setN=()=>{N=SER.n;NB=Math.floor(N/2)+1;SER.maps=fill(SER.maps.filter(m=>POOL.includes(m)),N);SER.pick=Array.from({length:N},(_,i)=>SER.pick[i]||(i%2?'b':'a'))};setN();
+ const BOS=[1,2,3,5];
  const esc=t=>String(t).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
- const drawSeries=()=>{const done=S.a>=NB||S.b>=NB,ci=Math.min(S.a+S.b,N-1);
+ const isDec=i=>N%2===1&&N>1&&i===N-1;
+ const drawSeries=()=>{const played=S.a+S.b,done=S.a>=NB||S.b>=NB||played>=N,ci=Math.min(played,N-1);
+  document.querySelectorAll('.bo').forEach(e=>e.textContent='BO'+N);
   document.querySelectorAll('.curmap').forEach(e=>{e.textContent=(N>1?'Map '+(ci+1)+' · ':'')+SER.maps[ci]});
   const box=document.getElementById('series');if(!box)return;
-  box.innerHTML=SER.maps.map((m,i)=>{let st,cl;if(i<S.a+S.b){const w=S.w[i];st=w?(w==='a'?'✔ '+esc(A):'✔ '+esc(B)):'Jouée';cl='played '+(w||'')}else if(i===ci&&!done){st='En ce moment';cl='live'}else if(done){st='Non jouée';cl='skip'}else{st='Après';cl='next'}
-   const pk=(N>1&&i===N-1)?'<em class="pk dec">Décider</em>':N>1?`<em class="pk ${SER.pick[i]}" data-i="${i}">Pick ${esc(SER.pick[i]==='a'?A:B)}</em>`:'';
+  box.innerHTML=SER.maps.map((m,i)=>{let st,cl;if(i<played){const w=S.w[i];st=w?'✔ '+esc(w==='a'?A:B):'Jouée';cl='played '+(w||'')}else if(i===ci&&!done){st='En ce moment';cl='live'}else if(done){st='Non jouée';cl='skip'}else{st='Après';cl='next'}
+   const pk=isDec(i)?'<em class="pk dec">Décider</em>':N>1?`<em class="pk ${SER.pick[i]}" data-i="${i}">Pick ${esc(SER.pick[i]==='a'?A:B)}</em>`:'';
    return `<div class="mc ${cl} map-${m.toLowerCase().replace(/[^a-z]/g,'')}"><small>Map ${i+1}</small><b data-i="${i}">${esc(m)}</b>${pk}<span class="stt">${st}</span></div>`}).join('');
   box.querySelectorAll('b[data-i]').forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])-1+POOL.length)%POOL.length];saveSer()}});
   box.querySelectorAll('em.pk[data-i]').forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});};
  document.querySelectorAll('.curmap.cm').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{const ci=Math.min(S.a+S.b,N-1);SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();const ci=Math.min(S.a+S.b,N-1);SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])-1+POOL.length)%POOL.length];saveSer()}});
- const saveSer=()=>{try{localStorage.setItem(SK,JSON.stringify(SER))}catch(e){}drawSeries()};
+ const saveSer=()=>{try{localStorage.setItem(SK,JSON.stringify(SER))}catch(e){}draw()};
+ document.querySelectorAll('.bo').forEach(e=>{e.style.cursor='pointer';e.title='Clic : changer de BO · clic droit : remettre le score à 0';e.onclick=()=>{SER.n=BOS[(BOS.indexOf(SER.n)+1)%BOS.length]||1;setN();saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();S={a:0,b:0,w:[]};save()}});
  const draw=()=>{document.querySelectorAll('.dots').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,i)=>`<i class="${i<v?'on':''}"></i>`).join('')});document.querySelectorAll('.sc').forEach(e=>{const v=S[e.dataset.k];if(e.textContent!=v){e.textContent=v;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}});drawSeries()};
  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}draw()};
  document.querySelectorAll('.sc').forEach(e=>{const k=e.dataset.k;e.onclick=()=>{S[k]++;S.w.push(k);save()};e.oncontextmenu=ev=>{ev.preventDefault();if(S[k]>0){S[k]--;const x=S.w.lastIndexOf(k);if(x>-1)S.w.splice(x,1)}save()}});
- const rs=document.getElementById('boReset')||document.getElementById('mmap');if(rs){rs.style.cursor='pointer';rs.title='Double-clic : remettre à 0';rs.ondblclick=()=>{S={a:0,b:0,w:[]};save()}};
- addEventListener('storage',ev=>{try{if(ev.key===KEY){S=Object.assign({w:[]},JSON.parse(ev.newValue));draw()}if(ev.key===SK){SER=JSON.parse(ev.newValue);drawSeries()}}catch(e){}});draw();
+ {const mm=document.getElementById('mmap');if(mm){mm.style.cursor='pointer';mm.ondblclick=()=>{S={a:0,b:0,w:[]};save()}}}
+ addEventListener('storage',ev=>{try{if(ev.key===KEY){S=Object.assign({w:[]},JSON.parse(ev.newValue));draw()}if(ev.key===SK){SER=JSON.parse(ev.newValue);setN();draw()}}catch(e){}});draw();
  if(V==='hud'){const hc=document.getElementById('hc');const hm=['!discord · rejoins la Fraté','!abo · Prime Gaming gratuit','@frate_esport'];let q=0;setInterval(()=>{hc.style.opacity=0;setTimeout(()=>{hc.textContent=hm[q++%hm.length];hc.style.opacity=1},300)},5000);}
  if(V==='match'){const B2=R.querySelector('.bar');B2.style.position='fixed';const msg=['💬 <em>!discord</em> Rejoins la Fraté','💜 <em>!abo</em> Prime Gaming = abo gratuit','📸 <em>@frate_esport</em> Insta & TikTok'];const tk=document.getElementById('tick');const els=msg.map(m=>{const d=document.createElement('div');d.innerHTML=m;tk.appendChild(d);return d});let n=0;const go=()=>{els.forEach(e=>e.classList.remove('out'));const pv=els[(n+els.length-1)%els.length];pv.classList.remove('on');pv.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}}
 if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.style.cursor='pointer';el.title='Clic +1 min · clic droit −1 min · double-clic = relancer';
