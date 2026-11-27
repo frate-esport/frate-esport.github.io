@@ -1,0 +1,105 @@
+{
+ "teams": [
+  {
+   "id": "prime",
+   "name": "Fraté Prime",
+   "tag": "PRIME",
+   "col": "#ff2a44",
+   "kit": "rose",
+   "joueurs": [
+    [
+     "Evan",
+     "Joueur"
+    ],
+    [
+     "Tibz",
+     "Joueur"
+    ],
+    [
+     "Sky",
+     "Joueur"
+    ],
+    [
+     "Filarmen_SF",
+     "Joueur"
+    ],
+    [
+     "Mastaa",
+     "Joueur"
+    ],
+    [
+     "Axqua",
+     "Joueur"
+    ],
+    [
+     "SOLAX",
+     "Joueur"
+    ]
+   ]
+  },
+  {
+   "id": "inferno",
+   "name": "Fraté Inferno",
+   "tag": "INF",
+   "col": "#ff6a2a",
+   "kit": "bleu",
+   "joueurs": [
+    [
+     "azyialex",
+     "Capitaine"
+    ],
+    [
+     "Vavaelior",
+     "Joueur"
+    ],
+    [
+     "Cup0fSand",
+     "Joueur"
+    ],
+    [
+     "K1muraAa",
+     "Joueur"
+    ],
+    [
+     "CAPUCHE",
+     "Joueur"
+    ]
+   ]
+  },
+  {
+   "id": "eclipse",
+   "name": "Fraté Eclipse",
+   "tag": "ECL",
+   "col": "#a970ff",
+   "kit": "third",
+   "joueurs": [
+    [
+     "tim",
+     "Duelliste"
+    ],
+    [
+     "Ina",
+     "Contrôleur"
+    ]
+   ]
+  }
+ ],
+ "numeros": {
+  "azyialex": 41,
+  "Tibz": 12,
+  "K1muraAa": 9,
+  "Evan": 19,
+  "Axqua": 33,
+  "CAPUCHE": 77,
+  "Vavaelior": 10,
+  "Filarmen_SF": 44,
+  "Mastaa": 7,
+  "SOLAX": 4,
+  "Cup0fSand": 7,
+  "Sky": 6,
+  "tim": 10,
+  "Ina": 7
+ },
+ "discord": "https://discord.gg/U6AJGPHXWe",
+ "boutique": "https://yokoesport.fr/equipes/frate-esport"
+}
