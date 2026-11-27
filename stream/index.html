@@ -378,12 +378,22 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .sc2{display:flex;flex-direction:column;gap:8px;padding:34px 40px;background:linear-gradient(135deg,rgba(227,32,47,.25),rgba(31,111,229,.25));border:2px solid rgba(255,255,255,.18);border-radius:18px}
 .slide.on .sc2{animation:kin .7s cubic-bezier(.2,1,.3,1) both}.slide.on .sc2:nth-child(2){animation-delay:.12s}.slide.on .sc2:nth-child(3){animation-delay:.24s}.slide.on .sc2:nth-child(4){animation-delay:.36s}
 .sc2 i{font-style:normal;font-size:54px}.sc2 b{font-weight:400;font-size:52px}.sc2 small{font-family:'Fira Sans';font-weight:700;font-size:26px;text-transform:none;opacity:.85}
+/* infos qui défilent sur l'écran Début */
+.deb .content{padding-bottom:120px;padding-top:30px}
+.deb .logo{height:260px}.deb .big{font-size:120px!important;margin-top:10px}.deb .sub{margin-top:14px}.deb .cd{font-size:90px;margin-top:18px}
+.info{position:relative;margin-top:28px;min-width:980px;display:flex;align-items:center;gap:26px;padding:20px 40px;border-radius:18px;background:linear-gradient(90deg,color-mix(in srgb,var(--ic,#a970ff) 35%,rgba(10,16,40,.9)),rgba(10,16,40,.85));border:2px solid color-mix(in srgb,var(--ic,#a970ff) 70%,transparent);box-shadow:0 0 40px color-mix(in srgb,var(--ic,#a970ff) 40%,transparent);opacity:0;transform:translateY(20px) scale(.97);transition:.35s cubic-bezier(.2,1,.3,1);text-align:left}
+.info.on{opacity:1;transform:none}
+.info i{font-style:normal;font-size:60px}
+.info b{display:block;font-family:Anton;font-weight:400;font-size:46px;letter-spacing:.02em;text-transform:uppercase}
+.info small{display:flex;align-items:center;gap:8px;font-weight:700;font-size:26px;opacity:.9}
+.info small img{height:34px;vertical-align:middle}
+.info em{font-style:normal;background:rgba(0,0,0,.3);padding:1px 8px;border-radius:6px}
 /* ===== PAGE D'ACCUEIL ===== */
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
 .home li{margin:14px 0}.home a{color:var(--bl)}
 </style></head><body><script>// mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795820378';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
+(()=>{const V0='1795821236';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
 const Q=new URLSearchParams(location.search),V=Q.get('v');
 const L='../logo.png';
 const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"></b>discord.gg/U6AJGPHXWe</div><div class="pill"><b style="background:var(--r)"></b>@frate_esport</div><div class="pill"><b style="background:var(--b)"></b>frate-esport.github.io</div></div>`;
@@ -395,7 +405,7 @@ const KITS=[['rose','Polo Rose','Fraté Prime','#ff5fa8','prime'],['third','Polo
 const kitsRow=()=>`<div class="krow">${KITS.map((k,i)=>`<div class="kc" style="--kg:${k[3]};--d:${i*.18}s"><div class="kflip" style="--fd:${i*1.6}s"><img class="kf" src="kit-${k[0]}.webp"><div class="kb"><span class="bk fl-${k[0]}" data-kit="${k[0]}" data-team="${k[4]}" data-fd="${i*1.6}"><img src="dos-${k[0]}-vide.webp"><span class="fl-name"></span><span class="fl-num"></span></span></div></div><div class="kped"></div><div class="kname ant">${k[1]}</div><div class="ksub">${k[2]}</div><div class="kprix ant" data-prix="40"></div></div>`).join('')}</div>`;
 const bgHTML='<div class="glow r"></div><div class="glow b"></div><div class="grid"></div><div class="parts"></div>';
 const T={
- debut:screen('Le live','commence','Installe-toi<span class="dots"><b>.</b><b>.</b><b>.</b></span>',min?'<div class="cd" id="cd">--:--</div>':''),
+ debut:screen('Le live','commence','Installe-toi<span class="dots"><b>.</b><b>.</b><b>.</b></span>',(min?'<div class="cd" id="cd">--:--</div>':'')+'<div class="info" id="info"></div>').replace('<div class="screen">','<div class="screen deb">'),
  pause:screen('Petite','pause','On revient très vite<span class="dots"><b>.</b><b>.</b><b>.</b></span>'),
  fin:screen('Merci',"d'être passé",'Rejoins la Fraté sur Discord'),
  ecran:screen('Fraté','Esport','Valorant · Premier','',''),
@@ -582,6 +592,18 @@ if(V==='maillots'||V==='pause'){
 }
 if(false){const promo=Date.now()<=Date.parse('2026-11-30T23:59:59+01:00');
  document.querySelectorAll('.kprix').forEach(e=>{const pr=+e.dataset.prix;e.innerHTML=promo?`<s>${pr} €</s><b>${Math.round(pr*.8)} €</b><em>Black Friday −20 %</em>`:`<b>${pr} €</b>`});}
+if(V==='debut'){const promo=Date.now()<=Date.parse('2026-11-30T23:59:59+01:00');
+ const cards=[
+  ['💬','Rejoins le Discord','discord.gg/U6AJGPHXWe · tape <em>!discord</em>','#5865f2'],
+  ['👋','Dis bonjour dans le tchat','On lance la game très vite, fais-toi entendre !','#a970ff'],
+  promo?['👕','Maillots Fraté −20 %','Black Friday jusqu\'au 30/11 · 32 € au lieu de 40 € · yokoesport.fr','#e3202f']:['👕','Les maillots Fraté','Rose, Bleu et Third · yokoesport.fr','#e3202f'],
+  ['🛡️','3 équipes Fraté','<img src="logo-prime.png"> Prime · <img src="logo-inferno.png"> Inferno · <img src="logo-eclipse.png"> Eclipse','#ff6a2a'],
+  ['💜','Soutiens la Fraté','Abo gratuit avec Prime Gaming · <em>!abo</em> · Bits <em>!bits</em>','#9146ff'],
+  ['🎮','Le club recrute','Joueurs · casters · modos · staff · community manager','#1f6fe5'],
+  ['📱','L\'appli Fraté','Gratuite · frate-esport.github.io/appli','#14a37f']];
+ const el=document.getElementById('info');let k=0;
+ const show=()=>{const c=cards[k++%cards.length];el.classList.remove('on');setTimeout(()=>{el.style.setProperty('--ic',c[3]);el.innerHTML=`<i>${c[0]}</i><div><b>${c[1]}</b><small>${c[2]}</small></div>`;el.classList.add('on')},350)};
+ setTimeout(()=>{show();setInterval(show,7000)},1200);}
 if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.style.cursor='pointer';el.title='Clic +1 min · clic droit −1 min · double-clic = relancer';
  const t=()=>{const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=s?String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):"C'est parti !"};
  el.onclick=()=>{end=Math.max(end,Date.now())+60000;t()};el.oncontextmenu=ev=>{ev.preventDefault();end=Math.max(Date.now(),end-60000);t()};el.ondblclick=()=>{end=Date.now()+min*60000;t()};
