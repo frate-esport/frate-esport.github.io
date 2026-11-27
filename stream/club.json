@@ -75,18 +75,18 @@
     ],
     [
      "Ina",
-     "Contrôleur"
+     "Contrôleur / Duelliste"
     ],
     [
      "Cherco25",
-     "Joueur"
-    ],
-    [
-     "GoNe",
-     "Joueur"
+     "Sentinelle"
     ],
     [
      "Jéma_tw",
+     "Duelliste"
+    ],
+    [
+     "GoNe",
      "Joueur"
     ],
     [
@@ -109,8 +109,10 @@
   "SOLAX": 4,
   "Cup0fSand": 7,
   "Sky": 6,
-  "tim": 10,
-  "Ina": 7
+  "tim": "03",
+  "Ina": 11,
+  "Cherco25": 25,
+  "Jéma_tw": 21
  },
  "discord": "https://discord.gg/U6AJGPHXWe",
  "boutique": "https://yokoesport.fr/equipes/frate-esport"
