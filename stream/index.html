@@ -437,7 +437,7 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
   if(strip2){strip.innerHTML=items.slice(0,cut).join('');strip2.innerHTML=items.slice(cut).join('')}else strip.innerHTML=items.join('');
   const SB=[strip,strip2].filter(Boolean);
   SB.flatMap(x=>[...x.querySelectorAll('b[data-i]')]).forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])-1+POOL.length)%POOL.length];saveSer()}});
-  SB.flatMap(x=>[...x.querySelectorAll('u[data-i]')]).forEach(e=>{const i=+e.dataset.i,k=+e.dataset.s;e.onclick=()=>{SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]++;saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]=Math.max(0,SER.rs[i][k]-1);saveSer()}});
+  SB.flatMap(x=>[...x.querySelectorAll('u[data-i]')]).forEach(e=>{const i=+e.dataset.i,k=+e.dataset.s;e.title='Clic +1 · clic droit −1 · molette';e.onwheel=ev=>{ev.preventDefault();SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]=Math.max(0,SER.rs[i][k]+(ev.deltaY<0?1:-1));saveSer()};e.onclick=()=>{SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]++;saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]=Math.max(0,SER.rs[i][k]-1);saveSer()}});
   SB.flatMap(x=>[...x.querySelectorAll('[data-p]')]).forEach(e=>{const i=+e.dataset.p;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});}
  document.querySelectorAll('.curmap2').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])-1+POOL.length)%POOL.length];saveSer()}});
  const box=document.getElementById('series');if(!box)return;
@@ -465,5 +465,5 @@ if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.s
 }
 
 // mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795785652';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
+(()=>{const V0='1795785684';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
 </script></body></html>
