@@ -306,7 +306,8 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
 .home li{margin:14px 0}.home a{color:var(--bl)}
-</style></head><body><div id="root"></div><script>
+</style></head><body><script>// mise à jour automatique : recharge la page quand une nouvelle version est en ligne
+(()=>{const V0='1795786030';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
 const Q=new URLSearchParams(location.search),V=Q.get('v');
 const L='../logo.png';
 const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"></b>discord.gg/U6AJGPHXWe</div><div class="pill"><b style="background:var(--r)"></b>@frate_esport</div><div class="pill"><b style="background:var(--b)"></b>frate-esport.github.io</div></div>`;
@@ -464,6 +465,4 @@ if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.s
  t();setInterval(t,250);}
 }
 
-// mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795785684';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
 </script></body></html>
