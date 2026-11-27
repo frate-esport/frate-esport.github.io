@@ -878,7 +878,7 @@ html.in-app .app-card .btn{display:none}
 <h2>Suivez-nous</h2>
 <p class="lead">Matchs en direct, clips et coulisses sur nos réseaux.</p>
 <div class="soc" data-social></div>
-<a class="band" href="#/recrutement" style="margin-top:28px"><div><h3>🎮 On recrute</h3><p>Joueurs, coachs, monteurs, casters : envoie ta candidature en 2 minutes.</p></div><span class="btn">Postuler →</span></a>
+<a class="band" href="#/recrutement" style="margin-top:28px"><div><h3>🎮 On recrute</h3><p>Joueurs, casters, modérateurs, staff, community manager : envoie ta candidature en 2 minutes.</p></div><span class="btn">Postuler →</span></a>
 </section></div>
 
 </div>
@@ -958,7 +958,7 @@ html.in-app .app-card .btn{display:none}
 
 <!-- RECRUTEMENT -->
 <div class="page" data-page="/recrutement">
-<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Recrutement</div><h1>Rejoins <span>l’équipe</span></h1><p>Joueurs, coachs, analystes, monteurs, casters : le club cherche des profils motivés.</p></div></div>
+<div class="hero"><div><div class="crumb"><a href="#/">Accueil</a> › Recrutement</div><h1>Rejoins <span>l’équipe</span></h1><p>Joueurs, casters, modérateurs, staff, community manager : le club cherche des profils motivés.</p></div></div>
 <section>
 <h2>Postes ouverts</h2>
 <div class="grid" id="postes" style="margin-bottom:40px"></div>
@@ -1071,10 +1071,10 @@ const ROSTER_VIDE = () => ["Duelliste","Initiateur","Contrôleur","Sentinelle","
 const TEAMS = [
  // joueurs : [pseudo, rôle, prénom/nom] ; à remplir avec les vrais rosters
  // col = couleur du nom sous le logo de l'équipe
- {id:"prime", tag:"PRIME", name:"Fraté Prime", col:"#ff2a44", kit:"rose", compet:"Valorant Premier", joueurs:["Evan","Tibz","Sky","Filarmen_SF","Mastaa","Axqua","SOLAX"].map(p => [p, "Joueur", ""]), staff:[]},
+ {id:"prime", tag:"PRIME", name:"Fraté Prime", col:"#ff2a44", kit:"rose", compet:"Valorant Premier", joueurs:["Evan","Tibz","Sky","Filarmen_SF","Axqua","SOLAX"].map(p => [p, "Joueur", ""]), staff:[]},
  {id:"inferno", tag:"INF", name:"Fraté Inferno", col:"#ff6a2a", kit:"bleu", compet:"Valorant Premier", joueurs:[["azyialex","Capitaine",""],["Vavaelior","Joueur",""],["Cup0fSand","Joueur",""],["K1muraAa","Joueur",""],["CAPUCHE","Joueur",""]], staff:[]},
  // Fraté Eclipse : née de la fusion avec MEMIS (25/10/2026)
- {id:"eclipse", tag:"ECL", name:"Fraté Eclipse", col:"#a970ff", kit:"third", compet:"Valorant Premier", joueurs:[["tim","Duelliste",""],["Ina","Contrôleur",""], ...ROSTER_VIDE().filter(r => ["Initiateur","Sentinelle","Flex / IGL"].includes(r[1]))], staff:[]}
+ {id:"eclipse", tag:"ECL", name:"Fraté Eclipse", col:"#a970ff", kit:"third", compet:"Valorant Premier", joueurs:[["tim","Duelliste",""],["Ina","Contrôleur",""],["Cherco25","Joueur",""],["GoNe","Joueur",""],["Jéma_tw","Joueur",""],["K1nda","Joueur",""]], staff:[]}
 ];
 // Premier : les créneaux de match de chaque semaine, adversaire attribué par le matchmaking.
 // Les prochains matchs sont calculés tout seuls (jour : 0 = dimanche, 4 = jeudi, 6 = samedi).
@@ -1279,7 +1279,7 @@ Bienvenue dans ce nouveau chapitre de l’aventure. On compte sur vous pour écr
 
 ## ON JOUE POUR LA VICTOIRE. 🏆`},
  {id:"premier-v26a4", d:"2026-08-16", ico:"🥈", titre:"Premier V26A4 : Fraté Prime 2e, l’Académie 7e", resume:"Très belle saison Premier pour les deux rosters du club.", texte:"Fin de l’acte 4 de Premier : Fraté Prime termine à la 2e place et décroche la médaille d’argent, et Fraté Académie se classe 7e. Bravo aux deux équipes !"},
- {id:"recrutement", d:"2026-10-08", ico:"🎮", titre:"Le club recrute", resume:"Tous les rôles, tous les niveaux : envoie ta candidature.", texte:"Fraté cherche des joueurs motivés à tous les postes. Bonne communication et disponibilité en soirée demandées. Candidatures via la page Recrutement."}
+ {id:"recrutement", d:"2026-10-08", ico:"🎮", titre:"Le club recrute", resume:"Joueurs, casters, modérateurs, staff, community manager : envoie ta candidature.", texte:"Fraté cherche des joueurs, des casters, des modérateurs, du staff et un community manager. Bonne communication et disponibilité en soirée demandées. Candidatures via la page Recrutement."}
 ];
 // Palmarès (an = année ; à corriger si besoin)
 const PALMARES = [
@@ -1297,7 +1297,7 @@ const ORGA = [
 // Manager de chaque équipe (affiché dans l'organigramme et sur la page de l'équipe)
 const MANAGERS = {prime:"Ina"};
 const HISTOIRE = ["Fraté est né d’une bande de potes qui jouaient à Valorant ensemble le soir et voulaient aller plus loin en compétition.","Le club compte cette saison trois rosters, Fraté Prime, Fraté Inferno et Fraté Eclipse, un staff bénévole et une communauté active sur Discord et Twitch.","Notre objectif : faire progresser nos joueurs, dans un cadre sain et entre frérots, jusqu’au plus haut niveau de Premier."];
-const POSTES = [["Joueurs – tous rôles","Pour renforcer Prime et Inferno"],["Coach","Pour Prime ou Inferno"],["Monteur vidéo","Clips et best-of"],["Caster","Commentaires des matchs en live"]];
+const POSTES = [["🎮 Joueurs","Tous les niveaux, pour renforcer nos rosters Prime, Inferno et Eclipse"],["🎙️ Casters","Commenter nos matchs et tournois en live"],["🛡️ Modérateurs","Garder le Discord et le tchat Twitch propres et accueillants"],["🧑‍💼 Staff","Organisation des praccs, des matchs et de la vie du club"],["📣 Community manager","Animer nos réseaux : TikTok, Instagram, Discord"]];
 const PLANNING = [["Lundi","20h","Scrims Prime"],["Mercredi","20h","Review VOD"],["Jeudi","19h","Match Premier"],["Samedi","20h","Match Premier"],["Dimanche","19h","Match Premier"]];
 // ================== fin des infos à modifier ==================
 
