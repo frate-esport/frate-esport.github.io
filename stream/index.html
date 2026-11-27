@@ -414,7 +414,7 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
  const sig=(Q.get('maps')||Q.get('map')||'')+'|'+urlBo;
  let SER={n:urlBo,maps:fill(urlMaps.map(fit).filter(m=>POOL.includes(m)),urlBo),pick:Array.from({length:urlBo},(_,i)=>i%2?'b':'a'),sig};
  try{const st=JSON.parse(localStorage.getItem(SK));if(st&&st.sig===sig&&st.maps&&st.n)SER=st}catch(e){}
- const setN=()=>{N=SER.n;NB=Math.floor(N/2)+1;SER.maps=fill(SER.maps.filter(m=>POOL.includes(m)),N);SER.pick=Array.from({length:N},(_,i)=>SER.pick[i]||(i%2?'b':'a'))};setN();
+ const setN=()=>{N=SER.n;NB=Math.floor(N/2)+1;S.a=Math.min(S.a,NB);S.b=Math.min(S.b,NB);while(S.a+S.b>N){if(S.a>S.b)S.a--;else S.b--}S.w=(S.w||[]).slice(0,S.a+S.b);{let ca=0,cb=0;S.w=S.w.filter(k=>k==='a'?(++ca<=S.a):(++cb<=S.b));while(S.w.length<S.a+S.b){const na=S.w.filter(k=>k==='a').length;S.w.push(na<S.a?'a':'b')}}if(SER.rs)SER.rs=SER.rs.slice(0,N);SER.maps=fill(SER.maps.filter(m=>POOL.includes(m)),N);SER.pick=Array.from({length:N},(_,i)=>SER.pick[i]||(i%2?'b':'a'))};setN();
  const BOS=[1,2,3,5];
  const esc=t=>String(t).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
  const isDec=i=>N%2===1&&N>1&&i===N-1;
@@ -429,7 +429,7 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
    if(i<played){const w=S.w[i];h+=`<span class="it"><b data-i="${i}">${esc(m)}</b><em class="rs"><u data-i="${i}" data-s="0">${r[0]}</u>-<u data-i="${i}" data-s="1">${r[1]}</u></em><i class="wt ${w||''}">${w?(w==='a'?TA:TB):''}</i></span>`}
    else if(i===ci&&!done){h2+=`<span class="it cur"><small>Actuelle :</small> <b data-i="${i}">${esc(m)}</b></span>`}
    else if(!done){h2+=`<span class="it"><small>${isDec(i)?'Décider :':(nx?'Puis :':'Suivante :')}</small> <b data-i="${i}">${esc(m)}</b>${!isDec(i)&&N>1?`<i class="wt pk ${SER.pick[i]}" data-p="${i}">${SER.pick[i]==='a'?TA:TB}</i>`:''}</span>`;nx=true}});
-  const strip2=document.getElementById('strip2');if(strip2){strip.innerHTML=h;strip2.innerHTML=h2}else strip.innerHTML=h+h2;const SB=[strip,strip2].filter(Boolean);
+  if(done){const fin=S.a>S.b?`🏆 Victoire ${esc(TA)}`:S.b>S.a?`🏆 Victoire ${esc(TB)}`:'Série terminée · égalité';h2+=`<span class="it cur fin"><b>${fin}</b> <small>${S.a}-${S.b}</small></span>`}const strip2=document.getElementById('strip2');if(strip2){strip.innerHTML=h;strip2.innerHTML=h2}else strip.innerHTML=h+h2;const SB=[strip,strip2].filter(Boolean);
   SB.flatMap(x=>[...x.querySelectorAll('b[data-i]')]).forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])-1+POOL.length)%POOL.length];saveSer()}});
   SB.flatMap(x=>[...x.querySelectorAll('u[data-i]')]).forEach(e=>{const i=+e.dataset.i,k=+e.dataset.s;e.onclick=()=>{SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]++;saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]=Math.max(0,SER.rs[i][k]-1);saveSer()}});
   SB.flatMap(x=>[...x.querySelectorAll('[data-p]')]).forEach(e=>{const i=+e.dataset.p;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});}
@@ -442,10 +442,10 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
   box.querySelectorAll('em.pk[data-i]').forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});};
  document.querySelectorAll('.curmap.cm').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{const ci=Math.min(S.a+S.b,N-1);SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();const ci=Math.min(S.a+S.b,N-1);SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])-1+POOL.length)%POOL.length];saveSer()}});
  const saveSer=()=>{try{localStorage.setItem(SK,JSON.stringify(SER))}catch(e){}draw()};
- document.querySelectorAll('.bo').forEach(e=>{e.style.cursor='pointer';e.title='Clic : changer de BO · clic droit : remettre le score à 0';e.onclick=()=>{SER.n=BOS[(BOS.indexOf(SER.n)+1)%BOS.length]||1;setN();saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();S={a:0,b:0,w:[]};save()}});
+ document.querySelectorAll('.bo').forEach(e=>{e.style.cursor='pointer';e.title='Clic : changer de BO · clic droit : remettre le score à 0';e.onclick=()=>{SER.n=BOS[(BOS.indexOf(SER.n)+1)%BOS.length]||1;setN();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(x){}saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();S={a:0,b:0,w:[]};save()}});
  const draw=()=>{document.querySelectorAll('.dots').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,i)=>`<i class="${i<v?'on':''}"></i>`).join('')});document.querySelectorAll('.sc').forEach(e=>{const v=S[e.dataset.k];if(e.textContent!=v){e.textContent=v;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}});drawSeries()};
  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}draw()};
- document.querySelectorAll('.sc').forEach(e=>{const k=e.dataset.k;e.onclick=()=>{S[k]++;S.w.push(k);save()};e.oncontextmenu=ev=>{ev.preventDefault();if(S[k]>0){S[k]--;const x=S.w.lastIndexOf(k);if(x>-1)S.w.splice(x,1)}save()}});
+ document.querySelectorAll('.sc').forEach(e=>{const k=e.dataset.k;e.onclick=()=>{if(S.a>=NB||S.b>=NB||S.a+S.b>=N)return;S[k]++;S.w.push(k);save()};e.oncontextmenu=ev=>{ev.preventDefault();if(S[k]>0){S[k]--;const x=S.w.lastIndexOf(k);if(x>-1)S.w.splice(x,1)}save()}});
  {const mm=document.getElementById('mmap');if(mm){mm.style.cursor='pointer';mm.ondblclick=()=>{S={a:0,b:0,w:[]};save()}}}
  addEventListener('storage',ev=>{try{if(ev.key===KEY){S=Object.assign({w:[]},JSON.parse(ev.newValue));draw()}if(ev.key===SK){SER=JSON.parse(ev.newValue);setN();draw()}}catch(e){}});draw();
  if(V==='hud'){const hc=document.getElementById('hc');const hm=['!discord · rejoins la Fraté','!abo · Prime Gaming gratuit','@frate_esport'];let q=0;setInterval(()=>{hc.style.opacity=0;setTimeout(()=>{hc.textContent=hm[q++%hm.length];hc.style.opacity=1},300)},5000);}
@@ -459,5 +459,5 @@ if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.s
 }
 
 // mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795785435';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
+(()=>{const V0='1795785522';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
 </script></body></html>
