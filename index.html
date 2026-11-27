@@ -1714,7 +1714,7 @@ const PARTENAIRES = [
 $("#parts").innerHTML = PARTENAIRES.map(x => `<a class="part" href="${x.lien}" style="--pc:${x.col}"><span class="part-mono${x.logo ? " has-logo" : ""}">${x.logo ? `<img src="${x.logo}" alt="Logo ${x.nom}">` : x.mono}</span><span class="part-t"><small>${x.type}</small><b>${x.nom}</b><span>${x.texte}</span><i>${x.lab} →</i></span></a>`).join("");
 // Fonds d'écran : images + vidéos animées (boucle de 6 s), fichiers dans /fonds
 const FONDS_BASE = /github\.io$/.test(location.hostname) ? "fonds/" : "https://frate-esport.github.io/fonds/";
-const FONDS_V = "?v=2";
+const FONDS_V = "?v=3";
 const FONDS = [
  {id: "frate", titre: "Fraté Esport", sous: "Rouge & bleu"},
  {id: "prime", titre: "Fraté Prime", sous: "Rose & violet"},
