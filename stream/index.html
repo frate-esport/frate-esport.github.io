@@ -269,7 +269,7 @@ if(V==='inter'){const rm=['💬 Tape !discord pour rejoindre la Fraté','💜 Ab
  document.querySelectorAll('[data-mode]').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{const i=MODES.indexOf(M);setM(MODES[(i+1)%MODES.length])};e.oncontextmenu=ev=>{ev.preventDefault();const i=MODES.indexOf(M);setM(MODES[(i-1+MODES.length)%MODES.length])}});
  addEventListener('storage',ev=>{if(ev.key===MK&&ev.newValue){M=ev.newValue;paint()}});paint();}
 if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
- const POOL=['Summit','Abyss','Sunset','Lotus','Corrode','Haven','Bind','Ascent','Split','Pearl','Breeze','Fracture','Icebox'];
+ const POOL=(Q.get('pool')||'Abyss,Bind,Corrode,Haven,Lotus,Summit,Sunset').split(',').map(x=>x.trim()).filter(Boolean); // pool compétitif V26 Acte 6
  const N=Math.max(1,+(Q.get('bo')||1)),NB=Math.ceil(N/2);
  let S={a:+(Q.get('sa')||0),b:+(Q.get('sb')||0),w:[]};
  try{const st=JSON.parse(localStorage.getItem(KEY));if(st&&!Q.has('sa')&&!Q.has('sb'))S=Object.assign({w:[]},st)}catch(e){}
