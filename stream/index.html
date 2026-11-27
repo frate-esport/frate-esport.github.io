@@ -307,7 +307,7 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
 .home li{margin:14px 0}.home a{color:var(--bl)}
 </style></head><body><script>// mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795812497';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
+(()=>{const V0='1795812692';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},30000)})();</script><div id="root"></div><script>
 const Q=new URLSearchParams(location.search),V=Q.get('v');
 const L='../logo.png';
 const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"></b>discord.gg/U6AJGPHXWe</div><div class="pill"><b style="background:var(--r)"></b>@frate_esport</div><div class="pill"><b style="background:var(--b)"></b>frate-esport.github.io</div></div>`;
@@ -457,8 +457,12 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
  addEventListener('storage',ev=>{try{if(ev.key===KEY){S=Object.assign({w:[]},JSON.parse(ev.newValue));draw()}if(ev.key===SK){SER=JSON.parse(ev.newValue);setN();draw()}}catch(e){}});draw();
  if(V==='hud'){const hc=document.getElementById('hc');const hm=['!discord · rejoins la Fraté','!abo · Prime Gaming gratuit','@frate_esport'];let q=0;setInterval(()=>{hc.style.opacity=0;setTimeout(()=>{hc.textContent=hm[q++%hm.length];hc.style.opacity=1},300)},5000);}
  if(V==='match'){const B2=R.querySelector('.bar');B2.style.position='fixed';const msg=['💬 <em>!discord</em> Rejoins la Fraté','💜 <em>!abo</em> Prime Gaming = abo gratuit','📸 <em>@frate_esport</em> Insta & TikTok'];const tk=document.getElementById('tick');const els=msg.map(m=>{const d=document.createElement('div');d.innerHTML=m;tk.appendChild(d);return d});let n=0;const go=()=>{els.forEach(e=>e.classList.remove('out'));const pv=els[(n+els.length-1)%els.length];pv.classList.remove('on');pv.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}}
-// équipe adverse Fraté : logo Fraté au lieu du blason
-{const nb=B.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();if(nb.includes('frate')||Q.get('logob')==='frate'){R.querySelectorAll('.opp').forEach(e=>{const h=getComputedStyle(e).height;const im=document.createElement('img');im.src=L;im.style.height=h;im.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,.5))';e.replaceWith(im)})}}
+// logos d'équipe : Eclipse / Prime / Fraté (auto d'après le nom, ou logoa= / logob=)
+{const nrm=x=>String(x).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const pick=(name,forced)=>{const f=nrm(forced||''),n=nrm(name);const k=f||(n.includes('eclipse')?'eclipse':n.includes('prime')?'prime':n.includes('frate')?'frate':'');return k==='eclipse'?'logo-eclipse.png':k==='prime'?'logo-prime.png':k==='frate'?L:null};
+ const LA=pick(A,Q.get('logoa')),LB=pick(B,Q.get('logob'));
+ if(LA)R.querySelectorAll('.wl img,.side.sl img,.hp-team.ta img,.vt.vl img,.nl .nlogo img,.cc-t.ta img').forEach(im=>im.src=LA);
+ if(LB)R.querySelectorAll('.opp').forEach(e=>{const h=getComputedStyle(e).height;const im=document.createElement('img');im.src=LB;im.style.height=h;im.style.filter='drop-shadow(0 4px 10px rgba(0,0,0,.5))';e.replaceWith(im)});}
 if(V==='hud'){const hc2=R.querySelector('.hcorner');if(hc2){hc2.style.cursor='pointer';hc2.title='Clic : changer de style';hc2.onclick=()=>{const L2=['neon','vct','cote'];const c=L2.indexOf(STY);try{localStorage.setItem('frate-style',L2[(c+1)%L2.length])}catch(e){}const u=new URL(location.href);u.searchParams.delete('style');location.replace(u.toString())}}
  addEventListener('storage',ev=>{if(ev.key==='frate-style')location.reload()})}
 if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.style.cursor='pointer';el.title='Clic +1 min · clic droit −1 min · double-clic = relancer';
