@@ -215,6 +215,33 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .hp-sc b{font-weight:400;min-width:40px;text-align:center;background:rgba(0,0,0,.35);border-radius:8px;padding:4px 6px;cursor:pointer}.hp-sc i{font-style:normal;opacity:.5;font-size:34px}
 .hpanel .series.mini{position:static;transform:none;justify-content:stretch;animation:none}
 .hpanel .series.mini .mc{flex:1;width:auto;height:66px}
+/* ===== HUD STYLE VCT ===== */
+.vstrip{position:absolute;left:0;top:0;height:30px;display:flex;align-items:center;gap:22px;padding:0 22px 0 16px;background:linear-gradient(90deg,rgba(8,14,30,.92),rgba(8,14,30,.75));clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%);font-size:15px;letter-spacing:.04em;white-space:nowrap;animation:fu .6s both}
+.vstrip .it{display:flex;align-items:center;gap:7px;opacity:.9}
+.vstrip small{font-family:'Fira Sans';font-weight:800;font-size:12px;opacity:.65;text-transform:uppercase}
+.vstrip b{font-weight:400;cursor:pointer}.vstrip .cur b{color:#fff}.vstrip .cur{opacity:1}
+.vstrip .cur::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--r);box-shadow:0 0 8px var(--r);animation:dt 1.2s infinite}
+.vstrip .rs{font-style:normal;opacity:.85}.vstrip .rs u{text-decoration:none;cursor:pointer;padding:0 1px}
+.vstrip .wt{font-style:normal;font-size:12px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.15)}
+.vstrip .wt.a{background:var(--r)}.vstrip .wt.b{background:var(--b)}.vstrip .wt.pk{cursor:pointer;opacity:.85}
+.vsb2{position:absolute;left:50%;top:var(--y);transform:translateX(-50%);display:flex;align-items:stretch;height:58px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));animation:fu .7s cubic-bezier(.2,1,.3,1) both}
+.vt{position:relative;display:flex;align-items:center;gap:12px;padding:0 18px;background:linear-gradient(90deg,#0b1430,#101c40);width:230px}
+.vl{clip-path:polygon(18px 0,100% 0,100% 100%,0 100%);justify-content:flex-end}
+.vl::before{content:"";position:absolute;left:18px;right:0;bottom:0;height:4px;background:var(--r)}
+.vr{clip-path:polygon(0 0,calc(100% - 18px) 0,100% 100%,0 100%);justify-content:flex-start;background:linear-gradient(270deg,#0b1430,#101c40)}
+.vr::before{content:"";position:absolute;left:0;right:18px;bottom:0;height:4px;background:var(--b)}
+.vt img{height:40px}.vt .opp.s{width:34px;height:40px;font-size:24px}
+.vt .tag{font-size:26px;letter-spacing:.04em}
+.vt b{font-weight:400;font-size:44px;line-height:1;min-width:34px;text-align:center;cursor:pointer}
+.vl b{color:#ff5a66}.vr b{color:var(--bl)}
+.dia{position:absolute;bottom:-18px;display:flex;gap:6px}.dia.da{left:150px}.dia.db{right:150px}
+.dia i{width:9px;height:9px;transform:rotate(45deg);border:1.5px solid #fff;background:transparent;display:block}.dia i.on{background:#fff;box-shadow:0 0 8px #fff}
+.vc{position:relative;width:150px;background:linear-gradient(135deg,#7a1020,#e3202f 45%,#1f6fe5 55%,#0d2a6b);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.vc::after{content:"";position:absolute;top:0;bottom:0;width:60px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sh 5s ease-in-out infinite}
+.vc-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;line-height:1}
+.vc-in small{font-family:'Fira Sans';font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.9;cursor:pointer}
+.vc-in .curmap2{font-size:24px;margin:2px 0;text-shadow:0 2px 0 rgba(0,0,0,.3)}
+.vc-in .m{background:none!important;box-shadow:none!important;padding:0}
 /* ===== PAGE D'ACCUEIL ===== */
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
@@ -226,7 +253,7 @@ const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"><
 const screen=(w1,w2,sub,extra='',foot=pills)=>`<div class="screen"><div class="glow r"></div><div class="glow b"></div><div class="grid"></div><div class="parts"></div><div class="slash"></div><div class="corner c1"></div><div class="corner c2"></div>
 <div class="content"><div class="logo"><img src="${L}"></div><div class="big gl ant"><span class="w1">${w1}</span><span class="w2">${w2}</span></div><div class="sub">${sub}</div>${extra}</div>${foot}</div>`;
 const min=parseFloat(Q.get('min')||'0');
-const ECART=+(Q.get('ecart')||345),HY=+(Q.get('y')||0);const MODES=['Tournoi','Pracc','Scrim','Premier','Ranked','Showmatch'];const MODE=(Q.get('mode')||'tournoi').toLowerCase(),A=Q.get('a')||'Fraté',B=Q.get('b')||'Adversaire',MAP=Q.get('map')||'',BO=(Q.get('bo')?'BO'+Q.get('bo'):''),NOM=Q.get('nom')||'';
+const ECART=+(Q.get('ecart')||345),HY=+(Q.get('y')||100);const MODES=['Tournoi','Pracc','Scrim','Premier','Ranked','Showmatch'];const MODE=(Q.get('mode')||'tournoi').toLowerCase(),A=Q.get('a')||'Fraté',B=Q.get('b')||'Adversaire',MAP=Q.get('map')||'',BO=(Q.get('bo')?'BO'+Q.get('bo'):''),NOM=Q.get('nom')||'';const TA=(Q.get('ta')||'FRA').toUpperCase().slice(0,4),TB=(Q.get('tb')||(w=>w.length>1?w.map(x=>x[0]).join('').slice(0,3):(w[0]||'ADV').slice(0,3))((Q.get('b')||'ADV').split(/\s+/).filter(Boolean))).toUpperCase().slice(0,4);
 const T={
  debut:screen('Le live','commence','Installe-toi<span class="dots"><b>.</b><b>.</b><b>.</b></span>',min?'<div class="cd" id="cd">--:--</div>':''),
  pause:screen('Petite','pause','On revient très vite<span class="dots"><b>.</b><b>.</b><b>.</b></span>'),
@@ -251,15 +278,13 @@ const T={
 <div class="msc ant"><span class="ta">${A}</span><b class="sc" data-k="a">0</b><i>:</i><b class="sc" data-k="b">0</b><span class="tb">${B}</span></div>
 <div class="mmap ant" id="mmap"><span class="curmap"></span> · <span class="bo">BO1</span></div>
 <div class="tick" id="tick"></div><div class="end ant"><i></i>Live</div></div>`,
- hud:`<div class="hud">
-<div class="hpanel ant">
- <div class="hp-row1"><span class="mbadge" data-mode>${MODE}</span>${NOM?`<span class="hp-pill">${NOM}</span>`:''}<span class="hp-pill curmap cm"></span><span class="hp-pill bo" id="boReset">BO1</span></div>
- <div class="hp-score">
-  <div class="hp-team ta"><img src="${L}"><div><div class="hp-n" style="font-size:${A.length>8?(A.length>12?17:21):27}px">${A}</div><div class="dots" data-k="a"></div></div></div>
-  <div class="hp-sc"><b class="sc" data-k="a">0</b><i>:</i><b class="sc" data-k="b">0</b></div>
-  <div class="hp-team tb"><div><div class="hp-n" style="font-size:${B.length>8?(B.length>12?17:21):27}px">${B}</div><div class="dots" data-k="b"></div></div><div class="opp s">${B.trim().charAt(0)||'?'}</div></div>
- </div>
- <div class="series mini" id="series"></div>
+ hud:`<div class="hud" style="--y:${HY}px">
+<div class="vstrip ant" id="strip"></div>
+<div class="vsb2 ant">
+ <div class="vt vl"><img src="${L}"><span class="tag">${TA}</span><b class="sc" data-k="a">0</b></div>
+ <div class="vc"><div class="vc-in"><small class="m" data-mode>${MODE}</small><span class="curmap2"></span><small class="bo">BO1</small></div></div>
+ <div class="vt vr"><b class="sc" data-k="b">0</b><span class="tag">${TB}</span><div class="opp s">${B.trim().charAt(0)||'?'}</div></div>
+ <div class="dia da" data-k="a"></div><div class="dia db" data-k="b"></div>
 </div>
 <div class="hcorner ant"><img src="${L}"><div><b>Fraté Esport</b><small id="hc">!discord · !abo</small></div><i></i></div>
 </div>`,
@@ -310,7 +335,20 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
  const drawSeries=()=>{const played=S.a+S.b,done=S.a>=NB||S.b>=NB||played>=N,ci=Math.min(played,N-1);
   document.querySelectorAll('.bo').forEach(e=>e.textContent='BO'+N);
   document.querySelectorAll('.curmap').forEach(e=>{e.textContent=(N>1?'Map '+(ci+1)+' · ':'')+SER.maps[ci]});
-  const box=document.getElementById('series');if(!box)return;
+  document.querySelectorAll('.curmap2').forEach(e=>{e.textContent=(N>1?'Map '+(ci+1):SER.maps[ci]);e.title=SER.maps[ci]});
+ document.querySelectorAll('.dia').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,k)=>`<i class="${k<v?'on':''}"></i>`).join('')});
+ const strip=document.getElementById('strip');
+ if(strip){SER.rs=SER.rs||[];let h='',nx=false;
+  SER.maps.forEach((m,i)=>{const r=SER.rs[i]||[0,0];
+   if(i<played){const w=S.w[i];h+=`<span class="it"><b data-i="${i}">${esc(m)}</b><em class="rs"><u data-i="${i}" data-s="0">${r[0]}</u>-<u data-i="${i}" data-s="1">${r[1]}</u></em><i class="wt ${w||''}">${w?(w==='a'?TA:TB):''}</i></span>`}
+   else if(i===ci&&!done){h+=`<span class="it cur"><small>Actuelle :</small> <b data-i="${i}">${esc(m)}</b></span>`}
+   else if(!done){h+=`<span class="it"><small>${isDec(i)?'Décider :':(nx?'Puis :':'Suivante :')}</small> <b data-i="${i}">${esc(m)}</b>${!isDec(i)&&N>1?`<i class="wt pk ${SER.pick[i]}" data-p="${i}">${SER.pick[i]==='a'?TA:TB}</i>`:''}</span>`;nx=true}});
+  strip.innerHTML=h;
+  strip.querySelectorAll('b[data-i]').forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])-1+POOL.length)%POOL.length];saveSer()}});
+  strip.querySelectorAll('u[data-i]').forEach(e=>{const i=+e.dataset.i,k=+e.dataset.s;e.onclick=()=>{SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]++;saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]=Math.max(0,SER.rs[i][k]-1);saveSer()}});
+  strip.querySelectorAll('[data-p]').forEach(e=>{const i=+e.dataset.p;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});}
+ document.querySelectorAll('.curmap2').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[ci]=POOL[(POOL.indexOf(SER.maps[ci])-1+POOL.length)%POOL.length];saveSer()}});
+ const box=document.getElementById('series');if(!box)return;
   box.innerHTML=SER.maps.map((m,i)=>{let st,cl;if(i<played){const w=S.w[i];st=w?'✔ '+esc(w==='a'?A:B):'Jouée';cl='played '+(w||'')}else if(i===ci&&!done){st='En ce moment';cl='live'}else if(done){st='Non jouée';cl='skip'}else{st='Après';cl='next'}
    const pk=isDec(i)?'<em class="pk dec">Décider</em>':N>1?`<em class="pk ${SER.pick[i]}" data-i="${i}">Pick ${esc(SER.pick[i]==='a'?A:B)}</em>`:'';
    return `<div class="mc ${cl} map-${m.toLowerCase().replace(/[^a-z]/g,'')}"><small>Map ${i+1}</small><b data-i="${i}">${esc(m)}</b>${pk}<span class="stt">${st}</span></div>`}).join('');
@@ -333,5 +371,5 @@ if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.s
 }
 
 // mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795784592';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
+(()=>{const V0='1795784847';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
 </script></body></html>
