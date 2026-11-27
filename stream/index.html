@@ -289,17 +289,18 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .vstrip .vin{display:flex;align-items:center;gap:22px}
 .vstrip .pre{gap:8px}.vstrip .pre .mbadge{font-size:13px;padding:1px 8px;border-radius:4px}.vstrip .pre .bo{font-size:14px;opacity:.85;cursor:pointer}
 /* barre des maps sur toute la largeur (centre libre pour le chrono) */
-.vfull{position:absolute;left:0;right:0;top:0;height:30px;font-size:15px;letter-spacing:.04em;white-space:nowrap;animation:fu .6s both}
+.vfull{position:absolute;left:0;right:0;top:0;height:30px;font-size:14px;letter-spacing:.04em;white-space:nowrap;animation:fu .6s both}
 .vfull .half{position:absolute;top:0;height:30px;display:flex;align-items:center;gap:22px;background:linear-gradient(90deg,rgba(8,14,30,.9),rgba(8,14,30,.8))}
-.vfull .hl2{left:0;right:calc(960px + var(--g) + 340px + 10px);padding:0 22px 0 16px;clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%)}
-.vfull .hr2{right:0;left:calc(960px + var(--g) + 340px + 10px);padding:0 16px 0 26px;justify-content:flex-end;clip-path:polygon(0 0,100% 0,100% 100%,16px 100%)}
-.vfull .it{display:flex;align-items:center;gap:7px;opacity:.9}
+.vfull .hl2{left:0;right:calc(960px + var(--g) + 340px + 10px);padding:0 22px 0 12px;gap:14px;clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%)}
+.vfull .hr2{right:0;left:calc(960px + var(--g) + 340px + 10px);padding:0 12px 0 22px;justify-content:flex-end;clip-path:polygon(0 0,100% 0,100% 100%,16px 100%)}
+.vfull .it{display:flex;align-items:center;gap:5px;opacity:.9}
 .vfull small{font-family:'Fira Sans';font-weight:800;font-size:12px;opacity:.65;text-transform:uppercase}
 .vfull b{font-weight:400;cursor:pointer}.vfull .cur{opacity:1}
 .vfull .cur::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--r);box-shadow:0 0 8px var(--r);animation:dt 1.2s infinite}
 .vfull .rs{font-style:normal;opacity:.85}.vfull .rs u{text-decoration:none;cursor:pointer;padding:0 1px}
 .vfull .wt{font-style:normal;font-size:12px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.15)}.vfull .wt.a{background:var(--r)}.vfull .wt.b{background:var(--b)}.vfull .wt.pk{cursor:pointer}
-.vfull .vin{display:flex;align-items:center;gap:22px}
+.vfull .vin{flex:1;display:flex;align-items:center;justify-content:space-evenly;gap:18px}
+.vfull .it.skip{opacity:.4}.vfull .fin b{color:#ffd76b}
 .vfull .pre{gap:8px}.vfull .pre .mbadge{font-size:13px;padding:1px 8px;border-radius:4px}.vfull .pre .bo{font-size:14px;opacity:.85;cursor:pointer}
 /* ===== PAGE D'ACCUEIL ===== */
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
@@ -424,12 +425,17 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score',SK='frate-series';
   document.querySelectorAll('.curmap2').forEach(e=>{e.textContent=(N>1?'Map '+(ci+1):SER.maps[ci]);e.title=SER.maps[ci]});
  document.querySelectorAll('.dia').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,k)=>`<i class="${k<v?'on':''}"></i>`).join('')});
  const strip=document.getElementById('strip');
- if(strip){SER.rs=SER.rs||[];let h='',h2='',nx=false;
-  SER.maps.forEach((m,i)=>{const r=SER.rs[i]||[0,0];
-   if(i<played){const w=S.w[i];h+=`<span class="it"><b data-i="${i}">${esc(m)}</b><em class="rs"><u data-i="${i}" data-s="0">${r[0]}</u>-<u data-i="${i}" data-s="1">${r[1]}</u></em><i class="wt ${w||''}">${w?(w==='a'?TA:TB):''}</i></span>`}
-   else if(i===ci&&!done){h2+=`<span class="it cur"><small>Actuelle :</small> <b data-i="${i}">${esc(m)}</b></span>`}
-   else if(!done){h2+=`<span class="it"><small>${isDec(i)?'Décider :':(nx?'Puis :':'Suivante :')}</small> <b data-i="${i}">${esc(m)}</b>${!isDec(i)&&N>1?`<i class="wt pk ${SER.pick[i]}" data-p="${i}">${SER.pick[i]==='a'?TA:TB}</i>`:''}</span>`;nx=true}});
-  if(done){const fin=S.a>S.b?`🏆 Victoire ${esc(TA)}`:S.b>S.a?`🏆 Victoire ${esc(TB)}`:'Série terminée · égalité';h2+=`<span class="it cur fin"><b>${fin}</b> <small>${S.a}-${S.b}</small></span>`}const strip2=document.getElementById('strip2');if(strip2){strip.innerHTML=h;strip2.innerHTML=h2}else strip.innerHTML=h+h2;const SB=[strip,strip2].filter(Boolean);
+ if(strip){SER.rs=SER.rs||[];const items=[];
+  SER.maps.forEach((m,i)=>{const r=SER.rs[i]||[0,0];let it;
+   if(i<played){const w=S.w[i];it=`<span class="it"><small>M${i+1}</small><b data-i="${i}">${esc(m)}</b><em class="rs"><u data-i="${i}" data-s="0">${r[0]}</u>-<u data-i="${i}" data-s="1">${r[1]}</u></em><i class="wt ${w||''}">${w?(w==='a'?TA:TB):''}</i></span>`}
+   else if(i===ci&&!done){it=`<span class="it cur"><small>M${i+1} · Actuelle</small><b data-i="${i}">${esc(m)}</b>${!isDec(i)&&N>1?`<i class="wt pk ${SER.pick[i]}" data-p="${i}">${SER.pick[i]==='a'?TA:TB}</i>`:''}</span>`}
+   else if(!done){it=`<span class="it"><small>M${i+1}${isDec(i)?' · Décider':''}</small><b data-i="${i}">${esc(m)}</b>${!isDec(i)&&N>1?`<i class="wt pk ${SER.pick[i]}" data-p="${i}">${SER.pick[i]==='a'?TA:TB}</i>`:''}</span>`}
+   else{it=`<span class="it skip"><small>M${i+1}</small><b data-i="${i}">${esc(m)}</b><small>non jouée</small></span>`}
+   items.push(it)});
+  if(done){const fin=S.a>S.b?`🏆 Victoire ${esc(TA)}`:S.b>S.a?`🏆 Victoire ${esc(TB)}`:'Série terminée · égalité';items.push(`<span class="it cur fin"><b>${fin}</b> <small>${S.a}-${S.b}</small></span>`)}
+  const strip2=document.getElementById('strip2');const cut=Math.floor(SER.maps.length/2);
+  if(strip2){strip.innerHTML=items.slice(0,cut).join('');strip2.innerHTML=items.slice(cut).join('')}else strip.innerHTML=items.join('');
+  const SB=[strip,strip2].filter(Boolean);
   SB.flatMap(x=>[...x.querySelectorAll('b[data-i]')]).forEach(e=>{const i=+e.dataset.i;e.onclick=()=>{SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])+1)%POOL.length];saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.maps[i]=POOL[(POOL.indexOf(SER.maps[i])-1+POOL.length)%POOL.length];saveSer()}});
   SB.flatMap(x=>[...x.querySelectorAll('u[data-i]')]).forEach(e=>{const i=+e.dataset.i,k=+e.dataset.s;e.onclick=()=>{SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]++;saveSer()};e.oncontextmenu=ev=>{ev.preventDefault();SER.rs[i]=SER.rs[i]||[0,0];SER.rs[i][k]=Math.max(0,SER.rs[i][k]-1);saveSer()}});
   SB.flatMap(x=>[...x.querySelectorAll('[data-p]')]).forEach(e=>{const i=+e.dataset.p;e.onclick=()=>{SER.pick[i]=SER.pick[i]==='a'?'b':'a';saveSer()}});}
@@ -459,5 +465,5 @@ if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.s
 }
 
 // mise à jour automatique : recharge la page quand une nouvelle version est en ligne
-(()=>{const V0='1795785522';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
+(()=>{const V0='1795785652';setInterval(()=>{fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():null).then(t=>{t=(t||'').trim();if(t&&t!==V0){const u=new URL(location.href);u.searchParams.set('_v',t);location.replace(u.toString())}}).catch(()=>{})},60000)})();
 </script></body></html>
