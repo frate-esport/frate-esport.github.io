@@ -1098,6 +1098,7 @@ const SUIVI_PREMIER = {
 // Une ligne par clip : lien Medal, YouTube, Twitch ou TikTok. team = id de l'équipe ("prime") ou "" pour le club.
 // ex. {titre:"Ace en clutch sur Bind", joueur:"Tibz", team:"prime", url:"https://www.youtube.com/watch?v=XXXXXXXXXXX", date:"2026-10-24"}
 const CLIPS = [
+ {titre:"🎬 Montage : l’ACE de K1nda", joueur:"K1nda", team:"eclipse", url:"https://frate-esport.github.io/clips/ace-k1nda.mp4", img:"https://frate-esport.github.io/clips/ace-k1nda.jpg", date:"2026-11-28"},
  {titre:"💥 ACE de K1nda en pracc", joueur:"K1nda", team:"eclipse", url:"https://www.tiktok.com/@frateesport/video/7712995800250420519", date:"2026-11-27"},
  {titre:"👊3K", joueur:"Cup0fSand", team:"inferno", url:"https://medal.tv/games/valorant/clips/o0kJM4MCPcUsbU-ZV", date:"2026-11-26"},
  {titre:"Clip Valorant", joueur:"K1muraAa", team:"inferno", url:"https://medal.tv/games/valorant/clips/nZvbPC55Y4vupl06d", date:"2026-11-23"},
@@ -1243,6 +1244,10 @@ Va vite t'abonner, like et partage les vidéos pour faire grandir la Fraté 💪
 Pendant le pracc de la Fraté Eclipse contre SH Kage (victoire 17-7 sur Abyss), K1nda a sorti un ACE : cinq kills dans le même round 🫶
 
 <div style="display:flex;justify-content:center;margin:18px 0"><iframe src="https://www.tiktok.com/embed/v2/7712995800250420519" style="width:100%;max-width:340px;height:600px;border:0;border-radius:14px" allow="encrypted-media; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+
+🎬 Et le montage Fraté :
+
+<div style="display:flex;justify-content:center;margin:18px 0"><video src="https://frate-esport.github.io/clips/ace-k1nda.mp4" poster="https://frate-esport.github.io/clips/ace-k1nda.jpg" controls playsinline preload="metadata" style="width:100%;max-width:340px;border-radius:14px"></video></div>
 
 <a class="btn" href="https://www.tiktok.com/@frateesport/video/7712995800250420519" target="_blank" rel="noopener">🎵 Voir le clip sur TikTok</a>
 
@@ -1870,7 +1875,7 @@ function renderMercato(sel){
 
 // ----- Galerie clips -----
 const ytId = u => { const m = (u||"").match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/); return m ? m[1] : ""; };
-const pfOf = u => /medal\.tv/.test(u) ? "Medal" : /youtu/.test(u) ? "YouTube" : /twitch/.test(u) ? "Twitch" : /tiktok/.test(u) ? "TikTok" : "Vidéo";
+const pfOf = u => /\.mp4$/.test(u) ? "Montage Fraté" : /medal\.tv/.test(u) ? "Medal" : /youtu/.test(u) ? "YouTube" : /twitch/.test(u) ? "Twitch" : /tiktok/.test(u) ? "TikTok" : "Vidéo";
 function renderClips(sel){
  const ok = TEAMS.some(t => t.id === sel) ? sel : "";
  const twitch = (SOCIAL.find(s => s.nom === "Twitch") || {}).url;
@@ -1885,7 +1890,7 @@ function renderClips(sel){
  $("#clipTabs").innerHTML = teamsWith.length ? `<a href="#/clips" class="${ok?"":"on"}">Tous</a>` + teamsWith.map(t => `<a href="#/clips/${t.id}" class="${t.id===ok?"on":""}">${t.name}</a>`).join("") : "";
  const cs = CLIPS.filter(c => !ok || c.team === ok).slice().sort((a,b) => (b.date||"").localeCompare(a.date||""));
  $("#clipList").innerHTML = cs.length ? `<div class="clips">${cs.map(c => { const id = ytId(c.url), t = teamOf(c.team);
-  return `<a class="clip" href="${c.url}" target="_blank" rel="noopener"><div class="th"${t ? ` style="--tc:${t.col}"` : ""}>${id ? `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : `<span class="th-big">${c.titre === "Clip Valorant" ? "CLIP" : c.titre}</span><span class="th-who">${c.joueur || ""}</span>${t ? kitImg(t, c.joueur, "th-kit") : `<img class="th-kit" src="${LOGO_IMG}" alt="">`}`}<span class="pf">${pfOf(c.url)}</span><span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
+  return `<a class="clip" href="${c.url}" target="_blank" rel="noopener"><div class="th"${t ? ` style="--tc:${t.col}"` : ""}>${c.img ? `<img src="${c.img}" alt="" loading="lazy" style="object-fit:cover" onerror="this.remove()">` : id ? `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : `<span class="th-big">${c.titre === "Clip Valorant" ? "CLIP" : c.titre}</span><span class="th-who">${c.joueur || ""}</span>${t ? kitImg(t, c.joueur, "th-kit") : `<img class="th-kit" src="${LOGO_IMG}" alt="">`}`}<span class="pf">${pfOf(c.url)}</span><span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
   <div class="bd"><b>${c.titre}</b><span>${[c.joueur, t ? t.name : "", c.date ? fmtLong(c.date) : ""].filter(Boolean).join(" · ")}</span></div></a>`; }).join("")}</div>` : `<div class="note">Aucun clip pour cette équipe pour l’instant.</div>`;
 }
 
