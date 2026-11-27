@@ -166,6 +166,13 @@ html,body{background:transparent;font-family:"Fira Sans",sans-serif;color:#fff;o
 .hcorner img{height:48px;animation:fl 3s ease-in-out infinite}
 .hcorner b{display:block;font-weight:400;font-size:24px}.hcorner small{display:block;font-family:'Fira Sans';font-weight:700;font-size:16px;opacity:.85;text-transform:none;transition:opacity .3s}
 .hcorner i{width:10px;height:10px;border-radius:50%;background:var(--r);box-shadow:0 0 10px var(--r);animation:dt 1.2s infinite;margin-left:6px}
+.mbadge.m-tournoi{background:var(--r);box-shadow:0 0 20px rgba(227,32,47,.6)}
+.mbadge.m-pracc{background:var(--b);box-shadow:0 0 20px rgba(31,111,229,.6)}
+.mbadge.m-scrim{background:#8b3dff;box-shadow:0 0 20px rgba(139,61,255,.6)}
+.mbadge.m-premier{background:linear-gradient(90deg,#c9a227,#f1d26b);color:#1a1200;box-shadow:0 0 20px rgba(241,210,107,.6)}
+.mbadge.m-ranked{background:#14a37f;box-shadow:0 0 20px rgba(20,163,127,.6)}
+.mbadge.m-showmatch{background:linear-gradient(90deg,var(--r),var(--b));box-shadow:0 0 20px rgba(255,255,255,.4)}
+.mbadge{background:#334;transition:background .3s}
 /* ===== PAGE D'ACCUEIL ===== */
 .home{background:var(--n2);min-height:100%;overflow:auto;padding:40px;font-size:18px}
 .home h1{font-family:Anton;font-size:48px}.home code{background:#1a2a55;padding:3px 8px;border-radius:6px;font-size:16px}
@@ -177,7 +184,7 @@ const pills=`<div class="foot"><div class="pill"><b style="background:#5865f2"><
 const screen=(w1,w2,sub,extra='',foot=pills)=>`<div class="screen"><div class="glow r"></div><div class="glow b"></div><div class="grid"></div><div class="parts"></div><div class="slash"></div><div class="corner c1"></div><div class="corner c2"></div>
 <div class="content"><div class="logo"><img src="${L}"></div><div class="big gl ant"><span class="w1">${w1}</span><span class="w2">${w2}</span></div><div class="sub">${sub}</div>${extra}</div>${foot}</div>`;
 const min=parseFloat(Q.get('min')||'0');
-const ECART=+(Q.get('ecart')||345),HY=+(Q.get('y')||0);const MODE=(Q.get('mode')||'tournoi').toLowerCase()==='pracc'?'pracc':'tournoi',A=Q.get('a')||'Fraté',B=Q.get('b')||'Adversaire',MAP=Q.get('map')||'',BO=(Q.get('bo')?'BO'+Q.get('bo'):''),NOM=Q.get('nom')||'';
+const ECART=+(Q.get('ecart')||345),HY=+(Q.get('y')||0);const MODES=['Tournoi','Pracc','Scrim','Premier','Ranked','Showmatch'];const MODE=(Q.get('mode')||'tournoi').toLowerCase(),A=Q.get('a')||'Fraté',B=Q.get('b')||'Adversaire',MAP=Q.get('map')||'',BO=(Q.get('bo')?'BO'+Q.get('bo'):''),NOM=Q.get('nom')||'';
 const T={
  debut:screen('Le live','commence','Installe-toi<span class="dots"><b>.</b><b>.</b><b>.</b></span>',min?'<div class="cd" id="cd">--:--</div>':''),
  pause:screen('Petite','pause','On revient très vite<span class="dots"><b>.</b><b>.</b><b>.</b></span>'),
@@ -192,13 +199,13 @@ const T={
  jeu:`<div class="bar"><div class="lg"><img src="${L}"><span class="ant">Fraté</span></div><div class="tick" id="tick"></div><div class="end ant"><i></i>Live Valorant</div></div>`,
  vs:`<div class="screen vsx"><div class="glow r"></div><div class="glow b"></div><div class="grid"></div><div class="parts"></div>
 <div class="half hl"></div><div class="half hr"></div><div class="slash"></div>
-<div class="vtop ant"><span class="mbadge ${MODE}">${MODE==='pracc'?'Pracc':'Tournoi'}</span>${NOM?`<span class="vnom">${NOM}</span>`:''}</div>
+<div class="vtop ant"><span class="mbadge" data-mode>${MODE}</span>${NOM?`<span class="vnom">${NOM}</span>`:''}</div>
 <div class="side sl"><img src="${L}"><div class="tn ant">${A}</div><div class="sc ant" data-k="a">0</div></div>
 <div class="vsb ant">VS</div>
 <div class="side sr"><div class="opp ant">${B.trim().charAt(0)||'?'}</div><div class="tn ant">${B}</div><div class="sc ant" data-k="b">0</div></div>
 <div class="vfoot ant">${MAP?`<span>🗺️ ${MAP}</span>`:''}${BO?`<span>${BO}</span>`:''}${min?'<span id="cd">--:--</span>':''}</div></div>`,
  match:`<div class="bar mbar"><div class="lg"><img src="${L}"><span class="ant">Fraté</span></div>
-<div class="mbadge ${MODE} ant">${MODE==='pracc'?'Pracc':'Tournoi'}</div>
+<div class="mbadge ant" data-mode>${MODE}</div>
 <div class="msc ant"><span class="ta">${A}</span><b class="sc" data-k="a">0</b><i>:</i><b class="sc" data-k="b">0</b><span class="tb">${B}</span></div>
 <div class="mmap ant" id="mmap">${[MAP,BO].filter(Boolean).join(' · ')||(NOM||'Valorant')}</div>
 <div class="tick" id="tick"></div><div class="end ant"><i></i>Live</div></div>`,
@@ -206,7 +213,7 @@ const T={
 <div class="htop"></div>
 <div class="wing wl"><div class="wbg"></div><img src="${L}"><div class="wtx"><div class="wn ant" style="font-size:${A.length>8?(A.length>12?18:22):28}px">${A}</div><div class="dots" data-k="a"></div></div><div class="wsc ant sc" data-k="a">0</div></div>
 <div class="wing wr"><div class="wbg"></div><div class="wsc ant sc" data-k="b">0</div><div class="wtx"><div class="wn ant" style="font-size:${B.length>8?(B.length>12?18:22):28}px">${B}</div><div class="dots" data-k="b"></div></div><div class="opp s ant">${B.trim().charAt(0)||'?'}</div></div>
-<div class="hinfo ant"><span class="mbadge ${MODE}">${MODE==='pracc'?'Pracc':'Tournoi'}</span>${[NOM,MAP,BO].filter(Boolean).map(x=>`<span>${x}</span>`).join('')}</div>
+<div class="hinfo ant"><span class="mbadge" data-mode>${MODE}</span>${[NOM,MAP,BO].filter(Boolean).map(x=>`<span>${x}</span>`).join('')}</div>
 <div class="hcorner ant"><img src="${L}"><div><b>Fraté Esport</b><small id="hc">!discord · !abo</small></div><i></i></div>
 </div>`,
  alerte:`<div class="al"><div class="box"></div><div class="burst"></div><img src="${L}"><div class="tx"><div class="k ant">${Q.get('t')||'Merci !'}</div><div class="s">${Q.get('s')||'Bienvenue dans la Fraté'}</div></div></div>`
@@ -229,7 +236,16 @@ if(V==='jeu'){const B=R.querySelector('.bar');B.style.position='fixed';const msg
 if(V==='alerte'){const bu=R.querySelector('.burst');for(let k=0;k<18;k++){const i=document.createElement('i');const a=k/18*Math.PI*2,d=140+Math.random()*80;i.style.setProperty('--dx',Math.cos(a)*d+'px');i.style.setProperty('--dy',Math.sin(a)*d+'px');i.style.background=k%2?'var(--r)':'var(--bl)';bu.appendChild(i);}
  if(!Q.has('once'))setInterval(()=>{const x=R.innerHTML;R.innerHTML='';R.innerHTML=x},6000);}
 if(V==='inter'){const rm=['💬 Tape !discord pour rejoindre la Fraté','💜 Abonne-toi gratuitement avec Prime Gaming','💎 Les Bits soutiennent l\'équipe','📸 Suis-nous sur Insta & TikTok','🔁 Partage le live à tes potes'];const el=document.getElementById('rot');let k=0;const nx=()=>{el.style.opacity=0;setTimeout(()=>{el.textContent=rm[k++%rm.length];el.style.opacity=1},400)};nx();setInterval(nx,5000);}
-if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score-'+MODE;let S={a:+(Q.get('sa')||0),b:+(Q.get('sb')||0)};
+
+// ----- mode (Tournoi / Pracc / Scrim…) : clic = suivant, clic droit = précédent -----
+{const MK='frate-mode';const norm=m=>{const f=MODES.find(x=>x.toLowerCase()===String(m).toLowerCase());return f||String(m).charAt(0).toUpperCase()+String(m).slice(1)};
+ let M=norm(MODE);try{const st=localStorage.getItem(MK),last=localStorage.getItem(MK+'-url'),u=Q.get('mode')||'';if(st&&(!u||u===last))M=st;localStorage.setItem(MK+'-url',u);if(u&&u!==last)localStorage.setItem(MK,M)}catch(e){}
+ const cls=m=>'m-'+m.toLowerCase().replace(/[^a-z]/g,'');
+ const paint=()=>document.querySelectorAll('[data-mode]').forEach(e=>{e.textContent=M;e.className=e.className.replace(/\bm-\S+/g,'').trim()+' '+cls(M)});
+ const setM=m=>{M=m;try{localStorage.setItem(MK,M)}catch(e){}paint()};
+ document.querySelectorAll('[data-mode]').forEach(e=>{e.style.cursor='pointer';e.onclick=()=>{const i=MODES.indexOf(M);setM(MODES[(i+1)%MODES.length])};e.oncontextmenu=ev=>{ev.preventDefault();const i=MODES.indexOf(M);setM(MODES[(i-1+MODES.length)%MODES.length])}});
+ addEventListener('storage',ev=>{if(ev.key===MK&&ev.newValue){M=ev.newValue;paint()}});paint();}
+if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score';let S={a:+(Q.get('sa')||0),b:+(Q.get('sb')||0)};
  try{const st=JSON.parse(localStorage.getItem(KEY));if(st&&!Q.has('sa')&&!Q.has('sb'))S=st}catch(e){}
  const NB=Math.ceil((+(Q.get('bo')||1))/2);const draw=()=>{document.querySelectorAll('.dots').forEach(d=>{const v=S[d.dataset.k];d.innerHTML=Array.from({length:NB},(_,i)=>`<i class="${i<v?'on':''}"></i>`).join('')});document.querySelectorAll('.sc').forEach(e=>{const v=S[e.dataset.k];if(e.textContent!=v){e.textContent=v;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}})};
  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}draw()};
@@ -238,6 +254,9 @@ if(V==='vs'||V==='match'||V==='hud'){const KEY='frate-score-'+MODE;let S={a:+(Q.
  addEventListener('storage',ev=>{if(ev.key===KEY){try{S=JSON.parse(ev.newValue)}catch(e){}draw()}});draw();
  if(V==='hud'){const hc=document.getElementById('hc');const hm=['!discord · rejoins la Fraté','!abo · Prime Gaming gratuit','@frate_esport'];let q=0;setInterval(()=>{hc.style.opacity=0;setTimeout(()=>{hc.textContent=hm[q++%hm.length];hc.style.opacity=1},300)},5000);}
  if(V==='match'){const B2=R.querySelector('.bar');B2.style.position='fixed';const msg=['💬 <em>!discord</em> Rejoins la Fraté','💜 <em>!abo</em> Prime Gaming = abo gratuit','📸 <em>@frate_esport</em> Insta & TikTok'];const tk=document.getElementById('tick');const els=msg.map(m=>{const d=document.createElement('div');d.innerHTML=m;tk.appendChild(d);return d});let n=0;const go=()=>{els.forEach(e=>e.classList.remove('out'));const pv=els[(n+els.length-1)%els.length];pv.classList.remove('on');pv.classList.add('out');els[n%els.length].classList.add('on');n++};go();setInterval(go,6000);}}
-if(min){const end=Date.now()+min*60000,el=document.getElementById('cd');const t=()=>{const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=s?String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):"C'est parti !"};t();setInterval(t,250);}
+if(min){let end=Date.now()+min*60000;const el=document.getElementById('cd');el.style.cursor='pointer';el.title='Clic +1 min · clic droit −1 min · double-clic = relancer';
+ const t=()=>{const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=s?String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'):"C'est parti !"};
+ el.onclick=()=>{end=Math.max(end,Date.now())+60000;t()};el.oncontextmenu=ev=>{ev.preventDefault();end=Math.max(Date.now(),end-60000);t()};el.ondblclick=()=>{end=Date.now()+min*60000;t()};
+ t();setInterval(t,250);}
 }
 </script></body></html>
